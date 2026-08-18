@@ -181,7 +181,8 @@ API serves Items without ever opening a member's group.
   any Zarr reader should open one directly — whether GDAL actually can is untested, and
   probably needs ZEP8 first.
 - **Single-item export to native formats.** Getting a COG (or a netCDF) back out of one
-  member is the inverse of the virtual ingest path, and nothing implements it.
+  member is desirable for data delivery, but nothing implements it yet. 
+  Could be done as a service (e.g. with Flux) or by standalone tool calls (e.g. via GDAL).
 
 ## License
 
