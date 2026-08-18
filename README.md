@@ -109,9 +109,9 @@ than the way it is stored — one projection among several, and an optional one.
 
 ### Summary
 
-| | Single Zarr datacube | Single Zarr DataTree | STAC + COG | STAC + native Zarr | Iceberg + Arrow FixedShapeTensor | RaQuet | Lance | Icechunk DataCollections |
+| | Icechunk Zarr datacube | Icechunk Zarr DataTree | STAC + COG | STAC + native Zarr | Iceberg + Arrow FixedShapeTensor | RaQuet | Lance | Icechunk DataCollections |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Consistency | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
+| Consistency | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | Scalable data | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | Scalable index | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Uncoordinated writes | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -137,20 +137,30 @@ than the way it is stored — one projection among several, and an optional one.
 **The two middle rows are the point.** Read them together and every other column falls
 on one side or the other:
 
-- *Heterogeneous but undescribed* — Zarr DataTree, both STAC variants, Lance. They will
-  hold anything and tell you nothing about how the members relate.
-- *Described but homogeneous* — Zarr datacube, Iceberg + Arrow FixedShapeTensor,
-  RaQuet. They describe the members precisely, by admitting only members that are
-  already alike.
+- *Heterogeneous but undescribed* — Icechunk Zarr DataTree, both STAC variants, Lance.
+  They will hold anything and tell you nothing about how the members relate.
+- *Described but homogeneous* — Icechunk Zarr datacube, Iceberg + Arrow
+  FixedShapeTensor, RaQuet. They describe the members precisely, by admitting only
+  members that are already alike.
 
 Nothing existing does both, and doing both is the thesis.
+
+Every approach is given its best available substrate, so the comparison is between
+designs rather than between storage layers. That levelling is what makes the two
+closest columns informative:
+
+- An **Icechunk Zarr datacube fails on one row only: heterogeneity.** That single cell
+  is the entire motivation for this project.
+- An **Icechunk Zarr DataTree fails on exactly two: scalable index and
+  schema-constrained.** Which is the table restating the equation above —
+  DataCollections is a DataTree plus an index plus a derived constraint.
 
 Further notes, since a table this compact hides its reasoning:
 
 - **Consistency, scalable data and uncoordinated writes are inherited** from Zarr and
-  Icechunk rather than invented here. The scalable index comes from keeping member
-  metadata in a columnar table; the last four rows are the design problem this project
-  is actually about.
+  Icechunk rather than invented here — which is why all three Icechunk columns share
+  them. What distinguishes those three columns from each other is the index, the
+  heterogeneity, and the constraint.
 - **Splitting scalability in two isolates one precise failure each.** Iceberg + Arrow
   FixedShapeTensor has a scalable index but not scalable data — a tensor value is read
   whole, so there is no slicing into a member. A Zarr DataTree is the mirror image: the
@@ -165,5 +175,9 @@ Further notes, since a table this compact hides its reasoning:
 - **Both STAC rows are unconstrained** because STAC describes assets as opaque and its
   `summaries` are advisory rather than derived or enforced. Pointing STAC at native Zarr
   buys n-dimensionality, and nothing else.
-- Plain Zarr gets **uncoordinated writes** because disjoint chunk writes need no
-  coordination; it loses **consistency** because there is no transaction boundary at all.
+- **Uncoordinated writes is the row that separates the Icechunk columns from the
+  tabular ones.** Icechunk gets serialisable isolation on plain object storage using
+  conditional writes, with no catalog service; Iceberg conventionally needs a catalog to
+  swap the metadata pointer atomically, and Lance needs its own commit coordination.
+  This is the shakiest row in the table — implementations are moving toward
+  conditional-write commits, which would flip those cells.
