@@ -1,0 +1,31 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
+[project]
+name = "datacollections"
+version = "0.1.0"
+description = "Queryable, self-describing collections of Zarr groups"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "icechunk>=1.0",
+    "zarr>=3.0",
+    "xarray>=2024.10",
+    "numpy>=2.0",
+]
+
+[project.optional-dependencies]
+query = ["pyarrow>=17", "datafusion>=40"]
+stac = ["fastapi>=0.110", "pydantic>=2"]
+pandera = ["pandera>=0.31"]
+dev = ["pytest>=8", "jsonschema>=4"]
+
+[tool.maturin]
+python-source = "python"
+module-name = "datacollections._datacollections"
+manifest-path = "Cargo.toml"
+features = ["pyo3/extension-module"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
