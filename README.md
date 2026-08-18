@@ -106,3 +106,41 @@ can be constrained without being interpreted.
 
 The payoff is that formats like STAC become *views* derived from the collection rather
 than the way it is stored — one projection among several, and an optional one.
+
+### Summary
+
+| | Single Zarr datacube | Single Zarr DataTree | STAC + COG | STAC + native Zarr | Arrow FixedShapeTensor | RaQuet | Lance | Icechunk DataCollections |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Consistency | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Scalability | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Uncoordinated writes | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Domain-agnostic | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
+| Schema-constrained | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| N-dimensional | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ |
+
+- **Consistency** — metadata and data stay in sync, transactionally.
+- **Scalability** — holds large numbers of heterogeneous members without the index
+  becoming the bottleneck.
+- **Uncoordinated writes** — concurrent writers against object storage with no
+  external lock service or catalog.
+- **Domain-agnostic** — no baked-in domain vocabulary.
+- **Schema-constrained** — records and enforces what members have in common.
+- **N-dimensional** — native n-d arrays, rather than tables, fixed-grid rasters, or
+  opaque blobs.
+
+A few notes, since a table this compact hides its reasoning:
+
+- The first three rows are **inherited from Icechunk**, not invented here. The
+  contribution of this project is combining them with the last three.
+- **A single Zarr datacube scores well by refusing the problem.** It earns
+  "schema-constrained" by admitting only members that already share one schema, which
+  is exactly the failure recorded under "Scalability".
+- **Arrow's FixedShapeTensor is the closest on the schema axis** and still cannot
+  express the motivating case: every tensor must be *identically* shaped, so "same
+  dimension names, differing lengths" is inexpressible.
+- **Both STAC rows are unconstrained** because STAC describes assets as opaque and its
+  `summaries` are advisory rather than derived or enforced. Pointing STAC at native
+  Zarr buys n-dimensionality, and nothing else.
+- Plain Zarr gets **uncoordinated writes** because disjoint chunk writes need no
+  coordination; it loses **consistency** because there is no transaction boundary at
+  all.
