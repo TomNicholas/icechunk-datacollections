@@ -46,8 +46,13 @@ jobs:
 
   live-sources:
     # The examples against their real APIs — earth-search, mastapp.site, MAST — and
-    # the virtual COG reads. Informational: a public archive having a bad morning
-    # should not turn the tree red.
+    # the virtual COG reads.
+    #
+    # Off by default: it only runs when triggered by hand from the Actions tab, not
+    # on push or PR. Hammering other people's public archives on every commit is not
+    # a reasonable thing to do with someone else's bandwidth, and the offline jobs
+    # already cover everything except whether the sources are still up.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
