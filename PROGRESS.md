@@ -77,9 +77,10 @@ Property tests:
 - [ ] Store layout read/write
 - [ ] Arrow schema from Zarr attributes, incl. `zarr.group_ref` extension type
 - [ ] Constraint in `/meta` group attributes, under a cohort-keyed map
-- [ ] `add_item(ds, id)` — always strict
+- [ ] `add_item(ds) -> str` — always strict; generates and returns a random 128-bit id
 - [ ] `evolve_schema(new_constraint)` — `subsumes` check, backfill new columns by reading
       members, one transaction
+- [ ] Seedable id generator, so tests can assert byte-equivalence
 - [ ] Test: evolve-then-append leaves the store byte-equivalent to a from-scratch build
 - [ ] `create_collection(store_or_session, constraint=None)` — None takes the first
       member's `zarr.json` verbatim as an all-literal constraint
@@ -154,11 +155,11 @@ Two independent tracks.
 
 ## Unresolved design gaps
 
-- [ ] **How do extra column values get supplied?** Decision 6 permits extra columns and
-      the STAC view needs them (`bbox`, `datetime`), but nothing in the API passes or
-      derives them. Also bears on identity: with (shot, diagnostic) as MAST-U's unit,
-      querying "all diagnostics for shot 30420" wants `shot` and `diagnostic` as their
-      own columns, which are extra columns rather than variables.
+- [ ] **How do extra column values get supplied? — blocks M6.** Decision 6 permits extra
+      columns and nothing in the API passes or derives them. Now a blocker rather than a
+      loose end: since member ids are opaque random hashes, extra columns are the *only*
+      way to address a member meaningfully. MAST-U needs `shot` and `diagnostic` columns
+      to be usable at all, and a derived STAC Item needs a human-meaningful `id` from one.
 
 ---
 

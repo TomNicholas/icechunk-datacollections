@@ -567,7 +567,7 @@ Two entry points:
 
 ```python
 coll = create_collection(store_or_session, constraint=None)   # constraint optional
-coll.add_item(ds, id="S2A_31TCJ_20230615")                    # ds: xr.Dataset
+member_id = coll.add_item(ds)                                 # ds: xr.Dataset
 ```
 
 `add_item` takes an **xarray Dataset, potentially virtual** (i.e. containing
@@ -578,11 +578,40 @@ than reimplementing it.
 
 `add_item` must be **one Icechunk transaction** covering all of:
 
-1. write `/groups/<id>` from the Dataset
+1. generate a random id and write `/groups/<id>` from the Dataset
 2. derive that group's description
 3. `meet` against the current constraint; if it fails, `join` to widen and backfill
 4. append the row to `/meta`
 5. commit
+
+#### Member ids are generated, not supplied
+
+`add_item` does not accept an id; it generates a random one (128 bits is ample) and
+returns it. Rationale:
+
+- **Uniqueness needs no coordination.** User-supplied ids would require some authority to
+  guarantee they do not collide across concurrent writers, which sits badly with
+  uncoordinated parallel writes. Independently generated random ids collide with
+  negligible probability and need no central sequence.
+- **Random, not content-addressed.** Hashing the member's description would be tempting
+  but is wrong twice over: two members can legitimately have identical metadata and must
+  stay distinct, and it would reintroduce the canonicalisation problem the `zarr.json`-as-is
+  decision avoids.
+
+Two consequences:
+
+- **Extra columns become the only way to address a member meaningfully.** With opaque
+  ids, "shot 30420, diagnostic amc" is answerable *only* via extra columns, and a derived
+  STAC Item wants a human-meaningful `id` from one too. This promotes "how are extra
+  column values supplied?" from an open gap to a **blocker for M6** — MAST-U cannot be
+  built without it.
+- **Byte-equivalence tests need restating.** Building the same collection twice yields
+  different ids, so "byte-equivalent to a from-scratch build" is only achievable modulo
+  ids — or with a seedable id generator injected for tests. Prefer the latter; it keeps
+  the assertion strong.
+
+Minor cost: `/groups/<hash>` is not human-browsable, so eyeballing the store no longer
+finds a member. That is what the table is for.
 
 Rejection at step 3 must roll back step 1 — nothing commits, including the group
 write. Icechunk gives this, but note the ordering is wasteful: prefer a **cheap
@@ -598,7 +627,7 @@ Because constraints are authored rather than inferred, there is no flag on inges
 `add_item` is always strict; changing the schema is its own operation:
 
 ```python
-coll.add_item(ds: xr.Dataset, id: str)          # strict; rejects non-conforming members
+coll.add_item(ds: xr.Dataset) -> str            # strict; returns the generated id
 coll.evolve_schema(new_constraint)              # explicit, deliberate, own transaction
 ```
 
