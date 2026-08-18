@@ -3,7 +3,8 @@
 Queryable, self-describing collections of Zarr groups — where the collection itself
 records what is consistent across its members and what is allowed to vary.
 
-See [PLAN.md](./PLAN.md) for the design.
+See [PLAN.md](./PLAN.md) for the design and the reasoning behind it, and
+[PROGRESS.md](./PROGRESS.md) for task state.
 
 ## Motivation
 

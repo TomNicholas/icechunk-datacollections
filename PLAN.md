@@ -18,6 +18,38 @@ those groups, such that:
 - the same machinery works for domains with no STAC vocabulary at all
   (microscopy, genomics).
 
+## Vocabulary
+
+Used precisely throughout; worth fixing before reading further.
+
+| term | meaning |
+|---|---|
+| **member** | one thing in the collection. The unit `add_item` adds, and one row of the table. |
+| **group** | the Zarr group at `/groups/<id>` that a member's data lives in. One per member. |
+| **row** | a member as seen from the metadata table. Same thing, storage-side view. |
+| **description** | a member's complete `zarr.json`, consolidated, chunking included. |
+| **constraint** | the JSON document describing a whole cohort: literals where members agree, variables where they differ. |
+| **literal** | a leaf all members share. No column. |
+| **variable** | `{"$var": "nt"}` — a leaf that differs between members. Gets a column. |
+| **domain** | an optional restriction on a variable, declared inline. Numeric ranges only. |
+| **wildcard** | a leaf we decline to describe. Matches anything; the value is stored verbatim. |
+| **binding** | one member's actual value for one variable. |
+| **extra column** | a column that is not a variable — provenance, pruning aids, view inputs. |
+| **cohort** | a set of members sharing one constraint. v1 has exactly one per store. |
+| **view** | a projection of constraint + bindings into another format, e.g. a STAC Item. |
+
+Avoid "item" except in `add_item` and when referring to STAC Items specifically.
+
+## Companion documents
+
+- [`README.md`](./README.md) — motivation, the strictness spectrum, the comparison table.
+  Start there for *why*; this document is *what* and *why-this-way*.
+- [`PROGRESS.md`](./PROGRESS.md) — task state. This document holds the reasoning; when the
+  two disagree, this one wins.
+- Upstream prototype: **`developmentseed/zarr-datafusion-search`** — every `src/…:NN`
+  citation below refers to that repo. It implements the querying half already; this project
+  builds on it rather than replacing it.
+
 ## Components
 
 | | Component | Home |
@@ -1027,3 +1059,34 @@ Recorded so they are not relitigated as a side effect of implementation work.
 - **Cohorts deferred to post-M6**; v1 is single-cohort — decision 3.
 - **Crate naming:** `json-constraint` for the substrate-independent crate; `zarr-`
   prefixes only where there is a genuine zarrs dependency.
+
+---
+
+## Notes for whoever picks this up
+
+**Read the rejection trails before re-proposing anything.** Most of this document is
+"considered X, rejected it because Y" — CUE, JSON Schema, pandera-as-format, custom Zarr
+dtypes, enums, inference, write-once, intent-derived defaults. That is the document's main
+value and also its main trap: it is long, and the temptation is to skim to the milestones.
+The "Closed — do not reopen incidentally" list is the index to it.
+
+**One technique did most of the work, and it generalises.** Whenever something seemed
+inexpressible, the fix was almost never to extend the language — it was to **choose a finer
+referenced unit so that members are structurally uniform**. Field of view rather than plate.
+Primary HDU rather than whole FITS file. (shot, diagnostic) rather than shot. Reach for that
+before adding syntax; it is why a language with three operations and two leaf kinds covers
+four unrelated scientific domains.
+
+**Know which decisions are load-bearing.** Same-store atomicity (decision 1) is the thesis —
+without it the project reduces to "stac-geoparquet but Zarr" and is not worth doing. The
+deliberate smallness of the language is a scope choice that will be under constant pressure;
+defend it. Breadth-before-depth is a forcing function, not scheduling convenience: if the
+core cannot express the microscopy case with no STAC vocabulary anywhere in the stack, the
+factoring is wrong and that is worth discovering early.
+
+**Where this document is most likely to be stale.** The per-example scoping decisions were
+made before anyone looked at the actual data — MAST-U's structure in particular is flagged
+as unverified. Treat the examples section as intent rather than fact.
+
+**The reserved questions are genuinely reserved.** If v1 appears to need one answered,
+that is a signal to reduce v1 scope, not to decide it.
