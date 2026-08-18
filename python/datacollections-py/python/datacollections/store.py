@@ -6,6 +6,7 @@ the two-phase check, the evolve plan — reads without Zarr API noise in the way
 
 from __future__ import annotations
 
+import contextlib
 from typing import Any, Iterable
 
 import numpy as np
@@ -132,8 +133,30 @@ def read_meta_attributes(root) -> dict:
     return dict(root[META_GROUP].attrs)
 
 
+@contextlib.contextmanager
+def writing():
+    """Materialise chunks even when every value in them is the fill value.
+
+    Interoperability, not correctness for us: zarr-python skips writing an all-fill
+    chunk, and a reader that expects every chunk to exist then fails outright.
+    `zarr-datafusion-search`'s DataFusion provider is such a reader — a MAST-U
+    collection whose `units` column is empty for every member produced
+    "chunk cannot be found for key `meta/units/c/0`". Upstream sets the same flag in
+    its own ingest, for the same reason.
+
+    It has to be set at *write* time rather than at creation: `write_empty_chunks` is
+    a runtime array config, not part of `zarr.json`, so it does not survive reopening
+    the array to append to it.
+    """
+    with zarr.config.set({"array.write_empty_chunks": True}):
+        yield
+
+
 def create_column(root, col: dict) -> Any:
-    """One 1D array per column, resized by append."""
+    """One 1D array per column, resized by append.
+
+    See `writing()` for why every write to these arrays materialises empty chunks.
+    """
     name = col["name"]
     path = f"{META_GROUP}/{name}"
     dtype = _NUMPY_DTYPE[col["dtype"]]
@@ -159,14 +182,15 @@ def append_row(root, row: dict) -> int:
     """Extend every column by one. Ordering is append order; row i of every column
     describes the group named by `member_id[i]`."""
     n = None
-    for name, cell in row.items():
-        arr = column(root, name)
-        i = arr.shape[0]
-        n = i if n is None else n
-        if i != n:
-            raise RuntimeError(f"column `{name}` has {i} rows, expected {n} — table is torn")
-        arr.resize((i + 1,))
-        arr[i] = _cell_value(arr, cell)
+    with writing():
+        for name, cell in row.items():
+            arr = column(root, name)
+            i = arr.shape[0]
+            n = i if n is None else n
+            if i != n:
+                raise RuntimeError(f"column `{name}` has {i} rows, expected {n} — table is torn")
+            arr.resize((i + 1,))
+            arr[i] = _cell_value(arr, cell)
     return n if n is not None else 0
 
 
@@ -176,7 +200,8 @@ def write_cells(root, name: str, values: Iterable[Any]) -> None:
     values = list(values)
     arr.resize((len(values),))
     if values:
-        arr[:] = np.array([_cell_value(arr, v) for v in values], dtype=arr.dtype)
+        with writing():
+            arr[:] = np.array([_cell_value(arr, v) for v in values], dtype=arr.dtype)
 
 
 def _cell_value(arr, cell):

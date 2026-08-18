@@ -86,14 +86,29 @@ and the transaction shape stays in one readable Python function. The cost is tha
 Rust-only consumer gets the layout logic but not a writer; adding one later is
 additive, since `AppendPlan` and `EvolvePlan` are exactly what it would consume.
 
-**2. `zarr-collection-query` does not exist as a crate.** Query is
-`python/datacollections/query.py`: read the columns, build an Arrow table carrying
-the extension type and the constraint where a planner looks for them, hand it to
-DataFusion. The upstream `zarr-datafusion-search` remains the right home for a real
-`TableProvider`, and the plan already says this layer should shrink toward zero. What
-is here exercises the claim that matters — the constraint is a **planner input read
-off the table's schema** — without vendoring a git dependency into an MVP. No
-predicate pushdown, no lazy chunk reads; it materialises the table.
+**2. `zarr-collection-query` is not a crate — it is `query.py` over upstream's
+provider.** Since revised: `query.py` now registers **`zarr-datafusion-search`'s own
+`ZarrTableProvider`**, through their published Python bindings, so the scan is theirs
+— lazy chunk reads and projection pushdown included. A DataCollections store turned
+out to be readable by them unmodified, which is what made the swap a dozen lines
+rather than a port. `EXPLAIN` shows `FFI_ExecutionPlan: ZarrExec` with the projection
+narrowed to the columns the query names.
+
+It is not a Rust crate because it does not need to be: they publish wheels, so
+adopting them costs this workspace no Rust dependency at all.
+
+Three things remain ours, each with a note saying when it goes:
+
+- **The self-description.** Their schema builder reads array names and dtypes only,
+  so the constraint and `zarr.group_ref` are dropped in transit;
+  `attach_self_description` puts them back. Deletable the day the two upstream PRs
+  land — there is a test that should keep passing when it goes.
+- **A fallback.** Upstream *hard-errors* on a column named `bbox` that is not Zarr
+  bytes, which our Sentinel-2 example has. Rather than rename our column around their
+  bug, `query.py` falls back to materialising the table locally and warns with
+  `UpstreamRefused`, naming the cause. Loud and slow beats broken or silent.
+- **The DataFusion pin.** `datafusion==53.*`, because their wheel is built against 53
+  and any other major **segfaults** across the FFI boundary instead of raising.
 
 **3. ~~The STAC API is plain FastAPI, not stac-fastapi.~~ Withdrawn — it is
 stac-fastapi.** The first version hand-rolled the routes, justified by dependency
@@ -227,10 +242,20 @@ supply them. What it does not do: derive an extra column from the member (a `bbo
 computed from the attributes, say), which is the obvious next ask and would want a
 declared derivation rather than a caller-supplied value. Left open on purpose.
 
-## Two bugs the 100-member runs found, both fixed
+## Three bugs found by running against real things, all fixed
 
 Recorded because both are the kind that only appear on real data, and one of them
 was a genuine threat to the project's central claim.
+
+**0. Our writer skipped all-fill chunks, and upstream's reader requires them.**
+zarr-python does not write a chunk whose values are all the fill value. A MAST-U
+collection whose `units` column is empty for every member therefore produced
+`chunk cannot be found for key meta/units/c/0` when read through upstream's
+provider — an interop failure invisible to every test we had, because our own reader
+is happy with the fill value. `/meta` writes now set `write_empty_chunks`, which is
+what upstream's own ingest does. Note it has to be set at *write* time: it is a
+runtime array config, not part of `zarr.json`, so it does not survive reopening the
+array to append to it.
 
 **1. serde_json's float parser was one ULP out.** Three HST members failed
 `verify()`: an `EXPTIME` attribute of `1305.8754880000001` came back from the store

@@ -38,7 +38,8 @@ jobs:
         env:
           VIRTUAL_ENV: ${{ github.workspace }}/.venv
       # Every example runs offline from its recorded metadata, so this job needs no
-      # network beyond installing packages.
+      # network beyond installing packages. Note the query extra pins datafusion 53:
+      # the zarr-datafusion-search wheel segfaults under any other major.
       - run: |
           .venv/bin/python -m pytest \
             python/datacollections-py/tests python/stac-api-backend/tests examples -q

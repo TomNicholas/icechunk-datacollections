@@ -109,12 +109,22 @@ Answered while building:
 - [x] Cheap pre-check from the Dataset before writing the group (two-phase)
 - [x] `verify()` — recompute the table from the groups; the materialised-view check
 
-## M3 — query — **done, differently**
+## M3 — query — **done, on upstream's provider**
 
-- [x] Arrow table with schema metadata (the constraint) and field metadata (the
-      extension type), SQL through DataFusion
-- [ ] Wire to `zarr-datafusion-search` proper — the MVP materialises the table
-      instead. No predicate pushdown, no lazy chunk reads.
+- [x] **Wired to `zarr-datafusion-search`**: `query.py` registers their
+      `ZarrTableProvider` through their published Python bindings, so the scan is
+      theirs. `EXPLAIN` shows `ZarrExec` with the projection narrowed to the columns
+      the query names. Three of the four example stores read through it directly.
+- [x] Arrow schema still carries the constraint and the extension type — re-attached
+      after the fact, because upstream drops both. Deletable when the two PRs land.
+- [x] Writer now materialises empty chunks, without which upstream cannot read a
+      column that is all fill value
+- [ ] **Fallback still needed for one case:** upstream hard-errors on a column named
+      `bbox` that is not Zarr bytes, which the Sentinel-2 example has. It falls back
+      to local materialisation with an `UpstreamRefused` warning. The first upstream
+      PR removes this.
+- [ ] `datafusion` is pinned to `53.*` — their wheel's ABI. Any other major
+      segfaults rather than raising.
 
 ## M4 — views + STAC mapping — **done**
 

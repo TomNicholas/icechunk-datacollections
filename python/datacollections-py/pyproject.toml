@@ -16,7 +16,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-query = ["pyarrow>=17", "datafusion>=40"]
+# datafusion is pinned, not floated: the published zarr-datafusion-search wheel is
+# built against 53, and any other major segfaults across the FFI boundary rather
+# than raising. See python/datacollections/query.py.
+query = ["pyarrow>=17", "datafusion==53.*", "zarr-datafusion-search>=0.1.2"]
 stac = ["stac-fastapi.api>=6", "stac-fastapi.types>=6", "stac-fastapi.extensions>=6", "uvicorn"]
 stac-test = ["pystac-client>=0.8", "httpx"]
 pandera = ["pandera>=0.31"]

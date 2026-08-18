@@ -111,6 +111,25 @@ The real blocker is smaller and sharper:
   requires **Python ≥ 3.12**; our venv is 3.11, so we are capped at 1.1.21. Bumping
   to 3.12 is the prerequisite for moving either forward.
 
+## Now wired in
+
+`python/datacollections/query.py` registers their provider — this is no longer a
+proposal. Three of the four example stores read through it; Sentinel-2 falls back to
+local materialisation because of the `bbox` special case, with an `UpstreamRefused`
+warning naming the cause.
+
+Two things had to change on our side to make it work, both worth knowing:
+
+1. **Materialise empty chunks.** zarr-python skips writing a chunk whose values are
+   all the fill value; their reader requires it to exist. A MAST-U collection whose
+   `units` column is empty for every member failed with `chunk cannot be found for key
+   meta/units/c/0`. Their own ingest sets `store_empty_chunks(true)` for the same
+   reason (`src/ingest.rs:481`) — ours now sets `write_empty_chunks` at write time.
+2. **Keep the provider and the context alive.** Registering the `ZarrTable` hands
+   DataFusion an FFI handle but not a Python reference, so letting either be collected
+   fails during execution with "TaskContextProvider went out of scope over FFI
+   boundary" — an error a long way from its cause. Worth a docs note upstream.
+
 ## Their nullability behaviour, confirmed
 
 Worth having in writing, because PLAN.md flags it as an eventual upstream
