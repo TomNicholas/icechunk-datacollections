@@ -1,0 +1,6155 @@
+[
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/18627.zarr/efm/fcoil_turns/.zarray",
+  "document": {
+   "chunks": [
+    938
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    938
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/18627.zarr/efm/fcoil_turns/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "fcoil_seg_n"
+   ],
+   "description": "Number of turns represented by each f-coil elements; f(fcoil_segs_n)",
+   "dims": [
+    "fcoil_seg_n"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "f-Coil turns",
+   "mds_name": "\\TOP.ANALYSED.EFM:FCOIL_TURNS",
+   "name": "efm/fcoil_turns",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    1,
+    938
+   ],
+   "shot_id": 18627,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_FCOIL_TURNS",
+   "units": "deg",
+   "uuid": "71cbe710-c379-5178-9558-95b3de972f7b",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23128.zarr/xma/lvcc03/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23128.zarr/xma/lvcc03/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "Loop Volts CC R=0.18 Z=+0.625",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:LVCC03",
+   "name": "xma/lvcc03",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 23128,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_LVCC03",
+   "units": "V",
+   "uuid": "d49801b0-95e6-51f3-ab21-72c1c4a70ea0",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21011.zarr/efm/geom_axis_rc/.zarray",
+  "document": {
+   "chunks": [
+    100
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    100
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21011.zarr/efm/geom_axis_rc/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "R of geometric axis of plasma; f(B)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Geometric Axis Radius",
+   "mds_name": "\\TOP.ANALYSED.EFM.GEOM_AXIS:R_C",
+   "name": "efm/geom_axis_rc",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    97
+   ],
+   "shot_id": 21011,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_GEOM_AXIS_R(C)",
+   "units": "m",
+   "uuid": "25d752d1-c5a6-5ad2-b17f-5ce977563d8a",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21703.zarr/efm/volp_c/.zarray",
+  "document": {
+   "chunks": [
+    93,
+    65
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    93,
+    65
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21703.zarr/efm/volp_c/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "psi_norm"
+   ],
+   "description": "Plasma volume enclosed by flux surfaces as a function of magnetic flux; f(npsi, B)",
+   "dims": [
+    "time",
+    "psi_norm"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "vol within psi surfaces",
+   "mds_name": "\\TOP.ANALYSED.EFM:VOLP_C",
+   "name": "efm/volp_c",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    89,
+    65
+   ],
+   "shot_id": 21703,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_VOLP_(C)",
+   "units": "m ** 3",
+   "uuid": "2598e582-7bc3-5e24-b734-c875f5960338",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26454.zarr/aye/r/.zarray",
+  "document": {
+   "chunks": [
+    222,
+    16
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    222,
+    16
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26454.zarr/aye/r/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "radial_index"
+   ],
+   "description": "radius (x,t)",
+   "dims": [
+    "time",
+    "radial_index"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "major radius",
+   "mds_name": "\\TOP.ANALYSED.AYE:R",
+   "name": "aye/r",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    111,
+    16
+   ],
+   "shot_id": 26454,
+   "signal_type": "Analysed",
+   "source": "aye",
+   "time_index": 0,
+   "uda_name": "AYE_R",
+   "units": "m",
+   "uuid": "d529ba51-d653-5038-844d-0705db7c3a71",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16416.zarr/atm/covariance_ne_te_error/.zarray",
+  "document": {
+   "chunks": [
+    109,
+    34
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    109,
+    34
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16416.zarr/atm/covariance_ne_te_error/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "radial_index"
+   ],
+   "units": ""
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29079.zarr/act/c_ss_temperature/.zarray",
+  "document": {
+   "chunks": [
+    160
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    160
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29079.zarr/act/c_ss_temperature/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "majorradius"
+   ],
+   "description": "",
+   "dims": [
+    "majorradius"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Carbon temperature",
+   "mds_name": "\\TOP.ANALYSED.ACT.C_SS:TEMPERATURE",
+   "name": "act/c_ss_temperature",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    1,
+    64
+   ],
+   "shot_id": 29079,
+   "signal_type": "Analysed",
+   "source": "act",
+   "time_index": 0,
+   "uda_name": "ACT_C_SS_TEMPERATURE",
+   "units": "eV",
+   "uuid": "4f9bc0b9-0601-5160-af41-50fc19d30dfc",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/20576.zarr/xma/fl_p2l_2/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/20576.zarr/xma/fl_p2l_2/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "Flux Loops: Poloidal Coils",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:FL_P2L_2",
+   "name": "xma/fl_p2l_2",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 20576,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_FL/P2L/2",
+   "units": "V",
+   "uuid": "7d46d97b-6aee-5880-badc-920e62da36ec",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17618.zarr/xmb/halo_p3u_2/.zarray",
+  "document": {
+   "chunks": [
+    43825
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    175299
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17618.zarr/xmb/halo_p3u_2/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "P3 Coil Halo current measurements",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMB:HALO_P3U_2",
+   "name": "xmb/halo_p3u_2",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    76800
+   ],
+   "shot_id": 17618,
+   "signal_type": "Raw",
+   "source": "xmb",
+   "time_index": 0,
+   "uda_name": "XMB_HALO/P3U/2",
+   "units": "",
+   "uuid": "d0a9c2cd-525a-5863-83cf-ca36db7a0199",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29133.zarr/ams/trans/.zarray",
+  "document": {
+   "chunks": [
+    2219
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    2219
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29133.zarr/ams/trans/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "dim_0"
+   ],
+   "description": "Filter peak transmission.",
+   "dims": [
+    "dim_0"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": " ",
+   "mds_name": "\\TOP.ANALYSED.AMS:TRANS",
+   "name": "ams/trans",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    1,
+    30
+   ],
+   "shot_id": 29133,
+   "signal_type": "Analysed",
+   "source": "ams",
+   "time_index": 0,
+   "uda_name": "AMS_TRANS",
+   "units": "",
+   "uuid": "d6189022-0396-586e-865c-fe8bf4f619b6",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/20783.zarr/esm/ts_time/.zarray",
+  "document": {
+   "chunks": [],
+   "compressor": null,
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/20783.zarr/esm/ts_time/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [],
+   "description": "Thomson Scattering ruby laser time; similar to ATS_TIME.",
+   "dims": [],
+   "file_name": null,
+   "format": null,
+   "label": "t for single values (as ",
+   "mds_name": "\\TOP.ANALYSED.ESM:TS_TIME",
+   "name": "esm/ts_time",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    1
+   ],
+   "shot_id": 20783,
+   "signal_type": "Analysed",
+   "source": "esm",
+   "time_index": 0,
+   "uda_name": "ESM_TS_TIME",
+   "units": "s",
+   "uuid": "296fd72f-4260-5133-8167-97fa50b14462",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29909.zarr/xim/preion_trig/.zarray",
+  "document": {
+   "chunks": [
+    50000
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    50000
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29909.zarr/xim/preion_trig/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XIM:PREION_TRIG",
+   "name": "xim/preion_trig",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    50000
+   ],
+   "shot_id": 29909,
+   "signal_type": "Raw",
+   "source": "xim",
+   "time_index": 0,
+   "uda_name": "XIM_PREION_TRIG",
+   "units": "V",
+   "uuid": "52bc8a45-7dee-5a22-b0a4-3d5f6b5d4aba",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/14474.zarr/efm/areap_c/.zarray",
+  "document": {
+   "chunks": [
+    46,
+    65
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    46,
+    65
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/14474.zarr/efm/areap_c/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "psi_norm"
+   ],
+   "description": "Poloidal area enclosed by flux surface; f(psin, B)",
+   "dims": [
+    "time",
+    "psi_norm"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "pol area of surfaces",
+   "mds_name": "\\TOP.ANALYSED.EFM:AREAP_C",
+   "name": "efm/areap_c",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    43,
+    65
+   ],
+   "shot_id": 14474,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_AREAP_(C)",
+   "units": "m ** 2",
+   "uuid": "636054ac-03da-5c51-bcfd-4d48fc55b9b5",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27364.zarr/ayc/passnumber/.zarray",
+  "document": {
+   "chunks": [],
+   "compressor": null,
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27364.zarr/ayc/passnumber/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [],
+   "description": "",
+   "dims": [],
+   "file_name": null,
+   "format": null,
+   "label": " ",
+   "mds_name": "\\TOP.ANALYSED.AYC:PASSNUMBER",
+   "name": "ayc/passnumber",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    1
+   ],
+   "shot_id": 27364,
+   "signal_type": "Analysed",
+   "source": "ayc",
+   "time_index": 0,
+   "uda_name": "AYC_PASSNUMBER",
+   "units": "",
+   "uuid": "323f1d1b-c553-545d-a6c0-fe410b02babb",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21105.zarr/xma/obv18/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21105.zarr/xma/obv18/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "Outer discrete Bv magnetic coil array",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:OBV18",
+   "name": "xma/obv18",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 21105,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_OBV18",
+   "units": "V",
+   "uuid": "ecadb744-e02e-56e0-87ab-d68cb3a51bed",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/18359.zarr/efm/q_95/.zarray",
+  "document": {
+   "chunks": [
+    82
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    82
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/18359.zarr/efm/q_95/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Safety factor at 95% normalised magnetic flux; f(B)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "q at Psi_norm=95%",
+   "mds_name": "\\TOP.ANALYSED.EFM:Q_95",
+   "name": "efm/q_95",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    78
+   ],
+   "shot_id": 18359,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_Q_95",
+   "units": "",
+   "uuid": "3a4a5def-f392-53f8-81f4-6d73660bdcc8",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/14837.zarr/xma/flcc10/.zarray",
+  "document": {
+   "chunks": [
+    15482
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    15482
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/14837.zarr/xma/flcc10/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Flux Loops: Centre Column",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMA:FLCC10",
+   "name": "xma/flcc10",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 14837,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_FLCC10",
+   "units": "",
+   "uuid": "6ec66c1e-d048-5107-afb2-918dba029edf",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21585.zarr/xsx/hcam_u_r1/.zarray",
+  "document": {
+   "chunks": [
+    18
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f8",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    18
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21585.zarr/xsx/hcam_u_r1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "hcam_u_channel"
+   ]
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15215.zarr/xmb/cc_halo_106/.zarray",
+  "document": {
+   "chunks": [
+    43186
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    86372
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15215.zarr/xmb/cc_halo_106/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Centre Column Halo current measurements",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMB:CC_HALO_106",
+   "name": "xmb/cc_halo_106",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7000
+   ],
+   "shot_id": 15215,
+   "signal_type": "Raw",
+   "source": "xmb",
+   "time_index": 0,
+   "uda_name": "XMB_CC/HALO/106",
+   "units": "",
+   "uuid": "8aa79dcf-cd88-5d88-be05-49ff75a5b8a8",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27635.zarr/act/ss_spectra/.zarray",
+  "document": {
+   "chunks": [
+    65,
+    80,
+    30
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    130,
+    160,
+    60
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27635.zarr/act/ss_spectra/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "majorradius",
+    "pixels"
+   ],
+   "description": "SS beam - Spectrum",
+   "dims": [
+    "time",
+    "majorradius",
+    "pixels"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Spectrum",
+   "mds_name": "\\TOP.ANALYSED.ACT:SS_SPECTRA",
+   "name": "act/ss_spectra",
+   "quality": "Not Checked",
+   "rank": 3,
+   "shape": [
+    130,
+    64,
+    60
+   ],
+   "shot_id": 27635,
+   "signal_type": "Analysed",
+   "source": "act",
+   "time_index": 0,
+   "uda_name": "ACT_SS_SPECTRA",
+   "units": "Photo electr",
+   "uuid": "71d37a1c-e41d-51e7-b43b-ecb32ed49702",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/19893.zarr/xma/ccbv03/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/19893.zarr/xma/ccbv03/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "Center Column Vertical Bv Array",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:CCBV03",
+   "name": "xma/ccbv03",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 19893,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_CCBV03",
+   "units": "V",
+   "uuid": "ed7f41c2-5830-57a9-bde2-b76c06c4133a",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16802.zarr/efm/plasma_area/.zarray",
+  "document": {
+   "chunks": [
+    61
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    61
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16802.zarr/efm/plasma_area/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Area of poloidal cross-section of plasma; f(B)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Plasma Area",
+   "mds_name": "\\TOP.ANALYSED.EFM:PLASMA_AREA",
+   "name": "efm/plasma_area",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    57
+   ],
+   "shot_id": 16802,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_PLASMA_AREA",
+   "units": "m ** 2",
+   "uuid": "7c2ce9af-3712-547a-bd69-94df44b77601",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22364.zarr/esm/olspr/.zarray",
+  "document": {
+   "chunks": [
+    3
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    3
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22364.zarr/esm/olspr/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "OL SP radius",
+   "mds_name": "\\TOP.ANALYSED.ESM:OLSPR",
+   "name": "esm/olspr",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    2
+   ],
+   "shot_id": 22364,
+   "signal_type": "Analysed",
+   "source": "esm",
+   "time_index": 0,
+   "uda_name": "ESM_OLSPR",
+   "units": "m",
+   "uuid": "ed6dfbba-53c0-5cfc-9a0f-a94bda0207d1",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16339.zarr/atm/ne/.zarray",
+  "document": {
+   "chunks": [
+    92,
+    34
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    92,
+    34
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16339.zarr/atm/ne/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "radial_index"
+   ],
+   "description": "",
+   "dims": [
+    "time",
+    "radial_index"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "ne",
+   "mds_name": "\\TOP.ANALYSED.ATM:NE",
+   "name": "atm/ne",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    92,
+    34
+   ],
+   "shot_id": 16339,
+   "signal_type": "Analysed",
+   "source": "atm",
+   "time_index": 0,
+   "uda_name": "ATM_NE",
+   "units": "",
+   "uuid": "fb007482-ad0f-531e-a56f-99f479cc8f92",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/19895.zarr/efm/psi_axis/.zarray",
+  "document": {
+   "chunks": [
+    61
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    61
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/19895.zarr/efm/psi_axis/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Poloidal magnetic flux per toroidal radian at the magnetic axis; f(B)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Poloidal flux on axis",
+   "mds_name": "\\TOP.ANALYSED.EFM:PSI_AXIS",
+   "name": "efm/psi_axis",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    58
+   ],
+   "shot_id": 19895,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_PSI_AXIS",
+   "units": "Wb / rad",
+   "uuid": "f76b9b39-e519-52d2-ba8b-0aff44ce0419",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23684.zarr/esm/area_outin_ratio/.zarray",
+  "document": {
+   "chunks": [
+    32804
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    32804
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23684.zarr/esm/area_outin_ratio/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Ratio of outboard to inboard plasma surface area.",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Ratio of outboard to inb",
+   "mds_name": "\\TOP.ANALYSED.ESM.AREA_OUTIN:RATIO",
+   "name": "esm/area_outin_ratio",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    100
+   ],
+   "shot_id": 23684,
+   "signal_type": "Analysed",
+   "source": "esm",
+   "time_index": 0,
+   "uda_name": "ESM_AREA_OUTIN_RATIO",
+   "units": "",
+   "uuid": "62e7e9c6-6bbf-51b6-93d7-f220aac0252d",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/28786.zarr/xma/rog_elm_l02/.zarray",
+  "document": {
+   "chunks": [
+    82500
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    660000
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/28786.zarr/xma/rog_elm_l02/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "",
+   "name": "xma/rog_elm_l02",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    30000
+   ],
+   "shot_id": 28786,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "/XMA/ROG/ELM/L02",
+   "units": "V",
+   "uuid": "a289c1da-461a-58ac-9310-398cfcedd10f",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27752.zarr/ahx/passnumber/.zarray",
+  "document": {
+   "chunks": [],
+   "compressor": null,
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27752.zarr/ahx/passnumber/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [],
+   "description": "",
+   "dims": [],
+   "file_name": null,
+   "format": null,
+   "label": " ",
+   "mds_name": "\\TOP.ANALYSED.AHX:PASSNUMBER",
+   "name": "ahx/passnumber",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    1
+   ],
+   "shot_id": 27752,
+   "signal_type": "Analysed",
+   "source": "ahx",
+   "time_index": 0,
+   "uda_name": "AHX_PASSNUMBER",
+   "units": "",
+   "uuid": "0969d0d5-2744-5968-9a37-d45e06e82f2e",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26847.zarr/amh/phalo_epl_i1/.zarray",
+  "document": {
+   "chunks": [
+    2200
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    2200
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26847.zarr/amh/phalo_epl_i1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "phalo/epl/i1",
+   "mds_name": "\\TOP.ANALYSED.AMH:PHALO_EPL_I1",
+   "name": "amh/phalo_epl_i1",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    2000
+   ],
+   "shot_id": 26847,
+   "signal_type": "Analysed",
+   "source": "amh",
+   "time_index": 0,
+   "uda_name": "AMH_PHALO/EPL/I1",
+   "units": "kA",
+   "uuid": "1bf0a436-3487-5012-998a-9e5d127e45a6",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23621.zarr/xma/rogext_tf/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23621.zarr/xma/rogext_tf/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:ROGEXT_TF",
+   "name": "xma/rogext_tf",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    8000
+   ],
+   "shot_id": 23621,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_ROGEXT/TF",
+   "units": "V",
+   "uuid": "38500c40-5183-51ff-acc4-9d508770a0f2",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15517.zarr/xma/lv_p2l_1/.zarray",
+  "document": {
+   "chunks": [
+    69514
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    139027
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15517.zarr/xma/lv_p2l_1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Loop Volts P2l Plate R= Z~-1.5m (Cal.Fac ~10.5)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMA:LV_P2L_1",
+   "name": "xma/lv_p2l_1",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 15517,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_LV/P2L/1",
+   "units": "",
+   "uuid": "f4e4db83-9ae5-5212-8d12-c87e1e3b357e",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/28237.zarr/ams/status/.zarray",
+  "document": {
+   "chunks": [],
+   "compressor": null,
+   "dtype": "<i4",
+   "fill_value": null,
+   "filters": null,
+   "order": "C",
+   "shape": [],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/28237.zarr/ams/status/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [],
+   "description": "Data status flag.",
+   "dims": [],
+   "file_name": null,
+   "format": null,
+   "label": "Status",
+   "mds_name": "\\TOP.ANALYSED.AMS:STATUS",
+   "name": "ams/status",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    1
+   ],
+   "shot_id": 28237,
+   "signal_type": "Analysed",
+   "source": "ams",
+   "time_index": 0,
+   "uda_name": "AMS_STATUS",
+   "units": "",
+   "uuid": "016e853d-8dcd-5ace-b4a1-eb0ec187ab33",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17986.zarr/xmb/tae_earth_2/.zarray",
+  "document": {
+   "chunks": [
+    43825
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    175299
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17986.zarr/xmb/tae_earth_2/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMB:TAE_EARTH_2",
+   "name": "xmb/tae_earth_2",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    61440
+   ],
+   "shot_id": 17986,
+   "signal_type": "Raw",
+   "source": "xmb",
+   "time_index": 0,
+   "uda_name": "XMB_TAE/EARTH/2",
+   "units": "",
+   "uuid": "e8afb9b3-6e7c-5f5a-a491-4ecd29955ecd",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22376.zarr/efm/elongpsi_c/.zarray",
+  "document": {
+   "chunks": [
+    95,
+    65
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    95,
+    65
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22376.zarr/efm/elongpsi_c/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "psi_norm"
+   ],
+   "description": "Elongation of flux surfaces; f(psin, B)",
+   "dims": [
+    "time",
+    "psi_norm"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "elongation of surfaces",
+   "mds_name": "\\TOP.ANALYSED.EFM:ELONG_PSI_C",
+   "name": "efm/elongpsi_c",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    92,
+    65
+   ],
+   "shot_id": 22376,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_ELONG(PSI)_(C)",
+   "units": "",
+   "uuid": "a1a31153-bb73-53bc-98bf-7bdc3a3df86b",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23363.zarr/xma/obv02/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/23363.zarr/xma/obv02/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "Outer discrete Bv magnetic coil array",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:OBV02",
+   "name": "xma/obv02",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 23363,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_OBV02",
+   "units": "V",
+   "uuid": "88e64a67-ac7c-5f6b-b778-7de7abc6a419",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22521.zarr/xma/rog_p2l_1/.zarray",
+  "document": {
+   "chunks": [
+    68541
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    137082
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22521.zarr/xma/rog_p2l_1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XMA:ROG_P2L_1",
+   "name": "xma/rog_p2l_1",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 22521,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_ROG/P2L/1",
+   "units": "V",
+   "uuid": "8f77c0c7-3e2f-5212-92d4-3c0f6fd201a9",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22352.zarr/xsx/tcam_r2/.zarray",
+  "document": {
+   "chunks": [
+    18
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f8",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    18
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22352.zarr/xsx/tcam_r2/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "tcam_channel"
+   ]
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21399.zarr/efm/volp_c/.zarray",
+  "document": {
+   "chunks": [
+    8,
+    65
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    8,
+    65
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/21399.zarr/efm/volp_c/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "psi_norm"
+   ],
+   "description": "Plasma volume enclosed by flux surfaces as a function of magnetic flux; f(npsi, B)",
+   "dims": [
+    "time",
+    "psi_norm"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "vol within psi surfaces",
+   "mds_name": "\\TOP.ANALYSED.EFM:VOLP_C",
+   "name": "efm/volp_c",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    4,
+    65
+   ],
+   "shot_id": 21399,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_VOLP_(C)",
+   "units": "m ** 3",
+   "uuid": "45bbf7fb-2b9e-5377-8981-ddd966446d0e",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22015.zarr/xim/da_to10/.zarray",
+  "document": {
+   "chunks": [
+    50000
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    50000
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22015.zarr/xim/da_to10/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Dalpha - bottom divertor from port TO10",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Volt",
+   "mds_name": "\\TOP.RAW.XIM:DA_TO10",
+   "name": "xim/da_to10",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    50000
+   ],
+   "shot_id": 22015,
+   "signal_type": "Raw",
+   "source": "xim",
+   "time_index": 0,
+   "uda_name": "XIM_DA/TO10",
+   "units": "V",
+   "uuid": "404ddf49-e329-5041-a14e-4a750bc9ea22",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15949.zarr/xma/rog_p4l_1/.zarray",
+  "document": {
+   "chunks": [
+    69514
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    139027
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/15949.zarr/xma/rog_p4l_1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMA:ROG_P4L_1",
+   "name": "xma/rog_p4l_1",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 15949,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_ROG/P4L/1",
+   "units": "",
+   "uuid": "70a9e6bb-051d-5d5d-a6ca-2974ec4acc81",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16352.zarr/xmb/phalo_epl_o1/.zarray",
+  "document": {
+   "chunks": [
+    51142
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    204568
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16352.zarr/xmb/phalo_epl_o1/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMB:PHALO_EPL_O1",
+   "name": "xmb/phalo_epl_o1",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    8000
+   ],
+   "shot_id": 16352,
+   "signal_type": "Raw",
+   "source": "xmb",
+   "time_index": 0,
+   "uda_name": "XMB_PHALO/EPL/O1",
+   "units": "",
+   "uuid": "87bc7844-08c1-5db5-8982-6525be8fbc1e",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17829.zarr/efm/rpsi100_in/.zarray",
+  "document": {
+   "chunks": [
+    93
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    93
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17829.zarr/efm/rpsi100_in/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Inboard radius of 100% normalised magnetic flux; f(B)",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "i/b Rad of lcfs at Mid",
+   "mds_name": "\\TOP.ANALYSED.EFM:R_PSI100_IN",
+   "name": "efm/rpsi100_in",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    91
+   ],
+   "shot_id": 17829,
+   "signal_type": "Analysed",
+   "source": "efm",
+   "time_index": 0,
+   "uda_name": "EFM_R(PSI100)_IN",
+   "units": "m",
+   "uuid": "2da488c0-a93d-5245-93df-d9ef6e7521dc",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29845.zarr/amm/topcol/.zarray",
+  "document": {
+   "chunks": [
+    30000
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f8",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    30000
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/29845.zarr/amm/topcol/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "Top of centre column: R=0.24 Z=2.03",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Current",
+   "mds_name": "\\TOP.ANALYSED.AMM:TOPCOL",
+   "name": "amm/topcol",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    30000
+   ],
+   "shot_id": 29845,
+   "signal_type": "Analysed",
+   "source": "amm",
+   "time_index": 0,
+   "uda_name": "AMM_TOPCOL",
+   "units": "kA",
+   "uuid": "22d53ac9-a535-5200-8a31-fb9db0b5422a",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27002.zarr/xmb/phalo_p2u_o4/.zarray",
+  "document": {
+   "chunks": [
+    41250
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    82500
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27002.zarr/xmb/phalo_p2u_o4/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "sec"
+   ],
+   "description": "",
+   "dims": [
+    "sec"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "V",
+   "mds_name": "\\TOP.RAW.XMB:PHALO_P2U_O4",
+   "name": "xmb/phalo_p2u_o4",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    82500
+   ],
+   "shot_id": 27002,
+   "signal_type": "Raw",
+   "source": "xmb",
+   "time_index": 0,
+   "uda_name": "XMB_PHALO/P2U/O4",
+   "units": "Volt",
+   "uuid": "66690e64-f5a3-58d5-af12-c4602cd8acac",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22099.zarr/ams/pitchanoise/.zarray",
+  "document": {
+   "chunks": [
+    307,
+    475
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    2450,
+    1898
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22099.zarr/ams/pitchanoise/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "dim_0"
+   ],
+   "description": "Uncertainty in the magnetic pitch angle.",
+   "dims": [
+    "time",
+    "dim_0"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": " ",
+   "mds_name": "\\TOP.ANALYSED.AMS:PITCHANOISE",
+   "name": "ams/pitchanoise",
+   "quality": "Not Checked",
+   "rank": 2,
+   "shape": [
+    1490,
+    30
+   ],
+   "shot_id": 22099,
+   "signal_type": "Analysed",
+   "source": "ams",
+   "time_index": 0,
+   "uda_name": "AMS_PITCHANOISE",
+   "units": "",
+   "uuid": "3f588541-9f51-54a2-ac66-43bf24cef0fb",
+   "version": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27420.zarr/xsx/hcam_u_theta_rad/.zarray",
+  "document": {
+   "chunks": [
+    18
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f8",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    18
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/27420.zarr/xsx/hcam_u_theta_rad/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "hcam_u_channel"
+   ]
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16246.zarr/xma/rog_p2u_2/.zarray",
+  "document": {
+   "chunks": [
+    69514
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    139027
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/16246.zarr/xma/rog_p2u_2/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Arb",
+   "mds_name": "\\TOP.RAW.XMA:ROG_P2U_2",
+   "name": "xma/rog_p2u_2",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    7500
+   ],
+   "shot_id": 16246,
+   "signal_type": "Raw",
+   "source": "xma",
+   "time_index": 0,
+   "uda_name": "XMA_ROG/P2U/2",
+   "units": "",
+   "uuid": "45512435-6644-571a-869b-8699fd9db912",
+   "version": -1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22639.zarr/atm/poisson_noise/.zarray",
+  "document": {
+   "chunks": [
+    38,
+    36,
+    5
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    38,
+    36,
+    5
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/22639.zarr/atm/poisson_noise/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time",
+    "radial_index",
+    "spectral_index"
+   ],
+   "description": "",
+   "dims": [
+    "time",
+    "radial_index",
+    "spectral_index"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "Poisson noise on spectra",
+   "mds_name": "\\TOP.ANALYSED.ATM.POISSON:NOISE",
+   "name": "atm/poisson_noise",
+   "quality": "Not Checked",
+   "rank": 3,
+   "shape": [
+    38,
+    35,
+    5
+   ],
+   "shot_id": 22639,
+   "signal_type": "Analysed",
+   "source": "atm",
+   "time_index": 0,
+   "uda_name": "ATM_POISSON_NOISE",
+   "units": "V",
+   "uuid": "755d090e-74b0-55f3-9063-ed39366ced87",
+   "version": 1
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17857.zarr/amh/phalo_p2u_i5/.zarray",
+  "document": {
+   "chunks": [
+    2026
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [
+    2026
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/17857.zarr/amh/phalo_p2u_i5/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [
+    "time"
+   ],
+   "description": "",
+   "dims": [
+    "time"
+   ],
+   "file_name": null,
+   "format": null,
+   "label": "phalo/p2u/i5",
+   "mds_name": "\\TOP.ANALYSED.AMH:PHALO_P2U_I5",
+   "name": "amh/phalo_p2u_i5",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    200
+   ],
+   "shot_id": 17857,
+   "signal_type": "Analysed",
+   "source": "amh",
+   "time_index": 0,
+   "uda_name": "AMH_PHALO/P2U/I5",
+   "units": "kA",
+   "uuid": "c14d9ec0-720b-5195-94ee-cec5aebc996e",
+   "version": 0
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "array",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26533.zarr/air/alphaconst_osp/.zarray",
+  "document": {
+   "chunks": [],
+   "compressor": null,
+   "dtype": "<f4",
+   "fill_value": "NaN",
+   "filters": null,
+   "order": "C",
+   "shape": [],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "mastu",
+  "kind": "attributes",
+  "url": "https://s3.echo.stfc.ac.uk/mast/level1/shots/26533.zarr/air/alphaconst_osp/.zattrs",
+  "document": {
+   "_ARRAY_DIMENSIONS": [],
+   "description": "Surface layer coefficient applied to outer strike point",
+   "dims": [],
+   "file_name": null,
+   "format": null,
+   "label": "alpha",
+   "mds_name": "\\TOP.ANALYSED.AIR.ALPHACONST_:OSP",
+   "name": "air/alphaconst_osp",
+   "quality": "Not Checked",
+   "rank": 1,
+   "shape": [
+    1
+   ],
+   "shot_id": 26533,
+   "signal_type": "Analysed",
+   "source": "air",
+   "time_index": 0,
+   "uda_name": "AIR_ALPHACONST_OSP",
+   "units": "\u03b1",
+   "uuid": "bf1a3695-ee1d-52a7-8e26-9135416ec311",
+   "version": 0
+  }
+ },
+ {
+  "source": "ome-zarr",
+  "kind": "attributes",
+  "url": "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr/.zattrs",
+  "document": {
+   "_creator": {
+    "name": "omero-zarr",
+    "version": "0.4.0"
+   },
+   "multiscales": [
+    {
+     "axes": [
+      {
+       "name": "c",
+       "type": "channel"
+      },
+      {
+       "name": "z",
+       "type": "space",
+       "unit": "micrometer"
+      },
+      {
+       "name": "y",
+       "type": "space",
+       "unit": "micrometer"
+      },
+      {
+       "name": "x",
+       "type": "space",
+       "unit": "micrometer"
+      }
+     ],
+     "datasets": [
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          0.5002025531914894,
+          0.3603981534640209,
+          0.3603981534640209
+         ],
+         "type": "scale"
+        }
+       ],
+       "path": "0"
+      },
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          0.5002025531914894,
+          0.7207963069280418,
+          0.7207963069280418
+         ],
+         "type": "scale"
+        }
+       ],
+       "path": "1"
+      },
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          0.5002025531914894,
+          1.4415926138560835,
+          1.4415926138560835
+         ],
+         "type": "scale"
+        }
+       ],
+       "path": "2"
+      }
+     ],
+     "version": "0.4"
+    }
+   ],
+   "omero": {
+    "channels": [
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "0000FF",
+      "family": "linear",
+      "inverted": false,
+      "label": "LaminB1",
+      "window": {
+       "end": 1500.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FFFF00",
+      "family": "linear",
+      "inverted": false,
+      "label": "Dapi",
+      "window": {
+       "end": 1500.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     }
+    ],
+    "id": 1,
+    "rdefs": {
+     "defaultT": 0,
+     "defaultZ": 118,
+     "model": "color"
+    },
+    "version": "0.4"
+   }
+  }
+ },
+ {
+  "source": "ome-zarr",
+  "kind": "array",
+  "url": "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr/0/.zarray",
+  "document": {
+   "chunks": [
+    1,
+    1,
+    275,
+    271
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dimension_separator": "/",
+   "dtype": "<u2",
+   "fill_value": 0,
+   "filters": null,
+   "order": "C",
+   "shape": [
+    2,
+    236,
+    275,
+    271
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "ome-zarr",
+  "kind": "attributes",
+  "url": "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr/.zattrs",
+  "document": {
+   "_creator": {
+    "name": "omero-zarr",
+    "version": "0.1.dev314+g33e42b1"
+   },
+   "multiscales": [
+    {
+     "axes": [
+      {
+       "name": "t",
+       "type": "time"
+      },
+      {
+       "name": "c",
+       "type": "channel"
+      },
+      {
+       "name": "z",
+       "type": "space",
+       "unit": "micrometer"
+      },
+      {
+       "name": "y",
+       "type": "space",
+       "unit": "micrometer"
+      },
+      {
+       "name": "x",
+       "type": "space",
+       "unit": "micrometer"
+      }
+     ],
+     "datasets": [
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          1.0,
+          0.4,
+          0.108335,
+          0.108335
+         ],
+         "type": "scale"
+        },
+        {
+         "translation": [
+          0,
+          0,
+          1.2,
+          52.109135,
+          60.88427
+         ],
+         "type": "translation"
+        }
+       ],
+       "path": "0"
+      },
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          1.0,
+          0.4,
+          0.21667,
+          0.21667
+         ],
+         "type": "scale"
+        },
+        {
+         "translation": [
+          0,
+          0,
+          1.2,
+          52.109135,
+          60.88427
+         ],
+         "type": "translation"
+        }
+       ],
+       "path": "1"
+      },
+      {
+       "coordinateTransformations": [
+        {
+         "scale": [
+          1.0,
+          1.0,
+          0.4,
+          0.43334,
+          0.43334
+         ],
+         "type": "scale"
+        },
+        {
+         "translation": [
+          0,
+          0,
+          1.2,
+          52.109135,
+          60.88427
+         ],
+         "type": "translation"
+        }
+       ],
+       "path": "2"
+      }
+     ],
+     "version": "0.4"
+    }
+   ],
+   "omero": {
+    "channels": [
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FFFFFF",
+      "family": "linear",
+      "inverted": false,
+      "label": "cy 1",
+      "window": {
+       "end": 1200.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FFFFFF",
+      "family": "linear",
+      "inverted": false,
+      "label": "cy 2",
+      "window": {
+       "end": 1200.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FFFFFF",
+      "family": "linear",
+      "inverted": false,
+      "label": "cy 3",
+      "window": {
+       "end": 1200.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FFFFFF",
+      "family": "linear",
+      "inverted": false,
+      "label": "cy 4",
+      "window": {
+       "end": 1200.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "0000FF",
+      "family": "linear",
+      "inverted": false,
+      "label": "DAPI",
+      "window": {
+       "end": 5000.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     },
+     {
+      "active": true,
+      "coefficient": 1.0,
+      "color": "FF0000",
+      "family": "linear",
+      "inverted": false,
+      "label": "Hyb probe",
+      "window": {
+       "end": 100.0,
+       "max": 65535.0,
+       "min": 0.0,
+       "start": 0.0
+      }
+     }
+    ],
+    "id": 1,
+    "rdefs": {
+     "defaultT": 0,
+     "defaultZ": 9,
+     "model": "color"
+    },
+    "version": "0.4"
+   }
+  }
+ },
+ {
+  "source": "ome-zarr",
+  "kind": "array",
+  "url": "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr/0/.zarray",
+  "document": {
+   "chunks": [
+    1,
+    1,
+    1,
+    223,
+    198
+   ],
+   "compressor": {
+    "blocksize": 0,
+    "clevel": 5,
+    "cname": "lz4",
+    "id": "blosc",
+    "shuffle": 1
+   },
+   "dimension_separator": "/",
+   "dtype": "<u2",
+   "fill_value": 0,
+   "filters": null,
+   "order": "C",
+   "shape": [
+    18,
+    6,
+    12,
+    223,
+    198
+   ],
+   "zarr_format": 2
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2190x13y13_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 2611.750976,
+   "t_min": 56054.14871627,
+   "t_max": 56054.21964146,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "WISELAB1136+42",
+   "obs_id": "hst_skycell-p2190x13y13_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ic5o01010",
+  "document": {
+   "t_exptime": 240,
+   "t_min": 56369.79109814815,
+   "t_max": 56369.83843225695,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13112",
+   "filters": "F105W",
+   "target_name": "SDSSJ0849+1114",
+   "obs_id": "ic5o01010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ieel67050",
+  "document": {
+   "t_exptime": 906,
+   "t_min": 59235.76949019676,
+   "t_max": 59235.78071612269,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16234",
+   "filters": "G141",
+   "target_name": "SN2021J",
+   "obs_id": "ieel67050"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0923x09y07_wfc3_ir_f164n_coarse-all",
+  "document": {
+   "t_exptime": 2396.926268,
+   "t_min": 55215.83085016,
+   "t_max": 55215.96797127,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F164N",
+   "target_name": "NGC4038-39-JH-1",
+   "obs_id": "hst_skycell-p0923x09y07_wfc3_ir_f164n_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16296_s2_wfc3_ir_g141_iecqs2zr",
+  "document": {
+   "t_exptime": 7.6243,
+   "t_min": 59707.84098621,
+   "t_max": 59707.84107435,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16296",
+   "filters": "G141",
+   "target_name": "LUHMAN-16-UPDATED",
+   "obs_id": "hst_16296_s2_wfc3_ir_g141_iecqs2zr"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12181_23_wfc3_ir_g141_ibh723em",
+  "document": {
+   "t_exptime": 21.65683,
+   "t_min": 55487.48553761,
+   "t_max": 55487.48578798,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12181",
+   "filters": "G141",
+   "target_name": "COROT-2",
+   "obs_id": "hst_12181_23_wfc3_ir_g141_ibh723em"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0573x12y14_wfc3_ir_f140w_coarse-all",
+  "document": {
+   "t_exptime": 597.694383,
+   "t_min": 59752.07578406,
+   "t_max": 59752.08429369,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F140W",
+   "target_name": "DESJ0424-3317",
+   "obs_id": "hst_skycell-p0573x12y14_wfc3_ir_f140w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15320_09_wfc3_ir_f160w_idgc09",
+  "document": {
+   "t_exptime": 2196.932374,
+   "t_min": 58009.46063415,
+   "t_max": 58009.48844934,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15320",
+   "filters": "F160W",
+   "target_name": "PSJ0147+4630",
+   "obs_id": "hst_15320_09_wfc3_ir_f160w_idgc09"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_21_wfc3_ir_g141_iccz21tz",
+  "document": {
+   "t_exptime": 73.742661,
+   "t_min": 56785.80914836,
+   "t_max": 56785.81000169,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "WASP-18",
+   "obs_id": "hst_13467_21_wfc3_ir_g141_iccz21tz"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15333_22_wfc3_ir_g141_idmi22yf",
+  "document": {
+   "t_exptime": 138.380508,
+   "t_min": 58241.87020313,
+   "t_max": 58241.87180461,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15333",
+   "filters": "G141",
+   "target_name": "HIP-41378",
+   "obs_id": "hst_15333_22_wfc3_ir_g141_idmi22yf"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13517_4g_wfc3_ir_g102_icdy4gbz",
+  "document": {
+   "t_exptime": 1102.935669,
+   "t_min": 57034.34642725,
+   "t_max": 57034.3591928,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13517",
+   "filters": "G102",
+   "target_name": "ANY",
+   "obs_id": "hst_13517_4g_wfc3_ir_g102_icdy4gbz"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13871_05_wfc3_ir_g141_icka05ps",
+  "document": {
+   "t_exptime": 1402.936768,
+   "t_min": 57068.89755093,
+   "t_max": 57068.91378871,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13871",
+   "filters": "G141",
+   "target_name": "GN-Z10-1",
+   "obs_id": "hst_13871_05_wfc3_ir_g141_icka05ps"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15819_16_wfc3_ir_g102_ie4216yy",
+  "document": {
+   "t_exptime": 14.355583,
+   "t_min": 59214.09019167,
+   "t_max": 59214.09035796,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15819",
+   "filters": "G102",
+   "target_name": "HD-182488B",
+   "obs_id": "hst_15819_16_wfc3_ir_g102_ie4216yy"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12230_01_wfc3_ir_g141_ibjd01vc",
+  "document": {
+   "t_exptime": 7.6243,
+   "t_min": 55663.12119173,
+   "t_max": 55663.12127988,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12230",
+   "filters": "G141",
+   "target_name": "WASP-12",
+   "obs_id": "hst_12230_01_wfc3_ir_g141_ibjd01vc"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11696_ei_wfc3_ir_f140w_ib8cei",
+  "document": {
+   "t_exptime": 127.934845,
+   "t_min": 55245.24461263,
+   "t_max": 55245.24609337,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11696",
+   "filters": "F140W",
+   "target_name": "ANY",
+   "obs_id": "hst_11696_ei_wfc3_ir_f140w_ib8cei"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13335_26_wfc3_ir_total_ic9t26",
+  "document": {
+   "t_exptime": 29.32291,
+   "t_min": 56936.08860042,
+   "t_max": 56936.08894005,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13335",
+   "filters": "detection",
+   "target_name": "V-BET-DOR",
+   "obs_id": "hst_13335_26_wfc3_ir_total_ic9t26"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14915_01_wfc3_ir_g141_idey01hi",
+  "document": {
+   "t_exptime": 112.007996,
+   "t_min": 57909.90598554,
+   "t_max": 57909.90728184,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14915",
+   "filters": "G141",
+   "target_name": "TYC-5530-1795-1",
+   "obs_id": "hst_14915_01_wfc3_ir_g141_idey01hi"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15649_22_wfc3_ir_f160w_idy422",
+  "document": {
+   "t_exptime": 1596.925048,
+   "t_min": 58655.86663596,
+   "t_max": 58655.88726373,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15649",
+   "filters": "F160W",
+   "target_name": "ESO185-IG13",
+   "obs_id": "hst_15649_22_wfc3_ir_f160w_idy422"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ie1d34t4q",
+  "document": {
+   "t_exptime": 352.939514,
+   "t_min": 58800.92998515046,
+   "t_max": 58800.93406994213,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15723",
+   "filters": "BLANK",
+   "target_name": "DARK",
+   "obs_id": "ie1d34t4q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iedw8myrq",
+  "document": {
+   "t_exptime": 252.934357,
+   "t_min": 59240.51775471065,
+   "t_max": 59240.52068214121,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16259",
+   "filters": "F160W",
+   "target_name": "COSMOS-F160W-71",
+   "obs_id": "iedw8myrq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibsva8ebq",
+  "document": {
+   "t_exptime": 602.934143,
+   "t_min": 56128.60794282408,
+   "t_max": 56128.6149209838,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12457",
+   "filters": "F160W",
+   "target_name": "RXJ2129-WFC3PAR1",
+   "obs_id": "ibsva8ebq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ifks14fpq",
+  "document": {
+   "t_exptime": 38.119781,
+   "t_min": 61036.461349652775,
+   "t_max": 61036.46179112269,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17971",
+   "filters": "F140W",
+   "target_name": "TUNGSTEN",
+   "obs_id": "ifks14fpq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ideu02yhq",
+  "document": {
+   "t_exptime": 134.354034,
+   "t_min": 57920.5752221875,
+   "t_max": 57920.576777395836,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14918",
+   "filters": "G102",
+   "target_name": "WASP-17",
+   "obs_id": "ideu02yhq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icdy1okbq",
+  "document": {
+   "t_exptime": 252.937439,
+   "t_min": 56752.11309880787,
+   "t_max": 56752.11602623843,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13517",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "icdy1okbq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2438x08y08_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 480.874359,
+   "t_min": 55851.37939498,
+   "t_max": 55851.4437461,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "ANY",
+   "obs_id": "hst_skycell-p2438x08y08_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibtt1ixfq",
+  "document": {
+   "t_exptime": 1002.935364,
+   "t_min": 56127.68883394676,
+   "t_max": 56127.70044209491,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12568",
+   "filters": "G141",
+   "target_name": "ANY",
+   "obs_id": "ibtt1ixfq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ie3zh1voq",
+  "document": {
+   "t_exptime": 92.53801,
+   "t_min": 58873.27449383102,
+   "t_max": 58873.275564965275,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15820",
+   "filters": "G141",
+   "target_name": "HD-195689",
+   "obs_id": "ie3zh1voq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0522x12y12_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 1611.742432,
+   "t_min": 58071.0136336,
+   "t_max": 58071.03512582,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "NGC3783-OFFSET",
+   "obs_id": "hst_skycell-p0522x12y12_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2196x16y06_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 2596.157729,
+   "t_min": 59330.74812585,
+   "t_max": 59330.78055918,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "UGC-8651",
+   "obs_id": "hst_skycell-p2196x16y06_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibh714ddq",
+  "document": {
+   "t_exptime": 36.019581,
+   "t_min": 55525.57958896991,
+   "t_max": 55525.58000601852,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12181",
+   "filters": "G141",
+   "target_name": "WASP-4",
+   "obs_id": "ibh714ddq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16729_29_wfc3_ir_f105w_iepl29",
+  "document": {
+   "t_exptime": 608.809203,
+   "t_min": 59614.38317527,
+   "t_max": 59614.39165823,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16729",
+   "filters": "F105W",
+   "target_name": "ABELL-S295",
+   "obs_id": "hst_16729_29_wfc3_ir_f105w_iepl29"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0632x09y04_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 1202.936035,
+   "t_min": 58786.56766954,
+   "t_max": 58786.58159251,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "ANY",
+   "obs_id": "hst_skycell-p0632x09y04_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0251x15y11_wfc3_ir_f110w_all",
+  "document": {
+   "t_exptime": 251.752228,
+   "t_min": 55890.50463854,
+   "t_max": 55890.50970743,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F110W",
+   "target_name": "HERMES-J044154-540352",
+   "obs_id": "hst_skycell-p0251x15y11_wfc3_ir_f110w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0115x16y05_wfc3_ir_f125w_all",
+  "document": {
+   "t_exptime": 41.052074,
+   "t_min": 59692.01340954,
+   "t_max": 59799.11344267,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F125W",
+   "target_name": "ANY",
+   "obs_id": "hst_skycell-p0115x16y05_wfc3_ir_f125w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1831x07y02_wfc3_ir_f125w_coarse-all",
+  "document": {
+   "t_exptime": 2295.39807,
+   "t_min": 59891.33919124,
+   "t_max": 60198.34325523,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F125W",
+   "target_name": "GRB221009A",
+   "obs_id": "hst_skycell-p1831x07y02_wfc3_ir_f125w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12902_28_wfc3_ir_f110w_ic3t28",
+  "document": {
+   "t_exptime": 252.937439,
+   "t_min": 56415.28666422,
+   "t_max": 56415.28959163,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12902",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_12902_28_wfc3_ir_f110w_ic3t28"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12572_10_wfc3_ir_total_ibug10",
+  "document": {
+   "t_exptime": 2808.805482,
+   "t_min": 56007.79538171,
+   "t_max": 56007.82858726,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12572",
+   "filters": "detection",
+   "target_name": "ANY",
+   "obs_id": "hst_12572_10_wfc3_ir_total_ibug10"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15924_51_wfc3_ir_g141_ie2m51mr",
+  "document": {
+   "t_exptime": 44.969887,
+   "t_min": 59555.23684931,
+   "t_max": 59555.23737005,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15924",
+   "filters": "G141",
+   "target_name": "LSPM-J0036+1821",
+   "obs_id": "hst_15924_51_wfc3_ir_g141_ie2m51mr"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14218_03_wfc3_ir_g141_icz403sh",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57387.48505477,
+   "t_max": 57387.48624848,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14218",
+   "filters": "G141",
+   "target_name": "KEPLER-51",
+   "obs_id": "hst_14218_03_wfc3_ir_g141_icz403sh"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15994_02_wfc3_ir_g141_ie6n02nk",
+  "document": {
+   "t_exptime": 502.936462,
+   "t_min": 58919.82349696,
+   "t_max": 58919.82931807,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15994",
+   "filters": "G141",
+   "target_name": "COBRA141155.2+341510",
+   "obs_id": "hst_15994_02_wfc3_ir_g141_ie6n02nk"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13176_07_wfc3_ir_g141_ic6g07kb",
+  "document": {
+   "t_exptime": 67.315918,
+   "t_min": 56412.45786348,
+   "t_max": 56412.45864274,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13176",
+   "filters": "G141",
+   "target_name": "2M1507",
+   "obs_id": "hst_13176_07_wfc3_ir_g141_ic6g07kb"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12866_03_wfc3_ir_f160w_iby203",
+  "document": {
+   "t_exptime": 3996.928712,
+   "t_min": 56261.73051458,
+   "t_max": 56261.82091087,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12866",
+   "filters": "F160W",
+   "target_name": "POINTING3",
+   "obs_id": "hst_12866_03_wfc3_ir_f160w_iby203"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15212_6n_wfc3_ir_f098m_idq26n",
+  "document": {
+   "t_exptime": 1302.936401,
+   "t_min": 58559.49208435,
+   "t_max": 58559.50716472,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15212",
+   "filters": "F098M",
+   "target_name": "ANY",
+   "obs_id": "hst_15212_6n_wfc3_ir_f098m_idq26n"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14664_02_wfc3_ir_g141_ida302tl",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57711.63287513,
+   "t_max": 57711.63406884,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14664",
+   "filters": "G141",
+   "target_name": "KELT-1",
+   "obs_id": "hst_14664_02_wfc3_ir_g141_ida302tl"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2055x17y13_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 823.4746720000002,
+   "t_min": 55336.99778554,
+   "t_max": 55423.35422171,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "8.90",
+   "obs_id": "hst_skycell-p2055x17y13_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ie5243x0q",
+  "document": {
+   "t_exptime": 46.695518,
+   "t_min": 59143.19332106481,
+   "t_max": 59143.19386142361,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15813",
+   "filters": "G141",
+   "target_name": "HD209458",
+   "obs_id": "ie5243x0q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibm201l7q",
+  "document": {
+   "t_exptime": 2.932291,
+   "t_min": 55541.12957283565,
+   "t_max": 55541.12960690972,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12358",
+   "filters": "F130N",
+   "target_name": "NGC7789-S7840",
+   "obs_id": "ibm201l7q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idpn01bzq",
+  "document": {
+   "t_exptime": 2.932291,
+   "t_min": 58014.23640972222,
+   "t_max": 58014.23644340278,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14993",
+   "filters": "F140W",
+   "target_name": "VY2-2-COPY",
+   "obs_id": "idpn01bzq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iccz25ljq",
+  "document": {
+   "t_exptime": 111.756798,
+   "t_min": 56895.317421527776,
+   "t_max": 56895.318714849534,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "WASP-18",
+   "obs_id": "iccz25ljq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16276_24_wfc3_ir_total_iecu24",
+  "document": {
+   "t_exptime": 605.869506,
+   "t_min": 59271.77498912,
+   "t_max": 59271.80656246,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16276",
+   "filters": "detection",
+   "target_name": "BOSS1542-P3",
+   "obs_id": "hst_16276_24_wfc3_ir_total_iecu24"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibl73a030",
+  "document": {
+   "t_exptime": 1306,
+   "t_min": 55726.693454479166,
+   "t_max": 55726.708812233795,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12286",
+   "filters": "F160W",
+   "target_name": "ANY",
+   "obs_id": "ibl73a030"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2159x09y08_wfc3_ir_f110w_all",
+  "document": {
+   "t_exptime": 27672.354138000013,
+   "t_min": 55778.03352496,
+   "t_max": 56130.00887134,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F110W",
+   "target_name": "M31-B08-F16-IR",
+   "obs_id": "hst_skycell-p2159x09y08_wfc3_ir_f110w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idax02edq",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57790.75354012731,
+   "t_max": 57790.7547337963,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14682",
+   "filters": "G141",
+   "target_name": "K2-18",
+   "obs_id": "idax02edq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibeo72qeq",
+  "document": {
+   "t_exptime": 602.934143,
+   "t_min": 55653.53712210648,
+   "t_max": 55653.54410061343,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12063",
+   "filters": "F160W",
+   "target_name": "EGS-V72",
+   "obs_id": "ibeo72qeq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14098_3t_wfc3_ir_total_iczp3t",
+  "document": {
+   "t_exptime": 1411.758056,
+   "t_min": 57580.99568824,
+   "t_max": 57581.01418306,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14098",
+   "filters": "detection",
+   "target_name": "EMACSJ2100.4+0724",
+   "obs_id": "hst_14098_3t_wfc3_ir_total_iczp3t"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14664_06_wfc3_ir_g141_ida306h4",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57713.29617365,
+   "t_max": 57713.29736736,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14664",
+   "filters": "G141",
+   "target_name": "KELT-1",
+   "obs_id": "hst_14664_06_wfc3_ir_g141_ida306h4"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1267x13y19_wfc3_ir_f098m_all",
+  "document": {
+   "t_exptime": 1646.9493440000003,
+   "t_min": 59205.83083195,
+   "t_max": 59210.75951241,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F098M",
+   "target_name": "GLEAMJ091734-001243",
+   "obs_id": "hst_skycell-p1267x13y19_wfc3_ir_f098m_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13472_13_wfc3_ir_f160w_icde13",
+  "document": {
+   "t_exptime": 1.580124000000001,
+   "t_min": 56899.47012041,
+   "t_max": 56899.48102411,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13472",
+   "filters": "F160W",
+   "target_name": "V-MT-TEL",
+   "obs_id": "hst_13472_13_wfc3_ir_f160w_icde13"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12181_03_wfc3_ir_g141_ibh703f8",
+  "document": {
+   "t_exptime": 12.795406,
+   "t_min": 55478.89650629,
+   "t_max": 55478.89665444,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12181",
+   "filters": "G141",
+   "target_name": "TRES-2",
+   "obs_id": "hst_12181_03_wfc3_ir_g141_ibh703f8"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iblwa1010",
+  "document": {
+   "t_exptime": 1497.702027,
+   "t_min": 55759.69607063657,
+   "t_max": 55759.71483510417,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12372",
+   "filters": "F160W",
+   "target_name": "ESO137-001",
+   "obs_id": "iblwa1010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibjd02fkq",
+  "document": {
+   "t_exptime": 7.6243,
+   "t_min": 55666.90842542824,
+   "t_max": 55666.90851357639,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12230",
+   "filters": "G141",
+   "target_name": "WASP-12",
+   "obs_id": "ibjd02fkq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2132x08y14_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 5229.366335999999,
+   "t_min": 58391.32429038,
+   "t_max": 58391.42363001,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "BOSS1542P03",
+   "obs_id": "hst_skycell-p2132x08y14_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12061_h5_wfc3_ir_f160w_ibeuh5",
+  "document": {
+   "t_exptime": 1105.8679809999999,
+   "t_min": 55624.87741077,
+   "t_max": 55624.90400743,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12061",
+   "filters": "F160W",
+   "target_name": "GOODS-SDW-VH5",
+   "obs_id": "hst_12061_h5_wfc3_ir_f160w_ibeuh5"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2055x16y11_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 411.737336,
+   "t_min": 55331.6734685,
+   "t_max": 55331.68038887,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "ISCSJ1426.1+3403",
+   "obs_id": "hst_skycell-p2055x16y11_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14767_92_wfc3_ir_g141_id9m92d2",
+  "document": {
+   "t_exptime": 22.31727,
+   "t_min": 57983.34071011,
+   "t_max": 57983.34096863,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14767",
+   "filters": "G141",
+   "target_name": "KELT-7",
+   "obs_id": "hst_14767_92_wfc3_ir_g141_id9m92d2"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibeofm030",
+  "document": {
+   "t_exptime": 806,
+   "t_min": 55708.57613966435,
+   "t_max": 55708.60736559028,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12063",
+   "filters": "F125W",
+   "target_name": "EGS-VFM",
+   "obs_id": "ibeofm030"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ideu32e1q",
+  "document": {
+   "t_exptime": 134.354034,
+   "t_min": 58021.576903043984,
+   "t_max": 58021.57845821759,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14918",
+   "filters": "G102",
+   "target_name": "WASP-17",
+   "obs_id": "ideu32e1q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iezg2ys7q",
+  "document": {
+   "t_exptime": 102.934334,
+   "t_min": 60110.18897913194,
+   "t_max": 60110.19017025463,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17022",
+   "filters": "F153M",
+   "target_name": "DARK-EARTH-CALIB",
+   "obs_id": "iezg2ys7q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idm0b1k0q",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 58518.25471832176,
+   "t_max": 58518.25591165509,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15134",
+   "filters": "G141",
+   "target_name": "WASP-121",
+   "obs_id": "idm0b1k0q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ieha48fiq",
+  "document": {
+   "t_exptime": 102.934334,
+   "t_min": 59568.74687708334,
+   "t_max": 59568.74806855324,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16358",
+   "filters": "G141",
+   "target_name": "ANY",
+   "obs_id": "ieha48fiq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iczgz4010",
+  "document": {
+   "t_exptime": 381,
+   "t_min": 57858.78721501157,
+   "t_max": 57858.80190204861,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14096",
+   "filters": "F140W",
+   "target_name": "SMACSJ0723.3-7327",
+   "obs_id": "iczgz4010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iehnb8c0q",
+  "document": {
+   "t_exptime": 252.934357,
+   "t_min": 59706.98464768518,
+   "t_max": 59706.98757546296,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16443",
+   "filters": "G141",
+   "target_name": "COSMOS-G141-120",
+   "obs_id": "iehnb8c0q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icti02fdq",
+  "document": {
+   "t_exptime": 327.938995,
+   "t_min": 57353.72121524306,
+   "t_max": 57353.72501076389,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14138",
+   "filters": "F139M",
+   "target_name": "EUROPA-ECLIPSE-F139M-2",
+   "obs_id": "icti02fdq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibed04udq",
+  "document": {
+   "t_exptime": 2763.119873,
+   "t_min": 55287.71906527778,
+   "t_max": 55287.75104603009,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12097",
+   "filters": "BLANK",
+   "target_name": "DARK",
+   "obs_id": "ibed04udq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibpc01fyq",
+  "document": {
+   "t_exptime": 51.703209,
+   "t_min": 56306.52669209491,
+   "t_max": 56306.527290590275,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12495",
+   "filters": "G141",
+   "target_name": "WASP-33",
+   "obs_id": "ibpc01fyq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_17128_36_wfc3_ir_f125w_if1z36",
+  "document": {
+   "t_exptime": 73.509278,
+   "t_min": 60097.89041553,
+   "t_max": 60097.89491516,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17128",
+   "filters": "F125W",
+   "target_name": "SN2023EOC",
+   "obs_id": "hst_17128_36_wfc3_ir_f125w_if1z36"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15212_8j_wfc3_ir_f140w_idq28j",
+  "document": {
+   "t_exptime": 602.937317,
+   "t_min": 58484.83645758,
+   "t_max": 58484.8434361,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15212",
+   "filters": "F140W",
+   "target_name": "ANY",
+   "obs_id": "hst_15212_8j_wfc3_ir_f140w_idq28j"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1287x09y08_wfc3_ir_f140w_coarse-all",
+  "document": {
+   "t_exptime": 1497.702027,
+   "t_min": 60715.9575769,
+   "t_max": 60715.9765032,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F140W",
+   "target_name": "2QZ-J144205.8-024803",
+   "obs_id": "hst_skycell-p1287x09y08_wfc3_ir_f140w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12698_02_wfc3_ir_f098m_ibuc02",
+  "document": {
+   "t_exptime": 3.333781,
+   "t_min": 55864.5363235,
+   "t_max": 55864.53636202,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12698",
+   "filters": "F098M",
+   "target_name": "GRW+70D5824",
+   "obs_id": "hst_12698_02_wfc3_ir_f098m_ibuc02"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16660_01_wfc3_ir_g141_ieqo01if",
+  "document": {
+   "t_exptime": 138.380508,
+   "t_min": 59615.38221675,
+   "t_max": 59615.38381823,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16660",
+   "filters": "G141",
+   "target_name": "G4-24",
+   "obs_id": "hst_16660_01_wfc3_ir_g141_ieqo01if"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13092_1a_wfc3_ir_g102_ic461ags",
+  "document": {
+   "t_exptime": 102.934334,
+   "t_min": 56444.36213925,
+   "t_max": 56444.36333073,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13092",
+   "filters": "G102",
+   "target_name": "GD-153",
+   "obs_id": "hst_13092_1a_wfc3_ir_g102_ic461ags"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1906x12y19_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 422.073488,
+   "t_min": 55772.41078422,
+   "t_max": 55772.41773459,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "NGC-6264",
+   "obs_id": "hst_skycell-p1906x12y19_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13495_63_wfc3_ir_total_ic8n63",
+  "document": {
+   "t_exptime": 5508.042603,
+   "t_min": 56803.79622496,
+   "t_max": 56803.93226607,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13495",
+   "filters": "detection",
+   "target_name": "ABELL-2744-HFFPAR",
+   "obs_id": "hst_13495_63_wfc3_ir_total_ic8n63"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15333_01_wfc3_ir_g141_idmi01e3",
+  "document": {
+   "t_exptime": 69.61676,
+   "t_min": 58319.64603884,
+   "t_max": 58319.64684439,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15333",
+   "filters": "G141",
+   "target_name": "HD-3167",
+   "obs_id": "hst_15333_01_wfc3_ir_g141_idmi01e3"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#if0e48d0q",
+  "document": {
+   "t_exptime": 81.089142,
+   "t_min": 60975.37283649306,
+   "t_max": 60975.37377465278,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17192",
+   "filters": "G141",
+   "target_name": "TOI-1201",
+   "obs_id": "if0e48d0q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2427x09y18_wfc3_ir_f110w_all",
+  "document": {
+   "t_exptime": 298.462098,
+   "t_min": 57393.95569588,
+   "t_max": 57393.95994626,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F110W",
+   "target_name": "SDSS-J110501.98+594103.5",
+   "obs_id": "hst_skycell-p2427x09y18_wfc3_ir_f110w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11712_01_wfc3_ir_total_ib1h01",
+  "document": {
+   "t_exptime": 2341.5467140000005,
+   "t_min": 55348.87948757,
+   "t_max": 55348.91243017,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11712",
+   "filters": "detection",
+   "target_name": "IC1919",
+   "obs_id": "hst_11712_01_wfc3_ir_total_ib1h01"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16036_04_wfc3_ir_g141_ie8204mr",
+  "document": {
+   "t_exptime": 223.73819,
+   "t_min": 58995.88723358,
+   "t_max": 58995.88982321,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16036",
+   "filters": "G141",
+   "target_name": "VHS1256-1257B",
+   "obs_id": "hst_16036_04_wfc3_ir_g141_ie8204mr"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15924_03_wfc3_ir_g141_ie2m03ju",
+  "document": {
+   "t_exptime": 44.969887,
+   "t_min": 59191.04608195,
+   "t_max": 59191.04660232,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15924",
+   "filters": "G141",
+   "target_name": "2MASS-J19064801+4011089",
+   "obs_id": "hst_15924_03_wfc3_ir_g141_ie2m03ju"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12230_b2_wfc3_ir_g141_ibjdb2qw",
+  "document": {
+   "t_exptime": 2.22252,
+   "t_min": 55667.16174729,
+   "t_max": 55667.16177321,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12230",
+   "filters": "G141",
+   "target_name": "HD-258439",
+   "obs_id": "hst_12230_b2_wfc3_ir_g141_ibjdb2qw"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12115_05_wfc3_ir_f160w_ibft05",
+  "document": {
+   "t_exptime": 1596.925048,
+   "t_min": 56496.96365678,
+   "t_max": 56497.029319,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12115",
+   "filters": "F160W",
+   "target_name": "M31-B11-F05-IR",
+   "obs_id": "hst_12115_05_wfc3_ir_f160w_ibft05"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14110_02_wfc3_ir_g102_icwc02ic",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57616.16906523,
+   "t_max": 57616.17025857,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14110",
+   "filters": "G102",
+   "target_name": "HAT-P-26",
+   "obs_id": "hst_14110_02_wfc3_ir_g102_icwc02ic"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icfi11foq",
+  "document": {
+   "t_exptime": 602.937317,
+   "t_min": 56810.81607461806,
+   "t_max": 56810.823053125,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13564",
+   "filters": "F126N",
+   "target_name": "TUNGSTEN",
+   "obs_id": "icfi11foq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11677_03_wfc3_ir_f110w_ib6v03",
+  "document": {
+   "t_exptime": 3035.6361770000003,
+   "t_min": 55271.18816652,
+   "t_max": 55271.22473985,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11677",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_11677_03_wfc3_ir_f110w_ib6v03"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iddq24020",
+  "document": {
+   "t_exptime": 797.696046,
+   "t_min": 57798.76420416667,
+   "t_max": 57798.77068862269,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14808",
+   "filters": "F105W",
+   "target_name": "CAAX",
+   "obs_id": "iddq24020"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13431_01_wfc3_ir_g141_icab01ch",
+  "document": {
+   "t_exptime": 46.695518,
+   "t_min": 56820.15395867,
+   "t_max": 56820.15449904,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13431",
+   "filters": "G141",
+   "target_name": "WASP-19CEN",
+   "obs_id": "hst_13431_01_wfc3_ir_g141_icab01ch"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14682_01_wfc3_ir_g141_idax01x1",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57758.11562282,
+   "t_max": 57758.11681653,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14682",
+   "filters": "G141",
+   "target_name": "K2-18",
+   "obs_id": "hst_14682_01_wfc3_ir_g141_idax01x1"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ievbcbt8q",
+  "document": {
+   "t_exptime": 7.677242,
+   "t_min": 60322.56365285879,
+   "t_max": 60322.56374174768,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17098",
+   "filters": "F098M",
+   "target_name": "V-V459-CYG",
+   "obs_id": "ievbcbt8q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11343_g5_wfc3_ir_total_ia4tg5",
+  "document": {
+   "t_exptime": 2396.928712,
+   "t_min": 55116.34592886,
+   "t_max": 55116.40757516,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11343",
+   "filters": "detection",
+   "target_name": "GRB051022-HOST-GALAXY",
+   "obs_id": "hst_11343_g5_wfc3_ir_total_ia4tg5"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#if0117kqq",
+  "document": {
+   "t_exptime": 252.937439,
+   "t_min": 60137.39667681713,
+   "t_max": 60137.39960420139,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17023",
+   "filters": "F160W",
+   "target_name": "OMEGACEN",
+   "obs_id": "if0117kqq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idax01twq",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57757.90379429398,
+   "t_max": 57757.904987650465,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14682",
+   "filters": "G141",
+   "target_name": "K2-18",
+   "obs_id": "idax01twq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idmi03fkq",
+  "document": {
+   "t_exptime": 69.61676,
+   "t_min": 58259.849821724536,
+   "t_max": 58259.85062766204,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15333",
+   "filters": "G141",
+   "target_name": "HD-3167",
+   "obs_id": "idmi03fkq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1229x16y15_wfc3_ir_f139m_all",
+  "document": {
+   "t_exptime": 25.00335,
+   "t_min": 57512.2344209,
+   "t_max": 59050.76488327,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F139M",
+   "target_name": "2MASS-J23062928-0502285",
+   "obs_id": "hst_skycell-p1229x16y15_wfc3_ir_f139m_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1360x18y14_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 14132.192287,
+   "t_min": 56382.32161725,
+   "t_max": 57825.25058171,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "COSMOS-0000",
+   "obs_id": "hst_skycell-p1360x18y14_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iegh01t3q",
+  "document": {
+   "t_exptime": 102.934334,
+   "t_min": 59305.89501122685,
+   "t_max": 59305.89620269676,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16407",
+   "filters": "G141",
+   "target_name": "VY2-2",
+   "obs_id": "iegh01t3q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0200x02y16_wfc3_ir_f125w_coarse-all",
+  "document": {
+   "t_exptime": 2767.621034,
+   "t_min": 60792.11210478,
+   "t_max": 60852.20851878,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F125W",
+   "target_name": "W0503-5648",
+   "obs_id": "hst_skycell-p0200x02y16_wfc3_ir_f125w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_62_wfc3_ir_g141_iccz62mi",
+  "document": {
+   "t_exptime": 14.970785,
+   "t_min": 56916.54262375,
+   "t_max": 56916.54279708,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "HD-209458",
+   "obs_id": "hst_13467_62_wfc3_ir_g141_iccz62mi"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_17300_01_wfc3_ir_total_if4101",
+  "document": {
+   "t_exptime": 2423.507816,
+   "t_min": 60125.56476618,
+   "t_max": 60125.6413047,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17300",
+   "filters": "detection",
+   "target_name": "SN2021GNO",
+   "obs_id": "hst_17300_01_wfc3_ir_total_if4101"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15698_05_wfc3_ir_g141_idz205jo",
+  "document": {
+   "t_exptime": 111.756798,
+   "t_min": 58799.27241772,
+   "t_max": 58799.27371142,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15698",
+   "filters": "G141",
+   "target_name": "HD-219666",
+   "obs_id": "hst_15698_05_wfc3_ir_g141_idz205jo"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_17367_01_wfc3_ir_f105w_if6o01",
+  "document": {
+   "t_exptime": 8.796873000000001,
+   "t_min": 60385.80182381,
+   "t_max": 60385.8075753,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17367",
+   "filters": "F105W",
+   "target_name": "GD-153",
+   "obs_id": "hst_17367_01_wfc3_ir_f105w_if6o01"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14241_i1_wfc3_ir_g141_icyti1li",
+  "document": {
+   "t_exptime": 112.007996,
+   "t_min": 57679.81851074,
+   "t_max": 57679.81980741,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14241",
+   "filters": "G141",
+   "target_name": "2M0825+2115-HI-L",
+   "obs_id": "hst_14241_i1_wfc3_ir_g141_icyti1li"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1228x07y01_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 2243.086857,
+   "t_min": 56572.34114655,
+   "t_max": 56572.37412359,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "RASS6156",
+   "obs_id": "hst_skycell-p1228x07y01_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15065_05_wfc3_ir_f110w_idig05",
+  "document": {
+   "t_exptime": 2196.928101,
+   "t_min": 58655.37498077,
+   "t_max": 58655.44662707,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15065",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_15065_05_wfc3_ir_f110w_idig05"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13280_a3_wfc3_ir_g141_ica7a3vx",
+  "document": {
+   "t_exptime": 7.6243,
+   "t_min": 56604.38999679,
+   "t_max": 56604.39008494,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13280",
+   "filters": "G141",
+   "target_name": "2MASS-J10491891-5319100",
+   "obs_id": "hst_13280_a3_wfc3_ir_g141_ica7a3vx"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ifk105010",
+  "document": {
+   "t_exptime": 597.692871,
+   "t_min": 61234.536252349535,
+   "t_max": 61234.55506269676,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17910",
+   "filters": "F127M",
+   "target_name": "NGC-6822",
+   "obs_id": "ifk105010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2325x15y19_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 697.12848,
+   "t_min": 61004.50086483,
+   "t_max": 61004.56947928,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "538",
+   "obs_id": "hst_skycell-p2325x15y19_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14767_96_wfc3_ir_g141_id9m96u3",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57695.34194852,
+   "t_max": 57695.34314223,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14767",
+   "filters": "G141",
+   "target_name": "WASP-76",
+   "obs_id": "hst_14767_96_wfc3_ir_g141_id9m96u3"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13779_4g_wfc3_ir_g102_icoi4gx5",
+  "document": {
+   "t_exptime": 702.938171,
+   "t_min": 57327.14957079,
+   "t_max": 57327.15770671,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13779",
+   "filters": "G102",
+   "target_name": "FIGS-GN2",
+   "obs_id": "hst_13779_4g_wfc3_ir_g102_icoi4gx5"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibje26010",
+  "document": {
+   "t_exptime": 356,
+   "t_min": 55601.07996739583,
+   "t_max": 55601.08480482639,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12184",
+   "filters": "F105W",
+   "target_name": "CFHTJ1509-1749",
+   "obs_id": "ibje26010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ie3z01m6q",
+  "document": {
+   "t_exptime": 92.53801,
+   "t_min": 58796.36902662037,
+   "t_max": 58796.370097719904,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15820",
+   "filters": "G141",
+   "target_name": "HD-195689",
+   "obs_id": "ie3z01m6q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iebo8ahaq",
+  "document": {
+   "t_exptime": 252.986755,
+   "t_min": 59429.25320616898,
+   "t_max": 59429.25613394676,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16249",
+   "filters": "G102",
+   "target_name": "WD2126+734",
+   "obs_id": "iebo8ahaq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ieap03pmq",
+  "document": {
+   "t_exptime": 69.61676,
+   "t_min": 59415.09614579861,
+   "t_max": 59415.096951354164,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16307",
+   "filters": "G141",
+   "target_name": "HD-185603B",
+   "obs_id": "ieap03pmq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idxq02040",
+  "document": {
+   "t_exptime": 1196.9292,
+   "t_min": 58722.45346640046,
+   "t_max": 58722.46946454861,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15628",
+   "filters": "F105W",
+   "target_name": "CFHTWIR-OPH57-FOLLOWUP",
+   "obs_id": "idxq02040"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibh716caq",
+  "document": {
+   "t_exptime": 36.019581,
+   "t_min": 55622.919602581016,
+   "t_max": 55622.920019247686,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12181",
+   "filters": "G141",
+   "target_name": "TRES-3",
+   "obs_id": "ibh716caq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iddn04040",
+  "document": {
+   "t_exptime": 74.020478,
+   "t_min": 57755.12532207176,
+   "t_max": 57755.1268846875,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14883",
+   "filters": "F153M",
+   "target_name": "GD153",
+   "obs_id": "iddn04040"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ifdg02ljq",
+  "document": {
+   "t_exptime": 5.864582,
+   "t_min": 60624.63097650463,
+   "t_max": 60624.63104467592,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17688",
+   "filters": "F140W",
+   "target_name": "GD-71",
+   "obs_id": "ifdg02ljq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icdx71020",
+  "document": {
+   "t_exptime": 2106,
+   "t_min": 56636.766692094905,
+   "t_max": 56636.79130949074,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13352",
+   "filters": "G102",
+   "target_name": "ANY",
+   "obs_id": "icdx71020"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idtn1gpwq",
+  "document": {
+   "t_exptime": 102.934334,
+   "t_min": 58513.35966461805,
+   "t_max": 58513.36085575231,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15592",
+   "filters": "F153M",
+   "target_name": "DARK-EARTH-CALIB",
+   "obs_id": "idtn1gpwq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iccf12ecq",
+  "document": {
+   "t_exptime": 14.970785,
+   "t_min": 56702.39890292824,
+   "t_max": 56702.39907627315,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13338",
+   "filters": "G141",
+   "target_name": "GJ436",
+   "obs_id": "iccf12ecq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p2055x10y06_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 7328.326598999999,
+   "t_min": 55236.69285337,
+   "t_max": 57842.37619944,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "ISCSJ1432.3+3253",
+   "obs_id": "hst_skycell-p2055x10y06_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1362x06y19_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 2611.750976,
+   "t_min": 58946.75482892,
+   "t_max": 58987.34363802,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "ANY",
+   "obs_id": "hst_skycell-p1362x06y19_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1403x18y03_wfc3_ir_f098m_coarse-all",
+  "document": {
+   "t_exptime": 1205.868286,
+   "t_min": 56146.35622986,
+   "t_max": 56146.37090504,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F098M",
+   "target_name": "GETA2",
+   "obs_id": "hst_skycell-p1403x18y03_wfc3_ir_f098m_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14793_02_wfc3_ir_g102_id8402yu",
+  "document": {
+   "t_exptime": 81.089142,
+   "t_min": 57674.87846482,
+   "t_max": 57674.87940334,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14793",
+   "filters": "G102",
+   "target_name": "HAT-P-11",
+   "obs_id": "hst_14793_02_wfc3_ir_g102_id8402yu"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12550_32_wfc3_ir_g141_ibt632hp",
+  "document": {
+   "t_exptime": 223.73819,
+   "t_min": 56160.28371459,
+   "t_max": 56160.28630422,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12550",
+   "filters": "G141",
+   "target_name": "SDSSJ090900.73+652527.2",
+   "obs_id": "hst_12550_32_wfc3_ir_g141_ibt632hp"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14218_02_wfc3_ir_g141_icz402ui",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57565.57003565,
+   "t_max": 57565.57122935,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14218",
+   "filters": "G141",
+   "target_name": "KEPLER-51",
+   "obs_id": "hst_14218_02_wfc3_ir_g141_icz402ui"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12283_1a_wfc3_ir_f110w_ibl91a",
+  "document": {
+   "t_exptime": 227.93692,
+   "t_min": 55733.6415678,
+   "t_max": 55733.64420594,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12283",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_12283_1a_wfc3_ir_f110w_ibl91a"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14098_1s_wfc3_ir_f140w_iczp1s",
+  "document": {
+   "t_exptime": 705.879028,
+   "t_min": 57661.89337551,
+   "t_max": 57661.90226366,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14098",
+   "filters": "F140W",
+   "target_name": "EMACSJ0045.2-0151",
+   "obs_id": "hst_14098_1s_wfc3_ir_f140w_iczp1s"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1221x06y15_wfc3_ir_f140w_all",
+  "document": {
+   "t_exptime": 705.879028,
+   "t_min": 59736.78366491,
+   "t_max": 59736.79263417,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F140W",
+   "target_name": "EMACSJ2106.8-0510",
+   "obs_id": "hst_skycell-p1221x06y15_wfc3_ir_f140w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_16267_02_wfc3_ir_g141_iect02aa",
+  "document": {
+   "t_exptime": 51.703209,
+   "t_min": 59354.45937227,
+   "t_max": 59354.45997079,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16267",
+   "filters": "G141",
+   "target_name": "HIP41378",
+   "obs_id": "hst_16267_02_wfc3_ir_g141_iect02aa"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12105_07_wfc3_ir_f160w_ibfg07",
+  "document": {
+   "t_exptime": 1696.925659,
+   "t_min": 55916.29095871,
+   "t_max": 55916.32402834,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12105",
+   "filters": "F160W",
+   "target_name": "M31-B06-F07-IR",
+   "obs_id": "hst_12105_07_wfc3_ir_f160w_ibfg07"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12104_a9_wfc3_ir_f105w_ibfma9",
+  "document": {
+   "t_exptime": 1508.801514,
+   "t_min": 55754.29502916,
+   "t_max": 55754.31392879,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12104",
+   "filters": "F105W",
+   "target_name": "RXJ1347-1145",
+   "obs_id": "hst_12104_a9_wfc3_ir_f105w_ibfma9"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15333_54_wfc3_ir_g141_idmi54e2",
+  "document": {
+   "t_exptime": 69.61676,
+   "t_min": 59036.02670883,
+   "t_max": 59036.02751438,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15333",
+   "filters": "G141",
+   "target_name": "HD-3167",
+   "obs_id": "hst_15333_54_wfc3_ir_g141_idmi54e2"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_62_wfc3_ir_g141_iccz62n8",
+  "document": {
+   "t_exptime": 14.970785,
+   "t_min": 56916.56067931,
+   "t_max": 56916.56085264,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "HD-209458",
+   "obs_id": "hst_13467_62_wfc3_ir_g141_iccz62n8"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0295x07y10_wfc3_ir_f110w_all",
+  "document": {
+   "t_exptime": 808.813355,
+   "t_min": 56238.31709953,
+   "t_max": 56238.52245768,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_skycell-p0295x07y10_wfc3_ir_f110w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15628_80_wfc3_ir_f127m_idxq80",
+  "document": {
+   "t_exptime": 591.610107,
+   "t_min": 58979.85024863,
+   "t_max": 58979.85857271,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15628",
+   "filters": "F127M",
+   "target_name": "SERPENS5",
+   "obs_id": "hst_15628_80_wfc3_ir_f127m_idxq80"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1395x12y08_wfc3_ir_f139m_all",
+  "document": {
+   "t_exptime": 11.058392,
+   "t_min": 55487.46651835,
+   "t_max": 55827.31914143,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F139M",
+   "target_name": "COROT-2",
+   "obs_id": "hst_skycell-p1395x12y08_wfc3_ir_f139m_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12314_51_wfc3_ir_g141_ibkp51ei",
+  "document": {
+   "t_exptime": 112.007996,
+   "t_min": 55844.64897348,
+   "t_max": 55844.65026978,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12314",
+   "filters": "G141",
+   "target_name": "SIMP0136",
+   "obs_id": "hst_12314_51_wfc3_ir_g141_ibkp51ei"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iedwano3q",
+  "document": {
+   "t_exptime": 252.934357,
+   "t_min": 59311.61326380787,
+   "t_max": 59311.616191203706,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16259",
+   "filters": "F160W",
+   "target_name": "COSMOS-F160W-25",
+   "obs_id": "iedwano3q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ifsj01hgq",
+  "document": {
+   "t_exptime": 111.756798,
+   "t_min": 61214.01119583334,
+   "t_max": 61214.012489155095,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "18230",
+   "filters": "G141",
+   "target_name": "WASP-18",
+   "obs_id": "ifsj01hgq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_17192_50_wfc3_ir_g141_if0e50cq",
+  "document": {
+   "t_exptime": 81.089142,
+   "t_min": 60980.40019761,
+   "t_max": 60980.40113613,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17192",
+   "filters": "G141",
+   "target_name": "TOI-1201",
+   "obs_id": "hst_17192_50_wfc3_ir_g141_if0e50cq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ico529i9q",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57362.54330628472,
+   "t_max": 57362.5445,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13665",
+   "filters": "G141",
+   "target_name": "EPIC201912552",
+   "obs_id": "ico529i9q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idxq23010",
+  "document": {
+   "t_exptime": 591.610107,
+   "t_min": 58721.038398993056,
+   "t_max": 58721.04672341435,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15628",
+   "filters": "F127M",
+   "target_name": "TAURUS24",
+   "obs_id": "idxq23010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibcf0cv2q",
+  "document": {
+   "t_exptime": 1.014345,
+   "t_min": 55381.8771903588,
+   "t_max": 55381.87720185185,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11926",
+   "filters": "F125W",
+   "target_name": "P330E",
+   "obs_id": "ibcf0cv2q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iee812zlq",
+  "document": {
+   "t_exptime": 112.007996,
+   "t_min": 60602.742348645836,
+   "t_max": 60602.74364528935,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16181",
+   "filters": "G141",
+   "target_name": "TOI-700",
+   "obs_id": "iee812zlq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iccq010a0",
+  "document": {
+   "t_exptime": 12.22386,
+   "t_min": 56705.63959737268,
+   "t_max": 56705.64553553241,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13331",
+   "filters": "F125W",
+   "target_name": "RE0723+20",
+   "obs_id": "iccq010a0"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibmq53n8q",
+  "document": {
+   "t_exptime": 5.864582,
+   "t_min": 55806.5537341088,
+   "t_max": 55806.55380188658,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12356",
+   "filters": "F140W",
+   "target_name": "VY2-2",
+   "obs_id": "ibmq53n8q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ifgp06nxq",
+  "document": {
+   "t_exptime": 46.695518,
+   "t_min": 60879.19405436343,
+   "t_max": 60879.19459471065,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17832",
+   "filters": "G141",
+   "target_name": "HD-222259A",
+   "obs_id": "ifgp06nxq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#if1672u6q",
+  "document": {
+   "t_exptime": 899.233093,
+   "t_min": 59997.46438024306,
+   "t_max": 59997.47478842593,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17011",
+   "filters": "BLANK",
+   "target_name": "DARK",
+   "obs_id": "if1672u6q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibh711saq",
+  "document": {
+   "t_exptime": 7.677242,
+   "t_min": 55468.46347369213,
+   "t_max": 55468.46356258102,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12181",
+   "filters": "G141",
+   "target_name": "HAT-7",
+   "obs_id": "ibh711saq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ievbanwrq",
+  "document": {
+   "t_exptime": 20.526037,
+   "t_min": 59998.06993579861,
+   "t_max": 59998.07017357639,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17098",
+   "filters": "F160W",
+   "target_name": "V-CS-MON",
+   "obs_id": "ievbanwrq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idbx78k9q",
+  "document": {
+   "t_exptime": 100.651947,
+   "t_min": 57710.51602144676,
+   "t_max": 57710.517186226854,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14537",
+   "filters": "BLANK",
+   "target_name": "DARK",
+   "obs_id": "idbx78k9q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13686_17_wfc3_ir_total_iciu17",
+  "document": {
+   "t_exptime": 48.45943,
+   "t_min": 56956.04578916,
+   "t_max": 56956.04758546,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13686",
+   "filters": "detection",
+   "target_name": "V-S-VUL",
+   "obs_id": "hst_13686_17_wfc3_ir_total_iciu17"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_17192_31_wfc3_ir_g141_if0e31ap",
+  "document": {
+   "t_exptime": 46.695518,
+   "t_min": 60320.01268065,
+   "t_max": 60320.01322102,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "17192",
+   "filters": "G141",
+   "target_name": "HD-86226",
+   "obs_id": "hst_17192_31_wfc3_ir_g141_if0e31ap"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14704_31_wfc3_ir_f110w_id8f31",
+  "document": {
+   "t_exptime": 2011.735352,
+   "t_min": 57985.60988123,
+   "t_max": 57985.66001937,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14704",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "hst_14704_31_wfc3_ir_f110w_id8f31"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_12550_57_wfc3_ir_g141_ibt657cd",
+  "document": {
+   "t_exptime": 112.007996,
+   "t_min": 56121.54389823,
+   "t_max": 56121.5451949,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12550",
+   "filters": "G141",
+   "target_name": "SDSSPJ162414.37+002915.6",
+   "obs_id": "hst_12550_57_wfc3_ir_g141_ibt657cd"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1344x17y03_wfc3_ir_f164n_coarse-all",
+  "document": {
+   "t_exptime": 396.924988,
+   "t_min": 55110.04761886,
+   "t_max": 55110.11502886,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F164N",
+   "target_name": "ORIBSMM39C",
+   "obs_id": "hst_skycell-p1344x17y03_wfc3_ir_f164n_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14096_gd_wfc3_ir_f160w_iczggd",
+  "document": {
+   "t_exptime": 955.8724970000001,
+   "t_min": 57588.76463597,
+   "t_max": 57588.77651004,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14096",
+   "filters": "F160W",
+   "target_name": "ACO-2537-IR",
+   "obs_id": "hst_14096_gd_wfc3_ir_f160w_iczggd"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15333_56_wfc3_ir_g141_idmi56my",
+  "document": {
+   "t_exptime": 138.380508,
+   "t_min": 58989.04365246,
+   "t_max": 58989.04525395,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15333",
+   "filters": "G141",
+   "target_name": "HIP-41378",
+   "obs_id": "hst_15333_56_wfc3_ir_g141_idmi56my"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14664_05_wfc3_ir_g141_ida305yu",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57715.35551402,
+   "t_max": 57715.35670773,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14664",
+   "filters": "G141",
+   "target_name": "KELT-1",
+   "obs_id": "hst_14664_05_wfc3_ir_g141_ida305yu"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14327_1z_wfc3_ir_f105w_icwb1z",
+  "document": {
+   "t_exptime": 897.6969,
+   "t_min": 57348.8649304,
+   "t_max": 57348.87676189,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14327",
+   "filters": "F105W",
+   "target_name": "SPARCSJ0330",
+   "obs_id": "hst_14327_1z_wfc3_ir_f105w_icwb1z"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1238x17y17_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 4823.498536,
+   "t_min": 56852.83817013,
+   "t_max": 56852.9319542,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "SDSS-J012958.51-003539.7",
+   "obs_id": "hst_skycell-p1238x17y17_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#id9m60ffq",
+  "document": {
+   "t_exptime": 138.380508,
+   "t_min": 57857.960585381945,
+   "t_max": 57857.962187233796,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14767",
+   "filters": "G141",
+   "target_name": "WASP-62",
+   "obs_id": "id9m60ffq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13779_4m_wfc3_ir_g102_icoi4mj8",
+  "document": {
+   "t_exptime": 552.93689,
+   "t_min": 57075.79155537,
+   "t_max": 57075.797955,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13779",
+   "filters": "G102",
+   "target_name": "FIGS-GN2",
+   "obs_id": "hst_13779_4m_wfc3_ir_g102_icoi4mj8"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ied501p4q",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 59448.15307291667,
+   "t_max": 59448.154266631944,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16306",
+   "filters": "F153M",
+   "target_name": "2013RM98",
+   "obs_id": "ied501p4q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idtg11h3q",
+  "document": {
+   "t_exptime": 142.945755,
+   "t_min": 59462.073482175925,
+   "t_max": 59462.07513660879,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15491",
+   "filters": "F160W",
+   "target_name": "NGC-6752",
+   "obs_id": "idtg11h3q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_30_wfc3_ir_g141_iccz30jb",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 56605.27497383,
+   "t_max": 56605.27616753,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "WASP-43",
+   "obs_id": "hst_13467_30_wfc3_ir_g141_iccz30jb"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14453_44_wfc3_ir_g141_id2o44ws",
+  "document": {
+   "t_exptime": 8.774724,
+   "t_min": 57491.81286431,
+   "t_max": 57491.81296616,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14453",
+   "filters": "G141",
+   "target_name": "55-CNC",
+   "obs_id": "hst_14453_44_wfc3_ir_g141_id2o44ws"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibe502ebq",
+  "document": {
+   "t_exptime": 1167.646973,
+   "t_min": 55284.61427060185,
+   "t_max": 55284.627785034725,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12087",
+   "filters": "BLANK",
+   "target_name": "DARK",
+   "obs_id": "ibe502ebq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icdg04050",
+  "document": {
+   "t_exptime": 265.30688,
+   "t_min": 56758.55272399305,
+   "t_max": 56758.55622438657,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13418",
+   "filters": "F125W",
+   "target_name": "2M1207B",
+   "obs_id": "icdg04050"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11548_9g_wfc3_ir_total_ib0l9g",
+  "document": {
+   "t_exptime": 2496.170045,
+   "t_min": 55211.7571235,
+   "t_max": 55211.83365424,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11548",
+   "filters": "detection",
+   "target_name": "HOPS-282",
+   "obs_id": "hst_11548_9g_wfc3_ir_total_ib0l9g"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_11502_12_wfc3_ir_f140w_iacr12",
+  "document": {
+   "t_exptime": 2211.74756,
+   "t_min": 55038.88910999,
+   "t_max": 55038.91754703,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11502",
+   "filters": "F140W",
+   "target_name": "NGC-7318B-IR2",
+   "obs_id": "hst_11502_12_wfc3_ir_f140w_iacr12"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#id1k7l010",
+  "document": {
+   "t_exptime": 431,
+   "t_min": 57522.411138310184,
+   "t_max": 57522.4163690625,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14178",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "id1k7l010"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iect02ccq",
+  "document": {
+   "t_exptime": 51.703209,
+   "t_min": 59354.57885153935,
+   "t_max": 59354.579449652774,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16267",
+   "filters": "G141",
+   "target_name": "HIP41378",
+   "obs_id": "iect02ccq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iccs03020",
+  "document": {
+   "t_exptime": 8195.395752,
+   "t_min": 56652.625870219905,
+   "t_max": 56652.78992430556,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13449",
+   "filters": "F110W",
+   "target_name": "COMA-BERENICES-1",
+   "obs_id": "iccs03020"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ibl90jj1q",
+  "document": {
+   "t_exptime": 202.936401,
+   "t_min": 55738.83328140046,
+   "t_max": 55738.83563028935,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "12283",
+   "filters": "F110W",
+   "target_name": "ANY",
+   "obs_id": "ibl90jj1q"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#idm94c040",
+  "document": {
+   "t_exptime": 806,
+   "t_min": 58803.79388549768,
+   "t_max": 58803.81772734954,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15117",
+   "filters": "F160W",
+   "target_name": "MACSJ1149.5+2223",
+   "obs_id": "idm94c040"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#icy002xvq",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57352.582472256945,
+   "t_max": 57352.58366597222,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14260",
+   "filters": "G141",
+   "target_name": "WASP-76",
+   "obs_id": "icy002xvq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#iegi03vyq",
+  "document": {
+   "t_exptime": 5.864582,
+   "t_min": 59220.4914227662,
+   "t_max": 59220.4914909375,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "16408",
+   "filters": "F140W",
+   "target_name": "GRW+70D5824",
+   "obs_id": "iegi03vyq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#ib2k29efq",
+  "document": {
+   "t_exptime": 452.936035,
+   "t_min": 55208.00710054398,
+   "t_max": 55208.01234274306,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "11644",
+   "filters": "F153M",
+   "target_name": "2001QX322",
+   "obs_id": "ib2k29efq"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13779_4t_wfc3_ir_g102_icoi4ti7",
+  "document": {
+   "t_exptime": 602.937317,
+   "t_min": 57249.14803016,
+   "t_max": 57249.15500868,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13779",
+   "filters": "G102",
+   "target_name": "FIGS-GN2",
+   "obs_id": "hst_13779_4t_wfc3_ir_g102_icoi4ti7"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_18_wfc3_ir_g141_iccz18ma",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 56718.50489918,
+   "t_max": 56718.50609289,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "WASP-12",
+   "obs_id": "hst_13467_18_wfc3_ir_g141_iccz18ma"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0751x12y15_wfc3_ir_f160w_coarse-all",
+  "document": {
+   "t_exptime": 422.073488,
+   "t_min": 55876.80221039,
+   "t_max": 55876.80916076,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "NGC-3393",
+   "obs_id": "hst_skycell-p0751x12y15_wfc3_ir_f160w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p0287x06y07_wfc3_ir_f140w_coarse-all",
+  "document": {
+   "t_exptime": 597.694383,
+   "t_min": 59727.98191713,
+   "t_max": 59727.99042676,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F140W",
+   "target_name": "DESJ2039-5459",
+   "obs_id": "hst_skycell-p0287x06y07_wfc3_ir_f140w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1555x06y08_wfc3_ir_f105w_coarse-all",
+  "document": {
+   "t_exptime": 91.736856,
+   "t_min": 59015.68361624,
+   "t_max": 59021.57838401,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F105W",
+   "target_name": "SN2020LIL",
+   "obs_id": "hst_skycell-p1555x06y08_wfc3_ir_f105w_coarse-all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_skycell-p1327x04y05_wfc3_ir_f160w_all",
+  "document": {
+   "t_exptime": 1211.753908,
+   "t_min": 60140.98141049,
+   "t_max": 60141.00825012,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": null,
+   "filters": "F160W",
+   "target_name": "401100801",
+   "obs_id": "hst_skycell-p1327x04y05_wfc3_ir_f160w_all"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13690_06_wfc3_ir_f130n_icom06",
+  "document": {
+   "t_exptime": 1197.694701,
+   "t_min": 56976.96259511,
+   "t_max": 56977.03089622,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13690",
+   "filters": "F130N",
+   "target_name": "IRAS05129+5128",
+   "obs_id": "hst_13690_06_wfc3_ir_f130n_icom06"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15733_12_wfc3_ir_f160w_ie8812",
+  "document": {
+   "t_exptime": 252.937439,
+   "t_min": 58911.21115918,
+   "t_max": 58911.21408659,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15733",
+   "filters": "F160W",
+   "target_name": "OMEGACEN",
+   "obs_id": "hst_15733_12_wfc3_ir_f160w_ie8812"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_13467_16_wfc3_ir_g141_iccz16sv",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 56673.93159928,
+   "t_max": 56673.93279298,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "13467",
+   "filters": "G141",
+   "target_name": "WASP-12",
+   "obs_id": "hst_13467_16_wfc3_ir_g141_iccz16sv"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_15843_2m_wfc3_ir_f140w_ie282m",
+  "document": {
+   "t_exptime": 705.879028,
+   "t_min": 58771.09850251,
+   "t_max": 58771.10739102,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "15843",
+   "filters": "F140W",
+   "target_name": "EMACSJ0841.8-0429",
+   "obs_id": "hst_15843_2m_wfc3_ir_f140w_ie282m"
+  }
+ },
+ {
+  "source": "hst",
+  "kind": "observation",
+  "url": "https://mast.stsci.edu/api/v0/invoke#hst_14218_02_wfc3_ir_g141_icz402ts",
+  "document": {
+   "t_exptime": 103.128586,
+   "t_min": 57565.50662157,
+   "t_max": 57565.50781528,
+   "instrument_name": "WFC3/IR",
+   "proposal_id": "14218",
+   "filters": "G141",
+   "target_name": "KEPLER-51",
+   "obs_id": "hst_14218_02_wfc3_ir_g141_icz402ts"
+  }
+ }
+]

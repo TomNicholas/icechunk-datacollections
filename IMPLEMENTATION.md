@@ -32,8 +32,8 @@ json-constraint ◄───┤                                             ├�
 arrow, no DataFusion. That rule held without strain and is the extractability
 guarantee.
 
-Test suites: **57 Rust tests** (`make test-rust`) including the fixture conformance
-suite and property tests for the three laws, and **53 Python tests**
+Test suites: **61 Rust tests** (`make test-rust`) including the fixture conformance
+suite and property tests for the three laws, and **55 Python tests**
 (`make test-python`) across the bindings, the store, the virtual ingest path, the
 query layer, the pandera translation, the STAC API and the four examples. `make
 test` runs both.

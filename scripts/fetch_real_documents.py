@@ -16,6 +16,11 @@ Two sources, both anonymous HTTP:
   the full `multiscales` / `omero` vocabulary. The richest attribute documents of
   the four domains, and the best test of "constrain the position, do not interpret
   the content".
+- **MAST CAOM** — HST observation metadata, included specifically because it is
+  where the one-ULP float bug came from: `t_exptime` values like
+  `1305.8754880000001` do *not* survive serde_json's default parser, while every
+  float in the other two sources happens to. A corpus is only as good as its worst
+  case, and this is the worst case we know of.
 
 These are Zarr **v2** documents, and that is fine: the constraint language is a
 language over JSON. Using them makes the point that nothing in `json-constraint` is
@@ -31,11 +36,13 @@ import json
 import pathlib
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 OUT = pathlib.Path(__file__).resolve().parents[1] / "spec" / "fixtures" / "real"
 MAST_API = "https://mastapp.site/json/signals"
 MAST_S3 = "https://s3.echo.stfc.ac.uk/mast/level1/shots"
 IDR = "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4"
+MAST_CAOM = "https://mast.stsci.edu/api/v0/invoke"
 IDR_IMAGES = [
     "idr0062A/6001240.zarr",
     "idr0079A/9836839.zarr",
@@ -44,27 +51,59 @@ IDR_IMAGES = [
 ]
 
 
-def get_json(url: str, timeout: int = 30):
+def get_json(url: str, timeout: int = 15):
     with urllib.request.urlopen(url, timeout=timeout) as response:
         return json.load(response)
 
 
 def mast_documents(limit: int) -> list[dict]:
+    """Fetch in parallel — several hundred small objects, one request each."""
     signals = get_json(f"{MAST_API}?per_page=200", timeout=60)
     signals = signals["items"] if isinstance(signals, dict) and "items" in signals else signals
-    out = []
-    for s in signals:
-        if len(out) >= limit:
-            break
+
+    urls = []
+    for s in signals[: limit * 2]:
         base = f"{MAST_S3}/{s['shot_id']}.zarr/{s['source']}/{s['name']}"
-        for suffix, kind in ((".zarray", "array"), (".zattrs", "attributes")):
-            try:
-                doc = get_json(f"{base}{suffix}", timeout=20)
-            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError):
-                continue
-            if doc:
-                out.append({"source": "mastu", "kind": kind, "url": f"{base}{suffix}", "document": doc})
-    return out
+        urls.append((f"{base}/.zarray", "array"))
+        urls.append((f"{base}/.zattrs", "attributes"))
+
+    def one(pair):
+        url, kind = pair
+        try:
+            doc = get_json(url, timeout=15)
+        except Exception:
+            return None
+        return {"source": "mastu", "kind": kind, "url": url, "document": doc} if doc else None
+
+    with ThreadPoolExecutor(max_workers=16) as pool:
+        got = [r for r in pool.map(one, urls) if r]
+    return got[:limit]
+
+
+def hst_documents(limit: int) -> list[dict]:
+    """HST observation metadata as published by MAST, one document per observation."""
+    import urllib.parse
+
+    request = {
+        "service": "Mast.Caom.Filtered",
+        "format": "json",
+        "params": {
+            "columns": "obs_id,instrument_name,filters,t_exptime,t_min,t_max,target_name,proposal_id",
+            "filters": [
+                {"paramName": "obs_collection", "values": ["HST"]},
+                {"paramName": "instrument_name", "values": ["WFC3/IR"]},
+            ],
+            "pagesize": min(limit, 200),
+            "page": 1,
+        },
+    }
+    body = urllib.parse.urlencode({"request": json.dumps(request)}).encode()
+    with urllib.request.urlopen(urllib.request.Request(MAST_CAOM, data=body), timeout=90) as r:
+        payload = json.load(r)
+    return [
+        {"source": "hst", "kind": "observation", "url": f"{MAST_CAOM}#{row['obs_id']}", "document": row}
+        for row in payload.get("data", [])[:limit]
+    ]
 
 
 def idr_documents(limit: int) -> list[dict]:
@@ -90,7 +129,11 @@ def main() -> None:
 
     OUT.mkdir(parents=True, exist_ok=True)
     corpus = []
-    for name, fetch in (("MAST-U", mast_documents), ("IDR OME-Zarr", idr_documents)):
+    for name, fetch in (
+        ("MAST-U", mast_documents),
+        ("IDR OME-Zarr", idr_documents),
+        ("MAST CAOM (HST)", hst_documents),
+    ):
         print(f"fetching {name}…")
         try:
             got = fetch(args.limit)

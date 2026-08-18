@@ -7,7 +7,7 @@ deliberate deviation, and what turned up when the design met real data.
 
 **Where things stand: M0–M6 have a working MVP end to end.** Constraint language,
 store layout, both write paths, SQL query, views, a STAC API, and all four examples.
-55 Rust tests and 53 Python tests pass (`make test`).
+61 Rust tests and 55 Python tests pass (`make test`).
 
 **What wants your attention first**, in order:
 
@@ -72,10 +72,17 @@ Property tests (seeded xorshift rather than proptest — see IMPLEMENTATION.md):
 - [x] `subsumes` reflexive, transitive, antisymmetric up to renaming
 - [x] `substitute` inverts `meet` exactly
 - [x] round-trip over every fixture member
-- [ ] **Not done:** the property tests run over *generated* documents plus the five
-      domain fixtures, not "a few hundred real OME-Zarr and Sentinel-2 `zarr.json`
-      documents from public stores". Worth doing; it is the test most likely to catch
-      an encoding assumption.
+- [x] **Done since:** the laws also run over a cached corpus of **304 real published
+      metadata documents** — MAST-U's archive, IDR OME-Zarr images, HST observation
+      records — fetched by `scripts/fetch_real_documents.py`
+      (`crates/json-constraint/tests/real_documents.rs`; skips if the corpus is absent).
+      One honest limit, checked rather than assumed: none of its 618 fractional values
+      trips serde_json's default parser, so this corpus would *not* have caught the
+      one-ULP bug. The value that does is pinned in `laws.rs`.
+- [x] A fixture generated from a real zarr-python write
+      (`spec/fixtures/constraints/ome-fov-generated.json`), so a change to a codec
+      default or fill-value encoding fails a test instead of silently invalidating the
+      no-canonicalisation assumption.
 
 Answered while building:
 
@@ -132,14 +139,16 @@ Answered while building:
 - [ ] stac-fastapi as the host, pystac-client as the acceptance test — plain FastAPI
       and direct response-shape assertions instead
 
-## M6 — four examples — **done at 20–40 members each**
+## M6 — four examples — **done, all four run at the full 100 members**
 
 - [x] **OME-Zarr** — FOV at level 0, generated locally, implemented first
 - [x] **Sentinel-2 L2A / STAC** — live earth-search metadata, four UTM zones
 - [x] **MAST-U** — live FAIR-MAST metadata
 - [x] **HST** — live MAST CAOM metadata, WFC3/IR only
-- [ ] Run each at the full ~100 members and record timings — they run at 20–40 in the
-      test suite; the cap is enforced in code
+- [x] Run each at the full 100 members: OME-Zarr 4.9 s, Sentinel-2 6.9 s, MAST-U
+      4.5 s, HST 36 s (dominated by the O(N²) `verify()`), all consistent. Costs
+      measured separately by `scripts/timings.py` — appends flat at ~14 ms, widening
+      linear at ~1.2 ms per existing member. See IMPLEMENTATION.md.
 
 Findings, all in `examples/README.md` and IMPLEMENTATION.md:
 
@@ -166,8 +175,9 @@ Findings, all in `examples/README.md` and IMPLEMENTATION.md:
 
 *Scale:*
 
-- [ ] Read the existing Icechunk node-count analysis — still cheap, still worth doing
-      early, and now with a working store to measure
+- [ ] Read the existing Icechunk node-count analysis — **blocked on access**: the
+      HackMD link in PLAN.md returns 403 to anything unauthenticated. Worth sharing
+      or exporting it; everything else about scale waits behind it by design.
 - [ ] Empirical benchmarking beyond ~100 groups
 - [ ] Any resulting upstream Icechunk work
 

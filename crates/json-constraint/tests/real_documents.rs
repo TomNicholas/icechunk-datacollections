@@ -1,13 +1,18 @@
 //! The three laws, over **real published metadata** rather than generated documents.
 //!
-//! `spec/fixtures/real/documents.json` is a cached corpus of Zarr metadata from two
-//! public stores — MAST-U's fusion archive and the IDR's OME-Zarr images — fetched by
-//! `python scripts/fetch_real_documents.py`. If the cache is absent these tests skip,
-//! so the suite stays offline-runnable; CI should fetch it.
+//! `spec/fixtures/real/documents.json` is a cached corpus of published metadata —
+//! MAST-U's fusion archive, the IDR's OME-Zarr images, and HST observation records
+//! from MAST — fetched by `python scripts/fetch_real_documents.py`. If the cache is
+//! absent these tests skip, so the suite stays offline-runnable; CI should fetch it.
 //!
-//! This is the test PLAN.md asks for, and it earns its place: the one-ULP float
-//! parsing bug that made three HST members fail `verify()` would have been caught
-//! here, on real archive floats, rather than by running an example at 100 members.
+//! This is the test PLAN.md asks for. One honest limit, checked rather than assumed:
+//! **the corpus does not currently contain a float that trips serde_json's default
+//! parser.** All 618 of its fractional values round-trip even without
+//! `float_roundtrip`, so this corpus would *not* have caught the one-ULP bug that
+//! made three HST members fail `verify()`. The value that does trip it — an HST
+//! `EXPTIME` of `1305.8754880000001` — is pinned in `laws.rs` instead. A corpus is
+//! only as good as its worst case, and a bigger corpus is not automatically a
+//! better one.
 //!
 //! The corpus is Zarr **v2**, deliberately. The constraint language is a language
 //! over JSON, and nothing in this crate is Zarr-version-specific — or Zarr-specific.
