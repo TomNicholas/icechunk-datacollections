@@ -266,10 +266,9 @@ fn subsumes_is_antisymmetric_up_to_renaming() {
 fn normalise(c: &Constraint) -> Value {
     let mut order: Vec<String> = Vec::new();
     c.root().walk(String::new(), &mut |_, n| match n {
-        Node::Var { name, .. } | Node::Wild { name }
-            if !order.contains(name) => {
-                order.push(name.clone());
-            }
+        Node::Var { name, .. } | Node::Wild { name } if !order.contains(name) => {
+            order.push(name.clone());
+        }
         _ => {}
     });
     fn rewrite(v: &Value, order: &[String]) -> Value {
@@ -334,7 +333,11 @@ fn floats_round_trip_bit_for_bit() {
         // re-spelled `1.7976931348623157e+308`, which is the same double. Equality
         // of descriptions is JSON-value equality throughout — see
         // spec/constraint-language.md §3.1.
-        let reparsed: Value = serde_json::from_str(&serde_json::to_string(&bindings.to_json()).unwrap()).unwrap();
-        assert_eq!(reparsed["a"], doc["a"], "{text} did not survive serialisation");
+        let reparsed: Value =
+            serde_json::from_str(&serde_json::to_string(&bindings.to_json()).unwrap()).unwrap();
+        assert_eq!(
+            reparsed["a"], doc["a"],
+            "{text} did not survive serialisation"
+        );
     }
 }

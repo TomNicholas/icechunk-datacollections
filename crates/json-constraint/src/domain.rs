@@ -106,12 +106,13 @@ impl Domain {
             }
         }
         if (d.ty == Some(ScalarType::String) || d.ty == Some(ScalarType::Boolean))
-            && (d.minimum.is_some() || d.maximum.is_some()) {
-                return Err(Malformed::BadDomain {
-                    var: var_name.to_string(),
-                    reason: "bounds are only meaningful for numeric types".to_string(),
-                });
-            }
+            && (d.minimum.is_some() || d.maximum.is_some())
+        {
+            return Err(Malformed::BadDomain {
+                var: var_name.to_string(),
+                reason: "bounds are only meaningful for numeric types".to_string(),
+            });
+        }
         Ok(d)
     }
 

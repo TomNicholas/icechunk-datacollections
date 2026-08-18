@@ -1,0 +1,67 @@
+name: test
+
+# Not enabled on any remote by me — this file is here so `make test` runs the same
+# way on a machine that is not mine. The network-dependent parts are split out and
+# allowed to fail, because a public archive being slow is not a broken build.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      # Includes the fixture conformance suite, the property tests, and — if the
+      # corpus has been fetched — the real-document tests. They skip if it has not.
+      - run: cargo test --workspace
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv venv --python 3.11 .venv
+      - run: |
+          VIRTUAL_ENV=$PWD/.venv uv pip install -e \
+            "python/datacollections-py[query,stac,pandera,virtual,dev]" maturin httpx
+      - run: cd python/datacollections-py && ../../.venv/bin/maturin develop
+        env:
+          VIRTUAL_ENV: ${{ github.workspace }}/.venv
+      # Every example runs offline from its recorded metadata, so this job needs no
+      # network beyond installing packages.
+      - run: |
+          .venv/bin/python -m pytest \
+            python/datacollections-py/tests python/stac-api-backend/tests examples -q
+
+  live-sources:
+    # The examples against their real APIs — earth-search, mastapp.site, MAST — and
+    # the virtual COG reads. Informational: a public archive having a bad morning
+    # should not turn the tree red.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv venv --python 3.11 .venv
+      - run: |
+          VIRTUAL_ENV=$PWD/.venv uv pip install -e \
+            "python/datacollections-py[query,stac,pandera,virtual,dev]" maturin httpx
+      - run: cd python/datacollections-py && ../../.venv/bin/maturin develop
+        env:
+          VIRTUAL_ENV: ${{ github.workspace }}/.venv
+      - run: |
+          for example in ome_zarr sentinel2_stac mastu hst; do
+            .venv/bin/python examples/$example/run.py -n 10 || exit 1
+          done
+      - run: .venv/bin/python scripts/fetch_real_documents.py --limit 100
+      - run: cargo test -p json-constraint --test real_documents

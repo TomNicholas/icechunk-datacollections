@@ -24,8 +24,8 @@ use json_constraint::{Constraint, Node};
 use serde_json::{json, Map, Value};
 
 fn corpus() -> Vec<(String, Value)> {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../../spec/fixtures/real/documents.json");
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../spec/fixtures/real/documents.json");
     let Ok(text) = std::fs::read_to_string(&path) else {
         eprintln!(
             "skipping: no real-document corpus at {}; run `python scripts/fetch_real_documents.py`",
@@ -49,12 +49,19 @@ fn corpus() -> Vec<(String, Value)> {
 /// extreme: it maximises the number of holes, so the round-trip law is exercised on
 /// every scalar the corpus contains — floats with awkward decimal expansions, empty
 /// strings, unicode, nulls.
-fn abstract_every_scalar(value: &Value, pointer: &str, names: &mut BTreeMap<String, String>) -> Value {
+fn abstract_every_scalar(
+    value: &Value,
+    pointer: &str,
+    names: &mut BTreeMap<String, String>,
+) -> Value {
     match value {
         Value::Object(m) => {
             let mut out = Map::new();
             for (k, v) in m {
-                out.insert(k.clone(), abstract_every_scalar(v, &format!("{pointer}_{k}"), names));
+                out.insert(
+                    k.clone(),
+                    abstract_every_scalar(v, &format!("{pointer}_{k}"), names),
+                );
             }
             Value::Object(out)
         }
@@ -149,7 +156,10 @@ fn meet_rejects_mutations_of_real_documents() {
             let err = c
                 .meet(&mutated)
                 .expect_err(&format!("{url}: mutation at {pointer} was accepted"));
-            assert!(err.mismatches().iter().any(|m| &m.pointer == pointer), "{url}");
+            assert!(
+                err.mismatches().iter().any(|m| &m.pointer == pointer),
+                "{url}"
+            );
         }
     }
 }
