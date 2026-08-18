@@ -127,14 +127,32 @@ validate time — it is simply assembled by the reader. This also answers the M1
 question "does zarrs/VirtualiZarr write consolidated metadata?" for the Icechunk
 substrate: the question is moot there.
 
-**VirtualiZarr 2.5.1 has no TIFF/COG parser.** `virtualizarr.parsers` ships
-`FITSParser`, `HDFParser`, `NetCDF3Parser`, `ZarrParser`, `DMRPPParser` and the
-kerchunk parsers. So the "one ingest path for all examples via VirtualiZarr" plan
-does not yet reach Sentinel-2. Members are written **metadata-only** instead — the
-array exists at full shape and dtype with no chunks — through
-`encoding["materialize"] = False`. `add_item` already routes a Dataset containing
-`ManifestArray`s to VirtualiZarr's Icechunk writer, so the virtual path is wired,
-just unused by the COG example.
+**COGs virtualize through `virtual-tiff`, not through VirtualiZarr itself.**
+`virtualizarr.parsers` ships FITS, HDF, NetCDF3, Zarr, DMRPP and kerchunk parsers but
+no TIFF one; the separate `virtual-tiff` package provides `VirtualTIFF`, and it works
+on the Sentinel-2 COGs. **The Sentinel-2 example is therefore genuinely virtual**:
+each member's group holds chunk references into the public COGs, real pixels read
+back out of it, and **4.3 GB of imagery is addressed by a 0.10 MB store**. That is
+the ingest path PLAN.md wants, on a real archive.
+
+Three things it taught us, all recorded in the example:
+
+- `virtual-tiff` carries the TIFF/GeoTIFF tags through as array attributes, and they
+  genuinely differ per tile (`model_tiepoint` is the scene origin). A **third**
+  domain vocabulary the language constrains in position and declines to interpret,
+  alongside OME's and IMAS's — and the pre-check caught it correctly on the second
+  member.
+- A COG's `codecs` list is whatever the file uses, which is precisely the wildcard's
+  job: replaced wholesale, stored verbatim, reinstated exactly.
+- **Reading a member requires its codecs to be registered.** Without
+  `import virtual_tiff.codecs`, zarr cannot parse the array metadata at all —
+  `UnknownCodecError`. That is the same must-understand argument that made
+  `zarr.group_ref` an Arrow extension type rather than a Zarr dtype, seen from the
+  other side.
+
+The metadata-only path (`encoding["materialize"] = False`) remains for MAST-U and
+HST, whose sources are Zarr v2 and requester-pays FITS respectively, and for the
+offline test runs.
 
 **MAST-U's store, confirmed and then some.**
 `s3://mast/level1/shots/<shot>.zarr` is **Zarr v2** with per-diagnostic subgroups

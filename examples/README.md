@@ -18,7 +18,7 @@ runs all four that way.
 | example | referenced unit | what varies | source of metadata |
 |---|---|---|---|
 | `ome_zarr` | field of view, level 0 | Z-depth, channel count | generated locally |
-| `sentinel2_stac` | tile, full-res level | CRS, affine transform | earth-search STAC API, live |
+| `sentinel2_stac` | tile, full-res level | CRS, transform, GeoTIFF tags, codecs | earth-search STAC + **virtual COGs** |
 | `mastu` | **(shot, diagnostic, signal)** | time-series length, units | mastapp.site, live |
 | `hst` | primary HDU, WFC3/IR | exposure, filter, target | MAST CAOM API, live |
 
@@ -57,12 +57,15 @@ Recorded here because PLAN.md flags the examples section as intent rather than f
    **(shot, diagnostic, signal)**, which is the plan's own technique applied one level
    deeper than it predicted: choose a finer referenced unit and optionality becomes
    member absence again.
-3. **VirtualiZarr 2.5.1 has no TIFF/COG parser** (FITS, HDF, NetCDF3, Zarr, DMRPP,
-   Kerchunk only), so the Sentinel-2 example cannot virtualize the COGs. Members are
-   written **metadata-only** — full shape, dtype and dimension names, no chunks —
-   via `encoding["materialize"] = False`. Same stopgap in MAST-U and HST. When a TIFF
-   parser lands, only each example's `build_member` changes; `add_item` already
-   routes a Dataset of `ManifestArray`s through VirtualiZarr's Icechunk writer.
+3. **COGs virtualize through the separate `virtual-tiff` package** — VirtualiZarr
+   itself ships no TIFF parser. So the Sentinel-2 members are **genuinely virtual**:
+   chunk references into the public COGs, real pixels readable back, and 4.3 GB of
+   imagery addressed by a 0.10 MB store. Two consequences worth seeing: the GeoTIFF
+   tags arrive as array attributes and differ per tile (a third opaque domain
+   vocabulary), and reading a member needs `import virtual_tiff.codecs` or zarr
+   cannot parse its metadata at all. MAST-U and HST stay metadata-only
+   (`encoding["materialize"] = False`) because their sources are Zarr v2 and
+   requester-pays FITS.
 4. **Icechunk does not support Zarr consolidated metadata at all** —
    `zarr.consolidate_metadata` raises on an `IcechunkStore`. A member's description
    is therefore *derived* from the group's children rather than read from a stored

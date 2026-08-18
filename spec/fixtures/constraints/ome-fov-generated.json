@@ -1,0 +1,1163 @@
+{
+  "name": "ome-fov-generated",
+  "why": "Emitted by scripts/make_generated_fixture.py from a real zarr-python write (zarr 3.1.6, icechunk 1.1.21). Records what the writer actually produced rather than what we believe it produces, so a change to a codec default or a fill_value encoding fails here instead of silently invalidating the no-canonicalisation assumption.",
+  "constraint": {
+    "zarr_format": 3,
+    "node_type": "group",
+    "attributes": {
+      "ome": {
+        "version": "0.5",
+        "multiscales": {
+          "$wild": "multiscales"
+        },
+        "omero": {
+          "$wild": "omero"
+        }
+      },
+      "acquisition": {
+        "nz": {
+          "$var": "nz",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "nchannels": {
+          "$var": "nc",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      }
+    },
+    "consolidated_metadata": {
+      "kind": "inline",
+      "must_understand": false,
+      "metadata": {
+        "0": {
+          "shape": [
+            {
+              "$var": "nc",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$var": "nz",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            },
+            256,
+            256
+          ],
+          "data_type": "uint16",
+          "chunk_grid": {
+            "name": "regular",
+            "configuration": {
+              "chunk_shape": [
+                1,
+                1,
+                256,
+                256
+              ]
+            }
+          },
+          "chunk_key_encoding": {
+            "name": "default",
+            "configuration": {
+              "separator": "/"
+            }
+          },
+          "fill_value": 0,
+          "codecs": [
+            {
+              "name": "bytes",
+              "configuration": {
+                "endian": "little"
+              }
+            },
+            {
+              "name": "zstd",
+              "configuration": {
+                "level": 0,
+                "checksum": false
+              }
+            }
+          ],
+          "attributes": {},
+          "dimension_names": [
+            "c",
+            "z",
+            "y",
+            "x"
+          ],
+          "zarr_format": 3,
+          "node_type": "array",
+          "storage_transformers": []
+        }
+      }
+    }
+  },
+  "members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": [
+              {
+                "name": "P01/A1/0",
+                "axes": [
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [
+                          1.0,
+                          0.5,
+                          0.1625,
+                          0.1625
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "omero": {
+              "channels": [
+                {
+                  "label": "ch0",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                }
+              ]
+            }
+          },
+          "acquisition": {
+            "nz": 1,
+            "nchannels": 1
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                1,
+                1,
+                256,
+                256
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "multiscales": [
+          {
+            "name": "P01/A1/0",
+            "axes": [
+              {
+                "name": "c",
+                "type": "channel"
+              },
+              {
+                "name": "z",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "y",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "x",
+                "type": "space",
+                "unit": "micrometer"
+              }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      0.5,
+                      0.1625,
+                      0.1625
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "omero": {
+          "channels": [
+            {
+              "label": "ch0",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            }
+          ]
+        },
+        "nz": 1,
+        "nc": 1
+      }
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": [
+              {
+                "name": "P02/B2/1",
+                "axes": [
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [
+                          1.0,
+                          0.5,
+                          0.1625,
+                          0.1625
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "omero": {
+              "channels": [
+                {
+                  "label": "ch0",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                },
+                {
+                  "label": "ch1",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                }
+              ]
+            }
+          },
+          "acquisition": {
+            "nz": 2,
+            "nchannels": 2
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                2,
+                2,
+                256,
+                256
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "multiscales": [
+          {
+            "name": "P02/B2/1",
+            "axes": [
+              {
+                "name": "c",
+                "type": "channel"
+              },
+              {
+                "name": "z",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "y",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "x",
+                "type": "space",
+                "unit": "micrometer"
+              }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      0.5,
+                      0.1625,
+                      0.1625
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "omero": {
+          "channels": [
+            {
+              "label": "ch0",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            },
+            {
+              "label": "ch1",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            }
+          ]
+        },
+        "nz": 2,
+        "nc": 2
+      }
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": [
+              {
+                "name": "P01/C3/2",
+                "axes": [
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [
+                          1.0,
+                          0.5,
+                          0.1625,
+                          0.1625
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "omero": {
+              "channels": [
+                {
+                  "label": "ch0",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                },
+                {
+                  "label": "ch1",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                },
+                {
+                  "label": "ch2",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                }
+              ]
+            }
+          },
+          "acquisition": {
+            "nz": 3,
+            "nchannels": 3
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                3,
+                3,
+                256,
+                256
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "multiscales": [
+          {
+            "name": "P01/C3/2",
+            "axes": [
+              {
+                "name": "c",
+                "type": "channel"
+              },
+              {
+                "name": "z",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "y",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "x",
+                "type": "space",
+                "unit": "micrometer"
+              }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      0.5,
+                      0.1625,
+                      0.1625
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "omero": {
+          "channels": [
+            {
+              "label": "ch0",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            },
+            {
+              "label": "ch1",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            },
+            {
+              "label": "ch2",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            }
+          ]
+        },
+        "nz": 3,
+        "nc": 3
+      }
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": [
+              {
+                "name": "P02/B6/5",
+                "axes": [
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [
+                          1.0,
+                          0.5,
+                          0.1625,
+                          0.1625
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "omero": {
+              "channels": [
+                {
+                  "label": "ch0",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                },
+                {
+                  "label": "ch1",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                },
+                {
+                  "label": "ch2",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                }
+              ]
+            }
+          },
+          "acquisition": {
+            "nz": 6,
+            "nchannels": 3
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                3,
+                6,
+                256,
+                256
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "multiscales": [
+          {
+            "name": "P02/B6/5",
+            "axes": [
+              {
+                "name": "c",
+                "type": "channel"
+              },
+              {
+                "name": "z",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "y",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "x",
+                "type": "space",
+                "unit": "micrometer"
+              }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      0.5,
+                      0.1625,
+                      0.1625
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "omero": {
+          "channels": [
+            {
+              "label": "ch0",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            },
+            {
+              "label": "ch1",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            },
+            {
+              "label": "ch2",
+              "color": "FFFFFF",
+              "window": {
+                "start": 0,
+                "end": 65535
+              }
+            }
+          ]
+        },
+        "nz": 6,
+        "nc": 3
+      }
+    }
+  ],
+  "non_members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": [
+              {
+                "name": "P01/A1/0",
+                "axes": [
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [
+                          1.0,
+                          0.5,
+                          0.1625,
+                          0.1625
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "omero": {
+              "channels": [
+                {
+                  "label": "ch0",
+                  "color": "FFFFFF",
+                  "window": {
+                    "start": 0,
+                    "end": 65535
+                  }
+                }
+              ]
+            }
+          },
+          "acquisition": {
+            "nz": 1,
+            "nchannels": 1
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                1,
+                1,
+                256,
+                256
+              ],
+              "data_type": "uint8",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "why": "dtype is a literal in this cohort"
+    }
+  ],
+  "subsumes": [
+    {
+      "loosened": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "multiscales": {
+              "$wild": "multiscales"
+            },
+            "omero": {
+              "$wild": "omero"
+            }
+          },
+          "acquisition": {
+            "nz": {
+              "$var": "nz",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            },
+            "nchannels": {
+              "$var": "nc",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "0": {
+              "shape": [
+                {
+                  "$var": "nc",
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 8
+                },
+                {
+                  "$var": "nz",
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 64
+                },
+                256,
+                256
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1,
+                    1,
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 0,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "c",
+                "z",
+                "y",
+                "x"
+              ],
+              "zarr_format": 3,
+              "node_type": "array",
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "holds": true,
+      "why": "reflexive"
+    },
+    {
+      "loosened": {
+        "$wild": "everything"
+      },
+      "holds": true,
+      "why": "a wildcard root generalises anything"
+    }
+  ]
+}

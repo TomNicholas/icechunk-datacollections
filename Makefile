@@ -6,8 +6,8 @@ export PYO3_PYTHON = $(PY)
 
 venv:
 	uv venv --python 3.11 .venv
-	VIRTUAL_ENV=$(CURDIR)/.venv uv pip install -e "python/datacollections-py[query,stac,pandera,dev]" \
-		maturin virtualizarr httpx
+	VIRTUAL_ENV=$(CURDIR)/.venv uv pip install -e "python/datacollections-py[query,stac,pandera,virtual,dev]" \
+		maturin httpx
 
 build:
 	cd python/datacollections-py && env -u CONDA_PREFIX VIRTUAL_ENV=$(CURDIR)/.venv $(CURDIR)/.venv/bin/maturin develop

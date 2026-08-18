@@ -8,7 +8,7 @@ session is discarded and the group write goes with it.
 from __future__ import annotations
 
 import dataclasses
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 from . import _datacollections as _rs
 from . import description as _description
@@ -77,6 +77,10 @@ class Collection:
         self._branch = branch
         self._id_seed = id_seed
         self._id_counter = 0
+        # Only meaningful between `create_collection(constraint=None)` and the first
+        # `add_item`, which is when the constraint — and so the table — comes into
+        # existence and the extras can finally be declared alongside it.
+        self._pending_extras: Sequence[ExtraColumn] = ()
         self._attributes = self._read_attributes()
 
     def _read_attributes(self) -> dict | None:
@@ -373,12 +377,6 @@ def create_collection(
 
 def open_collection(repo, branch: str = "main") -> Collection:
     coll = Collection(repo, branch=branch)
-    coll._pending_extras = []
     if coll._attributes is None:
         raise ValueError("no /meta group in this repository — not a DataCollections store")
     return coll
-
-
-# `_pending_extras` only matters between `create_collection` and the first
-# `add_item`, and only when the constraint was deferred.
-Collection._pending_extras: Iterable[ExtraColumn] = ()
