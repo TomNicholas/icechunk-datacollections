@@ -515,19 +515,44 @@ would be, so extraction later is a path change rather than a refactor.
 ```
 datacollections/
 ├── spec/                          (a) normative convention
-│   ├── layout.md                      root table + constraint docs + /groups/<id>
-│   ├── constraint-language.md         the JSON encoding + lattice semantics
-│   └── fixtures/                      conformance stores, shared by every crate
+│   ├── constraint-language.md         JSON encoding + meet/subsumes/substitute semantics
+│   │                                 — substrate-independent, UNBLOCKED
+│   ├── layout.md                      table + constraint doc + /groups/<id>
+│   │                                 — blocked on the substrate question
+│   └── fixtures/                      conformance data, shared by every crate
 ├── crates/
-│   ├── json-constraint/           (b) meet · join · subsumes · substitute
-│   ├── zarr-collection/           (a) layout impl, group attrs, zarr.group_ref
+│   ├── json-constraint/           (b) meet · subsumes · substitute
+│   ├── json-constraint-infer/     (b) join / anti-unification — M7, off the write path
+│   ├── zarr-collection/           (a) layout, group attrs, zarr.group_ref, write paths
 │   ├── zarr-collection-query/     (c) thin layer over zarr-datafusion-search
-│   └── zarr-collection-views/     (d) constraint + row → target JSON
+│   └── zarr-collection-views/     (d) constraint + bindings → target JSON (STAC Items)
 ├── python/
-│   ├── datacollections-py/            pyo3 bindings + create/add_item API (M2)
+│   ├── datacollections-py/            pyo3 bindings; create_collection · add_item ·
+│   │                                  evolve_schema · check; pandera translation
 │   └── stac-api-backend/          (d) stac-fastapi backend, pure Python
-└── examples/                      (e)
+└── examples/                      (e) one per domain, Python
 ```
+
+Dependencies run one way only:
+
+```
+json-constraint ◄── zarr-collection ◄── zarr-collection-query
+        ▲                   ▲       ◄── zarr-collection-views
+        │                   │                    ▲
+json-constraint-infer       └────────────────────┴── datacollections-py
+```
+
+**Inference is a separate crate, not a feature flag.** `join` and anti-unification carry
+the leastness and domain-synthesis questions, and none of it is on the write path. Keeping
+it out of `json-constraint` means the core's API surface is settled without waiting for
+those questions, and M7 can add inference without touching it.
+
+**pandera translation is Python-side.** Pandera is a Python library, so producing *live*
+`DatasetSchema` objects cannot happen in a Rust views crate. Two options: emit pandera's
+serialised YAML/JSON from `zarr-collection-views`, or build the objects in
+`datacollections-py`. Prefer the latter — round-tripping live objects is the point, and
+the serialised form is a lossy intermediary. Noted because it is the one place where the
+"(d) views" boundary does not fall cleanly on the Rust/Python line.
 
 **The one hard dependency rule:** `json-constraint` depends on neither zarrs, nor
 arrow, nor DataFusion. JSON in, JSON out. That rule is the extractability
