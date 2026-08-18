@@ -87,45 +87,43 @@ Leaves are one of:
   variable whose derived domain collapses to one value, promotable to a literal
   (dropping the column) as a storage optimisation.
 
-**No enums. Categorical variation is a cohort, not a domain.** This is what makes
-`join`'s leastness well-defined. With enums permitted, two members with `nt=12` and
-`nt=7` could join to `enum[7,12]`, to `range[7,12]`, or to bare `integer` — all admit
-both inputs, the enum is genuinely tightest, and folding over 10,000 members would put
-10,000 values in the constraint. "Least" would then need an arbitrary widening policy.
-Without enums there is exactly one answer: `range[7,12]`.
+**Constraints are authored, not inferred.** This is the largest scope decision in the
+project. `join` is *not* on the write path: when the schema must change, the user passes
+the new constraint explicitly and the system checks it. That removes anti-unification,
+leastness, widening policy and domain synthesis from v1 entirely.
 
-So the domain language is deliberately tiny. The governing principle: **`join`
-synthesises a domain only where the type has a meaningful order.** Numerics do;
-nothing else does, so everything else widens to an unconstrained variable.
+What this trades: the constraint is no longer guaranteed to be the *tightest* description
+of the members. What it keeps — and this is the half that matters — is that the
+constraint is never *false*, because every member is `meet`-checked on write. **Authoring
+loses tightness, not truth.**
 
-| widening case | `join` produces |
-|---|---|
-| values equal | the literal |
-| both numeric, differing | `$var` with `minimum` / `maximum` |
-| **anything else differing** | `$var`, **unknown** — no domain at all |
+Inference survives as an optional off-path tool, `infer_constraint(members) -> constraint`,
+which is where `join` and anti-unification live. Nothing in the core depends on it.
 
-"Anything else" covers strings, booleans, type mismatches between members, and any
-leaf where the two values are simply incomparable. A widened string leaf is just
-`{"$var": "name"}`; there is no "any string" domain to write, because it would carry no
-information.
+Consequently the operations needed in v1 are:
 
-**`join` never synthesises patterns**, for the same reason enums are excluded: there is
-no unique least regex matching two strings, so synthesising one would reintroduce
-exactly the ambiguity enums caused. Authors may declare a pattern to assert intent;
-`join` then preserves or discards it but never invents one. Same rule as `$expr`.
+- **`meet`** / validate — essential, on every write
+- **`substitute`** — essential, for derivability
+- **`subsumes`** — now load-bearing rather than test-only: a user-supplied constraint must
+  *generalise* the current one, so evolution stays monotonic. Much cheaper than `join`:
+  a structural comparison with no synthesis and no leastness proof.
 
-Leastness stays provable under this scheme: for numerics the interval is uniquely
-least, and for everything else unknown is the only option the language offers.
+**No enums. Categorical variation is a cohort, not a domain.** Retained as a language
+restriction even without inference, because it keeps `subsumes` cheap and stops
+constraints from growing with the data.
 
-Worth noting what this does to `data_type`. It is a string in `zarr.json`, so members
-with differing dtypes widen it to an unknown variable with a per-member column — which
-is exactly the Level-2 heterogeneity case in the README, handled without special
-machinery. Codec names and configurations fall out the same way.
+**Domains are declared inline, and repeated variables must declare identical domains.**
+`{"$var": "nt", "minimum": 1}` carries its domain at the use site, which preserves the
+property that a constraint document looks like the thing it describes. A variable used
+twice must have byte-identical domains at both sites; disagreement is a malformed
+document, caught by the meta-schema rather than silently resolved.
 
-The consequence: **anything genuinely categorical belongs in cohorts.** A collection
-whose members have two different CRSs is either one cohort with an uninformative
-`{"$var": "crs", "type": "string"}`, or — once cohorts exist — two cohorts each with a
-CRS literal. Never one cohort with an enum.
+**Wildcards, for leaves we decline to describe.** A wildcard leaf matches any JSON value,
+and the member's actual value is stored verbatim in its column so `substitute` can
+reinstate it. This is how v1 sidesteps variable-length lists inside `zarr.json`: a
+`codecs` list that differs between members is replaced *in its entirety* by a wildcard,
+rather than being aligned element-wise. Rank differences in `dimension_names` and `shape`
+are likewise a whole-leaf wildcard, not a positional merge.
 
 **A group's description is exactly the contents of its `zarr.json` — chunking
 included.** No projection to a "logical" subset for the MVP. Four consequences worth
@@ -158,7 +156,8 @@ feature — so it stays in v1.
 **Optionality is deferred**, along with cohorts and nesting — see deferred language
 features. In v1 every member must have the same set of arrays and attribute keys.
 Differing array sets is therefore *not* something `join` can widen: `add_item` rejects
-such a member even with `allow_schema_evolution=True`.
+such a member at all; the user would have to author a constraint permitting it, which
+the v1 language cannot express.
 
 **Choose a referenced unit fine enough that members are structurally uniform.** This is
 what lets a language this small handle all four examples, and it is the same move in
@@ -176,14 +175,14 @@ express and is the main reason not to use it.
 
 Operations required:
 
-- `meet` / validate — is this group an instance of the constraint?
-- `join` — least upper bound; widen the constraint to admit a new group.
-  **This is the operation JSON Schema does not have**, and it is what makes the
-  constraint mechanically re-derivable rather than hand-maintained.
-- `subsumes` — is A tighter than B? With cohorts deferred this is only needed to test
-  `join`'s leastness property, so v1 should not over-invest in it.
-- `substitute` — constraint + row bindings → concrete group description. This is
-  what makes STAC Item derivation mechanical.
+- `meet` / validate — is this member an instance of the constraint?
+- `subsumes` — does constraint A generalise B? Gates `evolve_schema`, keeping evolution
+  monotonic.
+- `substitute` — constraint + row bindings → concrete member description. This is what
+  makes STAC Item derivation mechanical.
+- `join` — least upper bound (anti-unification). **Not in v1**; lives in the optional
+  `infer_constraint` tool. Still the operation JSON Schema does not have, which is why
+  the language is ours even though inference is off the critical path.
 
 ### Why not JSON Schema — and where we do use it
 
@@ -267,11 +266,11 @@ when the count varies. Three options were considered:
    no ragged columns, and it stores *less* — `nlevels` plus the level-0 shape
    reconstructs every level.
 
-**Rule that keeps `join` tractable when expressions arrive:** `join` never
-*synthesises* expressions, it only preserves or discards them. Expressions are
-declared by authors or supplied by per-domain templates; anti-unification treats them
-as opaque leaves, so complexity is unchanged. Minimum grammar is probably integer
-arithmetic plus `ceil`/`floor` — keeping it that small is what stops this becoming a
+**Rule that keeps `join` tractable if inference ever arrives:** `join` never
+*synthesises* expressions, patterns or enums — it only preserves or discards them. Since
+inference is off the v1 write path this matters only for the optional `infer_constraint`
+tool, but the rule is what keeps that tool tractable. Minimum `$expr` grammar is probably
+integer arithmetic plus `ceil`/`floor`; keeping it that small is what stops it becoming a
 general expression language.
 
 **Optionality.** "This array may be absent from a member", which needs a boolean-valued
@@ -517,25 +516,25 @@ cannot. See "What is still to decide".
 **M1 — `json-constraint`, deliberately minimal.** Highest risk, zero dependencies,
 so it goes first and in isolation. Scope is exactly:
 
-- literals, and variables — numeric ranges, or unknown for everything else
+- literals, variables with inline domains (numeric ranges), and wildcards
 - **flat groups only** — a group plus its child arrays, one level
 - every member has the same set of arrays and attribute keys
-- `meet`, `join`, `substitute`; `subsumes` only as far as testing needs
+- `meet`, `subsumes`, `substitute`
 
-Explicitly **not** in M1: optionality, nesting, variable cardinality, `$expr`, cohorts,
-enums. See deferred language features.
+Explicitly **not** in M1: `join`/inference, optionality, nesting, variable cardinality,
+`$expr`, cohorts, enums. See deferred language features.
 
-The property tests are as much the deliverable as the code:
+Property tests:
 
-- `join` is commutative, associative, idempotent, and absorbing
-- `join` over a set of instances always validates every one of those instances
-- `join` produces the *least* generaliser, not merely *a* generaliser — i.e.
-  no strictly tighter constraint also admits all the inputs
-- `substitute` inverts abstraction
-- **fold `join` over real corpora** — a few hundred actual OME-Zarr and Sentinel-2
-  groups — and assert every one validates against the result. This is the external
-  check that replaces the rejected CUE oracle, and it is stronger: it tests against
-  reality rather than against another formalism.
+- `meet` accepts every member the constraint was authored for, and rejects mutations of
+  them — checked against a few hundred real OME-Zarr and Sentinel-2 `zarr.json`
+  documents pulled from public stores. This needs no DataCollections store, which is
+  exactly why `json-constraint` has no Zarr dependency.
+- `subsumes` is reflexive, transitive, and antisymmetric up to equality
+- `substitute` inverts abstraction **exactly** — since the description is the whole
+  `zarr.json`, a constraint plus bindings reconstructs it in full
+- round-trip: `substitute(constraint, bindings_of(m)) == description_of(m)` for every
+  member `m`
 
 **M2 — `zarr-collection` + the Python creation API.** Write a store from a set of
 groups, deriving the constraint by folding `join`; read it back; surface the Arrow
@@ -593,43 +592,44 @@ rejections early. It cannot be authoritative, because the exact `zarr.json` depe
 the writer's encoding choices (codecs, chunk shapes), so the real check still happens
 post-write and pre-commit. Two-phase.
 
-#### Schema evolution is opt-in per call
+#### Schema evolution is an explicit, separate call
+
+Because constraints are authored rather than inferred, there is no flag on ingest.
+`add_item` is always strict; changing the schema is its own operation:
 
 ```python
-coll.add_item(ds: xr.Dataset, id: str, allow_schema_evolution: bool = False)
+coll.add_item(ds: xr.Dataset, id: str)          # strict; rejects non-conforming members
+coll.evolve_schema(new_constraint)              # explicit, deliberate, own transaction
 ```
 
-**Default `False`, always.** The mode is a property of the *call*, not of the
-collection — the same collection legitimately wants strict ingest in production and
-permissive ingest while backfilling. Deriving the default from how the collection was
-constructed would be action-at-a-distance and was explicitly rejected.
+`evolve_schema` must:
 
-Bootstrapping still works with this default: the first item on an empty collection is
-schema *creation*, not evolution. Building a heterogeneous collection just means
-passing `allow_schema_evolution=True` in the ingest loop — one explicit flag at the
-call site.
+1. check `subsumes(new_constraint, current_constraint)` — evolution is monotonic, so a
+   new constraint may only loosen. Tightening requires re-validating every existing
+   member and is a separate operation if we ever want it.
+2. create any column the new constraint requires and does not yet have, backfilling it
+   for every existing member by reading their group metadata (decision 2)
+3. commit constraint and columns together
 
-Why it earns its place: evolution is O(N) and therefore expensive, but more
-importantly it is a **semantic event**. In a collection meant to be homogeneous, an
-evolution usually indicates a data-quality problem rather than a feature, and silent
-widening hides bad input. Defaulting to `False` is what makes ingest pipelines
-trustworthy.
+This is strictly simpler than the earlier `allow_schema_evolution` flag: evolution is
+visible in the call site rather than hidden in a boolean, it gets its own transaction,
+and its cost — O(N) in existing members — is attached to an operation the user chose
+rather than to a routine append.
 
-**The rejection message is the whole value of the flag.** "Constraint violation" is
-useless. The actionable message is the *diff* between the current constraint and
-`join(current, item)` — "would widen `time` length from `120` to a domain including
-`137`". That diff is computed anyway in order to decide, so good diagnostics cost
-nothing. Specify this in the spec; a flag with a bad error message just gets turned
-off.
+**Rejection messages still matter most.** `add_item` refusing a member should say *what*
+failed to match — the specific leaf, expected versus actual — not "constraint violation".
+`meet` knows this, so it costs nothing to report.
 
-Natural companion, same machinery, no writes:
+Companion, no writes:
 
 ```python
-coll.would_evolve(ds)   # -> None, or the constraint diff that would result
+coll.check(ds)   # -> None, or the specific mismatches against the current constraint
 ```
 
-Batch ingest additionally wants "report failures without aborting the run", which
-belongs to a bulk-load API rather than to this flag.
+Bootstrapping needs no inference: `create_collection(constraint=None)` takes the first
+member's `zarr.json` **verbatim** as an all-literal constraint. Every subsequent member
+must then match exactly until the user calls `evolve_schema`, which is the point at which
+they say explicitly what is allowed to vary.
 
 Inspiration (deliberately not read yet, to avoid anchoring):
 <https://github.com/earth-mover/icc-prototype>
@@ -934,8 +934,9 @@ Recorded so they are not relitigated as a side effect of implementation work.
   decision 5.
 - **Schema evolution backfills real values by reading the groups** — decision 2. No
   nulls, and no write-once limitation.
-- **`allow_schema_evolution: bool = False`**, always; not derived from how the
-  collection was constructed.
+- **Constraints are authored, not inferred.** `join` is off the write path and lives in
+  an optional `infer_constraint` tool. Evolution is an explicit `evolve_schema` call
+  rather than a flag on ingest.
 - **Cohorts deferred to post-M6**; v1 is single-cohort — decision 3.
 - **Crate naming:** `json-constraint` for the substrate-independent crate; `zarr-`
   prefixes only where there is a genuine zarrs dependency.

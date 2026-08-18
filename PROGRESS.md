@@ -31,57 +31,61 @@ need an answer, reduce its scope instead.
 
 ## M1 — `json-constraint` — unblocked, start here
 
-Scope is deliberately minimal: literals, variables, **flat groups only**, every member
-with the same set of arrays. No optionality, nesting, cardinality, `$expr`, cohorts or
-enums.
+Scope is deliberately minimal: literals, variables with inline numeric-range domains,
+wildcards, **flat groups only**, every member with the same set of arrays and attribute
+keys.
 
-Domain language is tiny by design: `join` synthesises a domain **only where the type has
-a meaningful order**. Numerics widen to a range; strings, booleans and type mismatches
-widen to an unconstrained variable. **No enums** (categorical variation is a cohort) and
-**no synthesised patterns** — both would make "least generaliser" ambiguous. Authors may
-declare patterns; `join` preserves or discards but never invents.
+**Constraints are authored, not inferred** — `join` is off the write path, so
+anti-unification, leastness and domain synthesis are all out of v1. Inference survives as
+an optional off-path `infer_constraint` tool. Authoring loses tightness, not truth: every
+member is still `meet`-checked, so the constraint can never be false.
 
-A group's description is **exactly its `zarr.json`, chunking included**, compared as-is
+A member's description is **exactly its `zarr.json`, chunking included**, compared as-is
 with no canonicalisation — sound only because every member is written by our own
-`add_item`.
+`add_item`. Repeated variables must declare **identical** inline domains. Differing lists
+are replaced **wholesale** by a wildcard rather than aligned element-wise, which is how v1
+avoids variable-length `codecs` lists.
 
 Still open before coding starts:
 
 - [ ] **Does zarrs read and write Zarr v3 consolidated metadata?** Does VirtualiZarr
       write it? The one-document-per-group decision rests on both.
+- [ ] **Do attribute key sets vary in practice?** v1 requires them identical across
+      members. If real OME-NGFF or MAST-U data varies, the narrow fix is optionality for
+      attribute keys specifically — worth knowing before M6 rather than during it.
 
 Implementation:
 
 - [ ] JSON encoding: parse + serialise
-- [ ] Leaf domains delegated to a JSON Schema validator
-- [ ] `meet` / validate
-- [ ] `join` (anti-unification)
+- [ ] Meta-schema (JSON Schema) for constraint documents, incl. identical-domain check
+- [ ] `meet` / validate, with mismatch reporting good enough for user-facing errors
+- [ ] `subsumes`
 - [ ] `substitute`
-- [ ] `subsumes` — only as far as testing `join` needs
+- [ ] Wildcard leaves: match anything, store the value verbatim, reinstate on substitute
 
-Property tests, which are as much the deliverable as the code:
+Property tests:
 
-- [ ] `join` commutative, associative, idempotent, absorbing
-- [ ] `join` over a set of instances validates every one of them
-- [ ] `join` yields the **least** generaliser, not merely a generaliser
-- [ ] `substitute` inverts abstraction
-- [ ] fold `join` over a few hundred real OME-Zarr and Sentinel-2 groups. Note this does
-      **not** depend on M6: it needs only consolidated-metadata JSON pulled from public
-      stores, which is exactly why `json-constraint` has no Zarr dependency.
+- [ ] `meet` accepts real members and rejects mutations of them — a few hundred actual
+      OME-Zarr and Sentinel-2 `zarr.json` documents from public stores. Needs no
+      DataCollections store, which is why this crate has no Zarr dependency.
+- [ ] `subsumes` reflexive, transitive, antisymmetric up to equality
+- [ ] `substitute` inverts **exactly** — full `zarr.json` reconstruction
+- [ ] round-trip over every member: `substitute(c, bindings(m)) == description(m)`
 
 ## M2 — `zarr-collection` + Python API — blocked on substrate
 
 - [ ] Store layout read/write
 - [ ] Arrow schema from Zarr attributes, incl. `zarr.group_ref` extension type
 - [ ] Constraint in `/meta` group attributes, under a cohort-keyed map
-- [ ] Append path (member satisfies the constraint)
-- [ ] Widening append: `join`, backfill new column by reading groups, one transaction
-- [ ] Test: widening append leaves the store byte-equivalent to a from-scratch build
-- [ ] `create_collection(store_or_session, constraint=None)`
-- [ ] `add_item(ds: xr.Dataset, id, allow_schema_evolution=False)`
-- [ ] `would_evolve(ds)`
+- [ ] `add_item(ds, id)` — always strict
+- [ ] `evolve_schema(new_constraint)` — `subsumes` check, backfill new columns by reading
+      members, one transaction
+- [ ] Test: evolve-then-append leaves the store byte-equivalent to a from-scratch build
+- [ ] `create_collection(store_or_session, constraint=None)` — None takes the first
+      member's `zarr.json` verbatim as an all-literal constraint
+- [ ] `check(ds)` — report mismatches without writing
 - [ ] Cheap pre-check from the Dataset before writing the group
-- [ ] Rejection message = the `join` diff
+- [ ] Decide how extra column values are supplied — see unresolved design gaps
 
 ## M3 — query — blocked
 
@@ -115,6 +119,8 @@ Two independent tracks.
 
 *Language depth:*
 
+- [ ] `infer_constraint(members)` — the optional inference tool, where `join` and
+      anti-unification live, along with their leastness and domain-synthesis questions
 - [ ] Optionality (`$present`) — a member may lack an array
 - [ ] Nested groups
 - [ ] Variable cardinality (`$each` / `$count`) — unlocks multiscale and overviews
@@ -145,6 +151,14 @@ Two independent tracks.
       subgroups? Determines the flat referenced unit. Needed before that example.
 - [ ] crates.io availability of `json-constraint` — needed before publishing
 - [ ] FITS-via-kerchunk reader status in VirtualiZarr — needed before HST
+
+## Unresolved design gaps
+
+- [ ] **How do extra column values get supplied?** Decision 6 permits extra columns and
+      the STAC view needs them (`bbox`, `datetime`), but nothing in the API passes or
+      derives them. Also bears on identity: with (shot, diagnostic) as MAST-U's unit,
+      querying "all diagnostics for shot 30420" wants `shot` and `diagnostic` as their
+      own columns, which are extra columns rather than variables.
 
 ---
 
