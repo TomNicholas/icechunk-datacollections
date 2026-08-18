@@ -25,7 +25,7 @@ those groups, such that:
 | (a) | Zarr layout convention — root table + constraint documents + `/groups/<id>` | `spec/` + `crates/zarr-collection` |
 | (b) | Constraint language — define, read, write, validate, substitute | `crates/json-constraint` |
 | (c) | Query engine integration | `crates/zarr-collection-query` over upstream `zarr-datafusion-search` |
-| (d) | STAC API backend + Zarr→STAC mapping | `crates/zarr-collection-views` + `python/stac-api-backend` |
+| (d) | STAC API backend + constraint→STAC mapping | `crates/constraint-views` + `python/stac-api-backend` |
 | (e) | Examples, at least one non-STAC | `examples/` |
 
 ---
@@ -233,7 +233,7 @@ been under inference.
 **2. Export lets users validate in their own code.** `constraint_to_pandera(c)` hands a
 consumer a schema they can check their own Datasets against before attempting `add_item`,
 using tooling they already know. Same shape as the STAC view: a projection of the
-constraint, so it belongs in `zarr-collection-views` (d) rather than in the core.
+constraint, so it belongs in `constraint-views` (d) rather than in the core.
 
 **3. It is the answer if inference is ever wanted.** We do not plan to build inference.
 Should it be asked for, inferring a pandera schema and translating is the route, rather
@@ -511,7 +511,7 @@ datacollections/
 │   ├── json-constraint/           (b) meet · subsumes · substitute
 │   ├── zarr-collection/           (a) layout, group attrs, zarr.group_ref, write paths
 │   ├── zarr-collection-query/     (c) thin layer over zarr-datafusion-search
-│   └── zarr-collection-views/     (d) constraint + bindings → target JSON (STAC Items)
+│   └── constraint-views/          (d) constraint + bindings → target JSON (STAC Items)
 ├── python/
 │   ├── datacollections-py/            pyo3 bindings; create_collection · add_item ·
 │   │                                  evolve_schema · check; pandera translation
@@ -522,15 +522,26 @@ datacollections/
 Dependencies run one way only:
 
 ```
-json-constraint ◄── zarr-collection ◄── zarr-collection-query
-                            ▲       ◄── zarr-collection-views
-                            │                    ▲
-                            └────────────────────┴── datacollections-py
+                    ┌── zarr-collection ◄── zarr-collection-query ◄─┐
+json-constraint ◄───┤                                               ├── datacollections-py
+                    └── constraint-views ◄──────────────────────────┘
 ```
+
+**Two crates depend on `json-constraint` and neither on the other.** `zarr-collection` is
+*storage* — layout, group attributes, `zarr.group_ref`, `add_item`, `evolve_schema` — and
+depends on zarrs, Icechunk and arrow. `constraint-views` is *projection* — constraint plus
+one member's bindings out to some other format — and depends on none of them, because by
+the time it runs everything it needs is plain JSON. It calls `substitute` to obtain the
+member description, then maps that through a declared view mapping.
+
+Hence the name: it is not `zarr-collection-views`, because it has no Zarr dependency and
+would serve anyone deriving STAC Items from a constraint with no Zarr stack at all. Same
+reasoning that made the core crate `json-constraint` rather than `zarr-constraint`.
+`datacollections-py` is what wires storage and projection together.
 
 **pandera translation is Python-side.** Pandera is a Python library, so producing *live*
 `DatasetSchema` objects cannot happen in a Rust views crate. Two options: emit pandera's
-serialised YAML/JSON from `zarr-collection-views`, or build the objects in
+serialised YAML/JSON from `constraint-views`, or build the objects in
 `datacollections-py`. Prefer the latter — round-tripping live objects is the point, and
 the serialised form is a lossy intermediary. Noted because it is the one place where the
 "(d) views" boundary does not fall cleanly on the Rust/Python line.
