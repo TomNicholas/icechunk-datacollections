@@ -249,5 +249,5 @@ store once it stops ignoring attributes.
 - [x] `crates/json-constraint`, `crates/zarr-collection`, `crates/constraint-views`
 - [x] `python/datacollections-py` — pyo3 bindings and the Python API
 - [x] `python/stac-api-backend`
-- [x] `examples/` — four domains, three with no STAC anywhere
+- [x] `examples/` — four domains, each with its own README
 - [x] `IMPLEMENTATION.md` — deviations and findings

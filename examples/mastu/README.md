@@ -1,6 +1,6 @@
 # MAST-U tokamak — fusion
 
-A collection of plasma diagnostic signals from the MAST-U tokamak. No STAC anywhere.
+A collection of plasma diagnostic signals from the MAST-U tokamak.
 
 ```bash
 python examples/mastu/run.py -n 40 --source amc

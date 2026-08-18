@@ -1,4 +1,4 @@
-"""OME-Zarr microscopy — **no STAC anywhere in the stack**.
+"""OME-Zarr microscopy.
 
 Implemented first, deliberately. OME-NGFF has the richest attribute vocabulary of
 the four domains (`multiscales`, `axes`, `coordinateTransformations`, `omero`), so
@@ -122,7 +122,7 @@ def author_constraint(first_description: dict) -> Constraint:
 
 def main() -> None:
     args = parse_args("ome_zarr", default_n=40)
-    banner(f"OME-Zarr: {args.members} fields of view, no STAC in the stack")
+    banner(f"OME-Zarr: {args.members} fields of view at resolution level 0")
 
     repo = fresh_repo(args.store)
     coll = create_collection(
@@ -166,7 +166,7 @@ def main() -> None:
     print(f"  omero channels: {len(reconstructed['attributes']['ome']['omero']['channels'])}")
     print(f"  verify() over the whole collection: {coll.verify() or 'consistent'}")
 
-    banner("A view with no STAC vocabulary in it at all")
+    banner("A view in microscopy's own vocabulary")
     fov_view = View(
         {
             "name": "ome-fov-record",

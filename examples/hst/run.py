@@ -1,4 +1,4 @@
-"""Hubble Space Telescope — astronomy, no STAC.
+"""Hubble Space Telescope — astronomy.
 
 **Scoped to WFC3/IR, and to the primary HDU.** Both restrictions are the same move:
 HDU structure varies by instrument, so WFC3, ACS and COS are genuinely different

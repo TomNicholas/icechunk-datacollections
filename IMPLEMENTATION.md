@@ -17,7 +17,7 @@ crates/zarr-collection/     layout, /meta attributes, zarr.group_ref, append and
 crates/constraint-views/    the view mapping language, and STAC as one instance of it
 python/datacollections-py/  pyo3 bindings + the Python API (create_collection, add_item, …)
 python/stac-api-backend/    a STAC API over a collection
-examples/                   four domains, three with no STAC anywhere
+examples/                   microscopy, geospatial, fusion, astronomy
 ```
 
 Dependencies run exactly one way, as planned:

@@ -1,4 +1,4 @@
-"""MAST-U tokamak — fusion, no STAC anywhere.
+"""MAST-U tokamak — fusion.
 
 The strongest example, because FAIR-MAST is a *live instance of the problem*: it
 publishes a separate JSON REST API for shot metadata alongside the Zarr data, which
@@ -192,7 +192,7 @@ def main() -> None:
           f"chunks {reconstructed['consolidated_metadata']['metadata']['data']['chunk_grid']['configuration']['chunk_shape']}")
     print(f"  verify(): {coll.verify() or 'consistent'}")
 
-    banner("A fusion-shaped view — no STAC vocabulary involved")
+    banner("A fusion-shaped view")
     view = View(
         {
             "name": "mastu-signal-record",

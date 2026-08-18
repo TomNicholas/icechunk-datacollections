@@ -1,7 +1,7 @@
 # Hubble Space Telescope — astronomy
 
 A collection of HST exposures, catalogued from the archive's own observation
-metadata. No STAC anywhere.
+metadata.
 
 ```bash
 python examples/hst/run.py -n 30

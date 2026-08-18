@@ -1,8 +1,7 @@
 # OME-Zarr microscopy
 
-A collection of microscope fields of view. **No STAC anywhere in the stack** — this
-example was built before any STAC code existed, deliberately, as the check that the
-core carries no geospatial assumptions.
+A collection of microscope fields of view. Built first, before any view or STAC code
+existed, as the check that the core carries no geospatial assumptions.
 
 ```bash
 python examples/ome_zarr/run.py -n 40
@@ -68,5 +67,5 @@ SELECT nz, COUNT(*) AS fovs FROM members GROUP BY nz ORDER BY nz
 and each member's full `zarr.json` is reconstructible from its row alone — including
 the `omero` block, verbatim, out of a wildcard column.
 
-The run ends by projecting a member through a view with no STAC vocabulary in it at
-all, which is the same machinery the STAC example uses with a different template.
+The run ends by projecting a member through a view whose template is entirely
+microscopy vocabulary — the same machinery the geospatial example points at STAC.
