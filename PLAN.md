@@ -87,6 +87,56 @@ Leaves are one of:
   variable whose derived domain collapses to one value, promotable to a literal
   (dropping the column) as a storage optimisation.
 
+**No enums. Categorical variation is a cohort, not a domain.** This is what makes
+`join`'s leastness well-defined. With enums permitted, two members with `nt=12` and
+`nt=7` could join to `enum[7,12]`, to `range[7,12]`, or to bare `integer` — all admit
+both inputs, the enum is genuinely tightest, and folding over 10,000 members would put
+10,000 values in the constraint. "Least" would then need an arbitrary widening policy.
+Without enums there is exactly one answer: `range[7,12]`.
+
+So the domain language is deliberately tiny:
+
+| | synthesised by `join` | author-declarable |
+|---|---|---|
+| literal (values equal) | ✅ | ✅ |
+| numeric range (`minimum`/`maximum`) | ✅ | ✅ |
+| bare type | ✅ | ✅ |
+| string pattern | ❌ | ✅ |
+| `$expr` (deferred) | ❌ | ✅ |
+
+**`join` never synthesises patterns**, for the same reason enums are excluded: there is
+no unique least regex matching two strings, so synthesising one would reintroduce
+exactly the ambiguity enums caused. Two differing strings join to bare `string`.
+Authors may add a pattern to assert intent; `join` then preserves or discards it but
+never invents one. Same rule as `$expr`.
+
+The consequence: **anything genuinely categorical belongs in cohorts.** A collection
+whose members have two different CRSs is either one cohort with an uninformative
+`{"$var": "crs", "type": "string"}`, or — once cohorts exist — two cohorts each with a
+CRS literal. Never one cohort with an enum.
+
+**A group's description is exactly the contents of its `zarr.json` — chunking
+included.** No projection to a "logical" subset for the MVP. Four consequences worth
+having deliberately:
+
+- **`substitute` inverts exactly.** Because nothing is dropped, a constraint plus a
+  row's bindings reconstructs the member's `zarr.json` in full. The derivability claim
+  is therefore literal rather than approximate.
+- **Re-chunking a member widens the constraint.** Accepted, not a bug — chunk shape is
+  part of the description, so changing it is a change to the member.
+- **Auto-chunking will manufacture variables you did not want.** Writers that pick chunk
+  shape from array size — as dask and VirtualiZarr often do — will produce members whose
+  `chunk_shape` differs, so `join` turns it into a variable with its own column. Pin
+  chunk shape explicitly at ingest unless that is genuinely what you want.
+- **No canonicalisation, and that is only safe because we own the writer.** Since the
+  description is compared as-is, any serialisation difference is significant: codec
+  defaults written explicitly versus omitted, or `fill_value` encoded differently by
+  different implementations. The existing `zarr-datafusion-search` already carries a
+  patch for exactly this — zarrs and zarr-python disagree on bytes `fill_value`
+  encoding (`ingest.rs:138`). Within one collection every member is written by
+  `add_item`, so provenance is uniform and the comparison is sound. **Ingesting groups
+  written by someone else is where this breaks**, and it is a v2 problem.
+
 **One document per group, via consolidated metadata.** A referenced group's complete
 description is its **consolidated `zarr.json`**, so constraint documents are shaped
 like consolidated metadata and there is no hierarchy walking at validate time. This
@@ -330,9 +380,13 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
    stac-geoparquet's `collections` map — which lets multiple cohorts share one
    physical schema — is the eventual target, not the v1 scope.
 
-   Deferring is cheap because the first three examples do not need cohorts:
-   Sentinel-2's varying CRS is a variable *domain*, MAST-U's varying diagnostics are
-   *optionality*. Only HST genuinely needs them, and it is implemented last.
+   Deferring is cheap because no example is *blocked* without cohorts, though two are
+   left loose. MAST-U's varying diagnostics are *optionality*, so they are fully
+   expressible. Sentinel-2 tiles in differing UTM zones give an uninformative
+   `{"$var": "crs", "type": "string"}` — since enums are excluded, the domain cannot
+   say anything tighter — which is merely imprecise rather than wrong; scoping the v1
+   example to one UTM zone tightens it if desired. HST is the only case that genuinely
+   needs cohorts, and it is implemented last.
 4. **Disjunction restricted to variable domains** — an enum on `crs`, not a choice
    between two whole group shapes. Keeps `subsumes` cheap and keeps `join` from
    growing without bound. Note this restriction is what *creates* the need for
