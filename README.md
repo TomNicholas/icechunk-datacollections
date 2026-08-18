@@ -112,35 +112,47 @@ than the way it is stored — one projection among several, and an optional one.
 | | Single Zarr datacube | Single Zarr DataTree | STAC + COG | STAC + native Zarr | Arrow FixedShapeTensor | RaQuet | Lance | Icechunk DataCollections |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Consistency | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| Scalability | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Scalability | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Uncoordinated writes | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| Domain-agnostic | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
+| Heterogeneous | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
 | Schema-constrained | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| Domain-agnostic | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | N-dimensional | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ |
 
 - **Consistency** — metadata and data stay in sync, transactionally.
-- **Scalability** — holds large numbers of heterogeneous members without the index
-  becoming the bottleneck.
+- **Scalability** — holds large numbers of members without the index becoming the
+  bottleneck.
 - **Uncoordinated writes** — concurrent writers against object storage with no
   external lock service or catalog.
-- **Domain-agnostic** — no baked-in domain vocabulary.
+- **Heterogeneous** — members may differ in structure: shapes, dtypes, which variables
+  are present.
 - **Schema-constrained** — records and enforces what members have in common.
+- **Domain-agnostic** — no baked-in domain vocabulary.
 - **N-dimensional** — native n-d arrays, rather than tables, fixed-grid rasters, or
   opaque blobs.
 
-A few notes, since a table this compact hides its reasoning:
+**The two middle rows are the point.** Read them together and every other column falls
+on one side or the other:
 
-- The first three rows are **inherited from Icechunk**, not invented here. The
-  contribution of this project is combining them with the last three.
-- **A single Zarr datacube scores well by refusing the problem.** It earns
-  "schema-constrained" by admitting only members that already share one schema, which
-  is exactly the failure recorded under "Scalability".
-- **Arrow's FixedShapeTensor is the closest on the schema axis** and still cannot
-  express the motivating case: every tensor must be *identically* shaped, so "same
-  dimension names, differing lengths" is inexpressible.
+- *Heterogeneous but undescribed* — Zarr DataTree, both STAC variants, Lance. They will
+  hold anything and tell you nothing about how the members relate.
+- *Described but homogeneous* — Zarr datacube, Arrow FixedShapeTensor, RaQuet. They
+  describe the members precisely, by admitting only members that are already alike.
+
+Nothing existing does both, and doing both is the thesis.
+
+Further notes, since a table this compact hides its reasoning:
+
+- Rows 1–3 are **inherited from Icechunk**, not invented here. The contribution is
+  combining them with rows 4–7.
+- **Arrow's FixedShapeTensor comes closest on the schema axis** and still cannot express
+  the motivating case: every tensor must be *identically* shaped, so "same dimension
+  names, differing lengths" is inexpressible.
 - **Both STAC rows are unconstrained** because STAC describes assets as opaque and its
-  `summaries` are advisory rather than derived or enforced. Pointing STAC at native
-  Zarr buys n-dimensionality, and nothing else.
+  `summaries` are advisory rather than derived or enforced. Pointing STAC at native Zarr
+  buys n-dimensionality, and nothing else.
 - Plain Zarr gets **uncoordinated writes** because disjoint chunk writes need no
-  coordination; it loses **consistency** because there is no transaction boundary at
-  all.
+  coordination; it loses **consistency** because there is no transaction boundary at all.
+- **Scalability is about the index, not the data.** A Zarr datacube scales to petabytes,
+  so it passes. A Zarr DataTree fails because there is no index at all — answering any
+  question means walking every node.
