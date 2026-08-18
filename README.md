@@ -14,7 +14,7 @@ see why is to ask how much structure each format **fixes in advance**.
     MORE STRICT                                                    LESS STRICT
     ├──────────┬──────────┬────────────┬─────────────────┬───────────┬──────────┤
     single      RaQuet     STAC + COG   DataCollections   xarray.     Lance
-    Zarr                                                  DataTree    blob
+    Zarr                                                  DataTree    Blob V2
     datacube
 ```
 
@@ -72,12 +72,17 @@ The relationship is additive rather than competitive:
 > **DataCollections ≈ DataTree + a derived description of what siblings share + a
 > queryable index over what they do not.**
 
-### Lance blob is not strict enough
+### Lance Blob V2 is not strict enough
 
 Lance's blob columns give you a table of references to large out-of-line objects with
 queryable metadata alongside — structurally close to what we want. But the referent is
 an **opaque byte sequence**. Nothing describes what is inside it, so nothing is
 verifiable and nothing is derivable. A blob has no schema to be consistent about.
+
+Blob V2 is genuinely sophisticated about *placement* — it negotiates inline, packed,
+dedicated or external storage per column per batch according to value size. But that
+decides where the bytes live, not whether anything knows what they mean, so it moves
+nothing on the axis that matters here.
 
 Note that `DataTree` and Lance blobs are too loose in *opposite* directions, which is
 what makes the pair instructive. Lance has the queryable table and an opaque referent;
@@ -109,7 +114,7 @@ than the way it is stored — one projection among several, and an optional one.
 
 ### Summary
 
-| | Icechunk Zarr datacube | Icechunk Zarr DataTree | STAC + COG | STAC + native Zarr | Iceberg + Arrow FixedShapeTensor | RaQuet | Lance | Icechunk DataCollections |
+| | Icechunk Zarr datacube | Icechunk Zarr DataTree | STAC + COG | STAC + native Zarr | Iceberg + Arrow FixedShapeTensor | RaQuet | Lance Blob V2 | Icechunk DataCollections |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Consistency | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | Scalable data | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
@@ -137,8 +142,8 @@ than the way it is stored — one projection among several, and an optional one.
 **The two middle rows are the point.** Read them together and every other column falls
 on one side or the other:
 
-- *Heterogeneous but undescribed* — Icechunk Zarr DataTree, both STAC variants, Lance.
-  They will hold anything and tell you nothing about how the members relate.
+- *Heterogeneous but undescribed* — Icechunk Zarr DataTree, both STAC variants, Lance
+  Blob V2. They will hold anything and tell you nothing about how the members relate.
 - *Described but homogeneous* — Icechunk Zarr datacube, Iceberg + Arrow
   FixedShapeTensor, RaQuet. They describe the members precisely, by admitting only
   members that are already alike.
