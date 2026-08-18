@@ -34,6 +34,7 @@ pub fn plan_append(
     member_id: &str,
     bindings: &Bindings,
     extras: &Map<String, Value>,
+    description: &Value,
 ) -> Result<AppendPlan, LayoutError> {
     let mut row = Row::new();
     row.insert(MEMBER_ID.to_string(), Value::String(member_id.to_string()));
@@ -51,10 +52,22 @@ pub fn plan_append(
                 row.insert(col.name.clone(), col.encode(v)?);
             }
             Role::Extra => {
-                let v = extras
-                    .get(&col.name)
-                    .ok_or_else(|| LayoutError::MissingExtraValue(col.name.clone()))?;
-                row.insert(col.name.clone(), col.encode(v)?);
+                // A *retained* column — one demoted from a variable by a later
+                // constraint — is still recomputable, so the caller is not asked for
+                // it. Only genuinely caller-supplied extras are.
+                let v = match &col.source_pointer {
+                    Some(pointer) => description.pointer(pointer).cloned().ok_or_else(|| {
+                        LayoutError::MissingColumn {
+                            name: col.name.clone(),
+                            why: format!("retained column expects a value at {pointer}"),
+                        }
+                    })?,
+                    None => extras
+                        .get(&col.name)
+                        .cloned()
+                        .ok_or_else(|| LayoutError::MissingExtraValue(col.name.clone()))?,
+                };
+                row.insert(col.name.clone(), col.encode(&v)?);
             }
         }
     }
@@ -149,14 +162,21 @@ pub fn plan_evolve(
             continue;
         }
         let was_constraint_column = matches!(old.role, Role::Variable | Role::Wildcard);
-        if was_constraint_column {
-            demoted.push(old.name.clone());
-        }
-        columns.push(Column {
+        let mut retained = Column {
             role: Role::Extra,
             cohort: None,
             ..old.clone()
-        });
+        };
+        if was_constraint_column {
+            demoted.push(old.name.clone());
+            // Keep the column *and* keep it recomputable: record the position its
+            // value came from, so later appends can still fill it without the caller
+            // being asked for something they never chose.
+            retained.source_pointer = current
+                .declaration(&old.name)
+                .and_then(|d| d.pointers.first().cloned());
+        }
+        columns.push(retained);
     }
 
     let new_metadata = CollectionMetadata {
@@ -234,6 +254,7 @@ mod tests {
             "0123456789abcdef0123456789abcdef",
             &bindings,
             json!({"shot": 30420}).as_object().unwrap(),
+            &member,
         )
         .unwrap();
         assert_eq!(plan.group_path, "/groups/0123456789abcdef0123456789abcdef");
@@ -250,7 +271,7 @@ mod tests {
         let member = json!({"shape": [42], "codecs": []});
         let b = meta.sole_constraint().unwrap().meet(&member).unwrap();
         assert!(matches!(
-            plan_append(&meta, "x", &b, &Map::new()),
+            plan_append(&meta, "x", &b, &Map::new(), &member),
             Err(LayoutError::MissingExtraValue(_))
         ));
         assert!(matches!(
@@ -258,7 +279,8 @@ mod tests {
                 &meta,
                 "x",
                 &b,
-                json!({"shot": 1, "nope": 2}).as_object().unwrap()
+                json!({"shot": 1, "nope": 2}).as_object().unwrap(),
+                &member
             ),
             Err(LayoutError::UnknownColumn(_))
         ));
@@ -294,6 +316,38 @@ mod tests {
         let col = plan.new_metadata.schema.get("a").unwrap();
         assert_eq!(col.role, Role::Wildcard);
         assert!(col.is_json_encoded());
+    }
+
+    #[test]
+    fn a_retained_column_is_filled_from_the_description_not_from_the_caller() {
+        // The trap this closes: without a source pointer, a column demoted by an
+        // evolution becomes an ordinary extra, and every later append demands a value
+        // for something the caller never chose and cannot know.
+        let meta = CollectionMetadata::new(
+            constraint(json!({"campaign": {"$var": "campaign", "type": "string"}})),
+            vec![],
+        )
+        .unwrap();
+        let plan = plan_evolve(
+            &meta,
+            &constraint(json!({"campaign": {"$var": "campaign_v2", "type": "string"}})),
+        )
+        .unwrap();
+        assert_eq!(plan.demoted, ["campaign"]);
+        let retained = plan.new_metadata.schema.get("campaign").unwrap();
+        assert!(retained.is_retained());
+        assert_eq!(retained.source_pointer.as_deref(), Some("/campaign"));
+
+        let member = json!({"campaign": "M09"});
+        let bindings = plan
+            .new_metadata
+            .sole_constraint()
+            .unwrap()
+            .meet(&member)
+            .unwrap();
+        let append = plan_append(&plan.new_metadata, "x", &bindings, &Map::new(), &member).unwrap();
+        assert_eq!(append.row["campaign"], json!("M09"));
+        assert_eq!(append.row["campaign_v2"], json!("M09"));
     }
 
     #[test]

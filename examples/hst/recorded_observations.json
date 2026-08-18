@@ -1,21 +1,21 @@
 [
  {
-  "t_exptime": 11.729164,
-  "proposal_id": null,
-  "t_min": 60025.00565457,
+  "t_exptime": 102.934334,
+  "proposal_id": "17972",
+  "t_min": 61155.989953206015,
   "instrument_name": "WFC3/IR",
   "filters": "F153M",
-  "target_name": "BULGEFIELD14-HIGHEXTINCTION",
-  "obs_id": "hst_skycell-p0694x15y11_wfc3_ir_f153m_coarse-all"
+  "target_name": "DARK-EARTH-CALIB",
+  "obs_id": "iflh0tzxq"
  },
  {
-  "t_exptime": 112.007996,
-  "proposal_id": "13299",
-  "t_min": 56759.53869621,
+  "t_exptime": 327.938995,
+  "proposal_id": "15637",
+  "t_min": 58719.89905676,
   "instrument_name": "WFC3/IR",
   "filters": "G141",
-  "target_name": "SDSS-J075840.33+324723.4",
-  "obs_id": "hst_13299_02_wfc3_ir_g141_icar02kg"
+  "target_name": "MUDFQ2139-4434-ORIENT2",
+  "obs_id": "hst_15637_dd_wfc3_ir_g141_idxjddd8"
  },
  {
   "t_exptime": 455.87384,
@@ -27,6 +27,15 @@
   "obs_id": "hst_13779_3h_wfc3_ir_total_icoi3h"
  },
  {
+  "t_exptime": 502.933838,
+  "proposal_id": "12190",
+  "t_min": 55814.96891929,
+  "instrument_name": "WFC3/IR",
+  "filters": "G141",
+  "target_name": "CDFS-AGN2",
+  "obs_id": "hst_12190_12_wfc3_ir_g141_ibl012is"
+ },
+ {
   "t_exptime": 22.62385,
   "proposal_id": "13640",
   "t_min": 56983.93004437,
@@ -36,13 +45,13 @@
   "obs_id": "hst_13640_01_wfc3_ir_g102_icje01vo"
  },
  {
-  "t_exptime": 502.933838,
-  "proposal_id": "12190",
-  "t_min": 55814.96891929,
+  "t_exptime": 112.007996,
+  "proposal_id": "13299",
+  "t_min": 56759.53869621,
   "instrument_name": "WFC3/IR",
   "filters": "G141",
-  "target_name": "CDFS-AGN2",
-  "obs_id": "hst_12190_12_wfc3_ir_g141_ibl012is"
+  "target_name": "SDSS-J075840.33+324723.4",
+  "obs_id": "hst_13299_02_wfc3_ir_g141_icar02kg"
  },
  {
   "t_exptime": 81.089142,
@@ -54,21 +63,12 @@
   "obs_id": "hst_14793_03_wfc3_ir_g102_id8403ps"
  },
  {
-  "t_exptime": 847.696473,
+  "t_exptime": 1023.47876,
   "proposal_id": null,
-  "t_min": 59162.80405994,
+  "t_min": 57205.46395486,
   "instrument_name": "WFC3/IR",
-  "filters": "F139M",
-  "target_name": "ANTLIA",
-  "obs_id": "hst_skycell-p0748x05y05_wfc3_ir_f139m_all"
- },
- {
-  "t_exptime": 14.355583,
-  "proposal_id": "16180",
-  "t_min": 60873.48246211,
-  "instrument_name": "WFC3/IR",
-  "filters": "G141",
-  "target_name": "HD-189733B",
-  "obs_id": "hst_16180_56_wfc3_ir_g141_iee656v3"
+  "filters": "F140W",
+  "target_name": "7C1753+6311",
+  "obs_id": "hst_skycell-p2488x18y16_wfc3_ir_f140w_all"
  }
 ]

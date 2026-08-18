@@ -60,13 +60,25 @@ RECORDED = pathlib.Path(__file__).parent / "recorded_signals.json"
 
 
 def fetch_signals(source: str, n: int) -> list[dict]:
-    url = f"{API}?filters=source$eq:{source}&per_page={min(n * 2, 200)}"
-    with urllib.request.urlopen(url, timeout=60) as response:
-        payload = json.load(response)
-    items = payload["items"] if isinstance(payload, dict) and "items" in payload else payload
-    # one member per (shot, signal); keep only rank-1 time series so members stay
-    # structurally uniform without any optionality
-    return [s for s in items if s.get("dimensions") == ["time"]][:n]
+    """Page until we have n rank-1 time series.
+
+    Filtering to `dimensions == ["time"]` is what keeps members structurally
+    uniform: a diagnostic's signals include profiles and 2-D data too, and mixing
+    ranks in one collection is exactly what v1 cannot express. Another finer-unit
+    decision, made by the query rather than by the language.
+    """
+    signals: list[dict] = []
+    for page in range(1, 12):
+        url = f"{API}?filters=source$eq:{source}&per_page=200&page={page}"
+        with urllib.request.urlopen(url, timeout=60) as response:
+            payload = json.load(response)
+        items = payload["items"] if isinstance(payload, dict) and "items" in payload else payload
+        if not items:
+            break
+        signals += [s for s in items if s.get("dimensions") == ["time"]]
+        if len(signals) >= n:
+            break
+    return signals[:n]
 
 
 def load_signals(source: str, n: int, offline: bool) -> list[dict]:

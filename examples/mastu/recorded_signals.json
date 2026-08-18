@@ -1,90 +1,178 @@
 [
  {
   "title": "Signal Dataset",
-  "uuid": "0000024b-b456-59e5-bf79-e8d9230ec5c9",
-  "name": "geom_axis_rc",
+  "uuid": "000032f0-ceaa-5136-b416-ab6d474c55df",
+  "name": "p2l_current",
   "version": 0,
   "rank": 1,
-  "url": "s3://mast/level1/shots/21011.zarr",
+  "url": "s3://mast/level1/shots/15349.zarr",
   "endpoint_url": "https://s3.echo.stfc.ac.uk",
-  "source": "efm",
+  "source": "amc",
   "shape": [
-   100
+   15482
   ],
   "provenance": null,
   "units": "",
-  "description": "Basic EFIT",
+  "description": "Plasma Current and PF/TF Coil Currents",
   "dimensions": [
    "time"
   ],
   "imas": "",
-  "shot_id": 21011,
+  "shot_id": 15349,
   "quality": "Not Checked"
  },
  {
   "title": "Signal Dataset",
-  "uuid": "00000e2d-f197-5c0b-840d-b756c524a453",
-  "name": "q_95",
+  "uuid": "00003314-8858-5d72-a224-f8af0c24a0ab",
+  "name": "p4l_coil_current",
   "version": 0,
   "rank": 1,
-  "url": "s3://mast/level1/shots/18359.zarr",
+  "url": "s3://mast/level1/shots/20356.zarr",
   "endpoint_url": "https://s3.echo.stfc.ac.uk",
-  "source": "efm",
+  "source": "amc",
   "shape": [
-   82
+   15482
   ],
   "provenance": null,
   "units": "",
-  "description": "Basic EFIT",
+  "description": "Plasma Current and PF/TF Coil Currents",
   "dimensions": [
    "time"
   ],
   "imas": "",
-  "shot_id": 18359,
+  "shot_id": 20356,
   "quality": "Not Checked"
  },
  {
   "title": "Signal Dataset",
-  "uuid": "000013c5-071c-535f-877e-1857c3bd1dd3",
-  "name": "plasma_area",
+  "uuid": "00004c6c-6975-52b5-9b79-c437d0a3fd7e",
+  "name": "p3l_feed_current",
   "version": 0,
   "rank": 1,
-  "url": "s3://mast/level1/shots/16802.zarr",
+  "url": "s3://mast/level1/shots/25788.zarr",
   "endpoint_url": "https://s3.echo.stfc.ac.uk",
-  "source": "efm",
+  "source": "amc",
   "shape": [
-   61
+   30000
   ],
   "provenance": null,
   "units": "",
-  "description": "Basic EFIT",
+  "description": "Plasma Current and PF/TF Coil Currents",
   "dimensions": [
    "time"
   ],
   "imas": "",
-  "shot_id": 16802,
+  "shot_id": 25788,
   "quality": "Not Checked"
  },
  {
   "title": "Signal Dataset",
-  "uuid": "000017a2-665f-53a0-8b07-a6aa35131747",
-  "name": "psi_axis",
+  "uuid": "00007ef6-81ce-5a10-b02a-d2c2a9542304",
+  "name": "tf_current",
   "version": 0,
   "rank": 1,
-  "url": "s3://mast/level1/shots/19895.zarr",
+  "url": "s3://mast/level1/shots/30309.zarr",
   "endpoint_url": "https://s3.echo.stfc.ac.uk",
-  "source": "efm",
+  "source": "amc",
   "shape": [
-   61
+   30000
   ],
   "provenance": null,
   "units": "",
-  "description": "Basic EFIT",
+  "description": "Plasma Current and PF/TF Coil Currents",
   "dimensions": [
    "time"
   ],
   "imas": "",
-  "shot_id": 19895,
+  "shot_id": 30309,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "000096ba-e79b-53fd-85fd-1b9418a479a2",
+  "name": "p4l_feed_current",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/27156.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "amc",
+  "shape": [
+   30000
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Plasma Current and PF/TF Coil Currents",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 27156,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "0000a0a0-30b8-598c-abfd-0f9f19ec165d",
+  "name": "p4l_coil_current",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/13864.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "amc",
+  "shape": [
+   15499
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Plasma Current and PF/TF Coil Currents",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 13864,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "0000b050-d48d-5817-a0b7-9904da13284c",
+  "name": "efps_current",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/13233.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "amc",
+  "shape": [
+   15499
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Plasma Current and PF/TF Coil Currents",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 13233,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "0000b463-3a57-5385-be08-75ba60829ac6",
+  "name": "p2ol_feed_current",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/20101.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "amc",
+  "shape": [
+   15482
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Plasma Current and PF/TF Coil Currents",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 20101,
   "quality": "Not Checked"
  }
 ]

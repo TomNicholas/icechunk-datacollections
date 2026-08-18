@@ -141,12 +141,28 @@ def predicted(ds: Any) -> dict:
 #: bad member — only the post-write check is authoritative.
 PRECHECK_LEAVES = ("/shape", "/data_type", "/dimension_names", "/attributes")
 
+#: The one place a *key set* mismatch is trustworthy before writing: which arrays a
+#: member has. Attribute key sets are not — writers add their own keys (xarray adds
+#: `coordinates` to a group and `_FillValue` to a coordinate array, and VirtualiZarr's
+#: Icechunk writer does the same), so a missing attribute key in the prediction is
+#: evidence about the writer, not about the member.
+ARRAY_SET_POINTER = "/consolidated_metadata/metadata"
+
 
 def precheck_mismatches(constraint, ds) -> list:
     """Rejections we can be confident about before writing anything.
 
-    Filtered to structural facts — dims, shapes, dtypes, attributes — which are all
-    available from the Dataset and cannot be changed by the writer's encoding.
+    Deliberately conservative: a pre-check that produces false rejections is worse
+    than no pre-check, because it refuses members the authoritative check would
+    accept. So it keeps only value mismatches on structural leaves — dims, shapes,
+    dtypes, attribute values — plus a key-set mismatch on the array set itself.
     """
-    found = constraint.mismatches(predicted(ds))
-    return [m for m in found if any(leaf in m.pointer for leaf in PRECHECK_LEAVES) or not m.pointer]
+    kept = []
+    for m in constraint.mismatches(predicted(ds)):
+        if m.kind == "keyset":
+            if m.pointer == ARRAY_SET_POINTER:
+                kept.append(m)
+            continue
+        if not m.pointer or any(leaf in m.pointer for leaf in PRECHECK_LEAVES):
+            kept.append(m)
+    return kept

@@ -306,3 +306,35 @@ fn json_encoding_round_trips() {
         assert_eq!(Constraint::parse(&c.to_json()).unwrap(), c, "seed {seed}");
     }
 }
+
+/// Floats must survive parse → serialise unchanged, bit for bit.
+///
+/// Found by running the HST example at 100 members: three members failed
+/// `verify()` because an `EXPTIME` attribute of `1305.8754880000001` came back as
+/// `1305.875488` — one ULP out. serde_json's default parser is permitted that, and
+/// the `float_roundtrip` feature is what forbids it. For a project whose central
+/// claim is that a constraint plus a row reconstructs the member's `zarr.json`
+/// *exactly*, a ULP is not a rounding detail; it is the claim failing.
+#[test]
+fn floats_round_trip_bit_for_bit() {
+    let awkward = [
+        "1305.8754880000001",
+        "955.8724970000001",
+        "0.10000000000000002",
+        "2.2250738585072014e-308",
+        "1.7976931348623157e308",
+        "-0.0",
+    ];
+    for text in awkward {
+        let doc: Value = serde_json::from_str(&format!("{{\"a\": {text}}}")).unwrap();
+        let c = Constraint::parse(&json!({"a": {"$var": "a", "type": "number"}})).unwrap();
+        let bindings = c.meet(&doc).unwrap();
+        assert_eq!(c.substitute(&bindings).unwrap(), doc, "{text}");
+        // Compared as parsed values, not as bytes: `1.7976931348623157e308` may be
+        // re-spelled `1.7976931348623157e+308`, which is the same double. Equality
+        // of descriptions is JSON-value equality throughout — see
+        // spec/constraint-language.md §3.1.
+        let reparsed: Value = serde_json::from_str(&serde_json::to_string(&bindings.to_json()).unwrap()).unwrap();
+        assert_eq!(reparsed["a"], doc["a"], "{text} did not survive serialisation");
+    }
+}

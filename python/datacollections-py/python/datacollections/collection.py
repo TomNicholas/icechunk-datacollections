@@ -185,7 +185,11 @@ class Collection:
 
         plan = loads(
             _rs.plan_append(
-                dumps(self._attributes), member_id, dumps(bindings), dumps(extras)
+                dumps(self._attributes),
+                member_id,
+                dumps(bindings),
+                dumps(description),
+                dumps(extras),
             )
         )
         _store.append_row(root, plan["row"])

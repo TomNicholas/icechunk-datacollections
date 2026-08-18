@@ -184,6 +184,7 @@ fn parse_extras(extras: &str) -> PyResult<Vec<Column>> {
                     .get("description")
                     .and_then(Value::as_str)
                     .map(str::to_string),
+                source_pointer: None,
             })
         })
         .collect()
@@ -228,18 +229,22 @@ fn arrow_field_metadata(attributes: &str) -> PyResult<String> {
 }
 
 #[pyfunction]
-#[pyo3(signature = (attributes, member_id, bindings, extras="{}"))]
+#[pyo3(signature = (attributes, member_id, bindings, description, extras="{}"))]
 fn plan_append(
     attributes: &str,
     member_id: &str,
     bindings: &str,
+    description: &str,
     extras: &str,
 ) -> PyResult<String> {
     let m = metadata(attributes)?;
     let b = Bindings::from_json(&parse_json(bindings, "bindings")?)
         .ok_or_else(|| PyValueError::new_err("bindings must be an object"))?;
     let extras = object(extras, "extra column values")?;
-    let plan = rs_plan_append(&m, member_id, &b, &extras)
+    // Retained columns — demoted from a variable by an earlier evolution — read their
+    // value straight out of the description, so the caller is not asked for them.
+    let description = parse_json(description, "description")?;
+    let plan = rs_plan_append(&m, member_id, &b, &extras, &description)
         .map_err(|e| PyValueError::new_err(e.to_string()))?;
     Ok(dump(&serde_json::json!({
         "member_id": plan.member_id,

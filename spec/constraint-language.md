@@ -102,6 +102,11 @@ Unification of a constraint with a concrete document. Walks both in parallel:
 
 - literal: must be **exactly equal** as JSON. No canonicalisation — see PLAN.md;
   this is sound only because every member is written by our own `add_item`.
+  Equality is **JSON-value equality, not byte equality**: object key order is
+  insignificant, and a number is compared as the value it denotes, so
+  `1.0e308` and `1.0e+308` are the same literal. Implementations must parse floats
+  to their nearest double *exactly* — a one-ULP parser breaks the round-trip law,
+  and did, on real archive metadata.
 - variable: the description leaf must be a scalar and satisfy the domain; the value
   is recorded as a binding. If the name is already bound in this member, the two
   values must be equal (the co-constraint).

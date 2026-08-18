@@ -78,14 +78,23 @@ def is_virtual(ds: Any) -> bool:
 
 
 def _write_virtual_group(root, path: str, ds: Any):
-    session = root.store.session  # icechunk store carries its session
+    """Delegate to VirtualiZarr's own Icechunk writer rather than reimplementing it.
+
+    Only chunk *references* are written, so a member costs metadata alone — which is
+    what keeps a whole example store small enough to host and version cheaply.
+
+    Note the repository must have been created with a virtual chunk container
+    covering the source URLs, and with `authorize_virtual_chunk_access` for it.
+    That is the caller's business, not ours: it is a property of the repo, and the
+    credentials involved are theirs.
+    """
     accessor = getattr(ds, "vz", None) or getattr(ds, "virtualize", None)
     if accessor is None:  # pragma: no cover - depends on the installed version
         raise RuntimeError(
             "the Dataset holds ManifestArrays but VirtualiZarr exposes no writer "
             "accessor; upgrade virtualizarr"
         )
-    accessor.to_icechunk(session, group=path)
+    accessor.to_icechunk(root.store, group=path)
     return zarr.open_group(root.store, path=path, mode="r")
 
 

@@ -15,7 +15,11 @@ repository = "https://github.com/earth-mover/datacollections"
 
 [workspace.dependencies]
 serde = { version = "1", features = ["derive"] }
-serde_json = { version = "1", features = ["preserve_order"] }
+# `float_roundtrip` is not optional for this project: without it serde_json's parser
+# is allowed to be a ULP out, which breaks the round-trip law on real data — a float
+# attribute read back from a store came out one bit different from the value written.
+# `preserve_order` keeps object key order stable through parse/serialise.
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
 thiserror = "2"
 json-constraint = { path = "crates/json-constraint" }
 zarr-collection = { path = "crates/zarr-collection" }

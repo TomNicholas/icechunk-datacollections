@@ -77,6 +77,16 @@ pub struct Column {
     /// Free-form note, for extra columns whose provenance is worth recording.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    /// A JSON Pointer into the member's description, for a column that is still
+    /// recomputable even though the current constraint no longer declares it.
+    ///
+    /// This is what a *retained* column carries: when `evolve_schema` stops
+    /// mentioning a hole, its column is kept (tightening is free — layout decision
+    /// 6) and this records where its value comes from. Without it the column would
+    /// become an ordinary extra, and every later `add_item` would have to supply a
+    /// value for something the caller never chose and cannot know.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub source_pointer: Option<String>,
 }
 
 impl Column {
@@ -88,6 +98,7 @@ impl Column {
             encoding: None,
             cohort: None,
             description: None,
+            source_pointer: None,
         }
     }
 
@@ -99,7 +110,13 @@ impl Column {
             encoding: None,
             cohort: None,
             description: None,
+            source_pointer: None,
         }
+    }
+
+    /// Is this column's value still readable out of the member's description?
+    pub fn is_retained(&self) -> bool {
+        self.source_pointer.is_some()
     }
 
     pub fn is_json_encoded(&self) -> bool {
@@ -180,6 +197,7 @@ pub fn required_columns(cohort: &str, constraint: &Constraint) -> Vec<Column> {
             encoding,
             cohort: Some(cohort.to_string()),
             description: None,
+            source_pointer: None,
         });
     }
     cols
