@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://earth-mover.io/datacollections/0.1/meta-schema.json",
+  "title": "DataCollections constraint document, version 0.1",
+  "description": "Well-formedness rules 1-3 and 7 of spec/constraint-language.md. Rules 4-6 are cross-document and are checked by json_constraint::validate.",
+  "$ref": "#/$defs/node",
+  "$defs": {
+    "name": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+    "node": {
+      "anyOf": [
+        { "$ref": "#/$defs/scalar" },
+        { "$ref": "#/$defs/array" },
+        { "$ref": "#/$defs/variable" },
+        { "$ref": "#/$defs/wildcard" },
+        { "$ref": "#/$defs/escaped" },
+        { "$ref": "#/$defs/structural" }
+      ]
+    },
+    "scalar": { "type": ["string", "number", "boolean", "null"] },
+    "array": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "variable": {
+      "type": "object",
+      "required": ["$var"],
+      "properties": {
+        "$var": { "$ref": "#/$defs/name" },
+        "type": { "enum": ["integer", "number", "string", "boolean"] },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "wildcard": {
+      "type": "object",
+      "required": ["$wild"],
+      "properties": { "$wild": { "$ref": "#/$defs/name" } },
+      "additionalProperties": false
+    },
+    "escaped": {
+      "type": "object",
+      "required": ["$literal"],
+      "properties": { "$literal": true },
+      "additionalProperties": false
+    },
+    "structural": {
+      "type": "object",
+      "propertyNames": {
+        "not": {
+          "enum": ["$var", "$wild", "$literal", "$each", "$count", "$expr", "$present"]
+        }
+      },
+      "additionalProperties": { "$ref": "#/$defs/node" }
+    }
+  }
+}

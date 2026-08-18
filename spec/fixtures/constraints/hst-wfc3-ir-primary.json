@@ -1,0 +1,417 @@
+{
+  "name": "hst-wfc3-ir-primary",
+  "why": "HST primary HDU, WFC3/IR only. FITS images are contiguous, so chunk shape tracks the array shape \u2014 the repeated variable spans shape and chunk_grid.",
+  "constraint": {
+    "zarr_format": 3,
+    "node_type": "group",
+    "attributes": {
+      "INSTRUME": "WFC3",
+      "DETECTOR": "IR",
+      "TELESCOP": "HST",
+      "EXPTIME": {
+        "$var": "exptime",
+        "type": "number",
+        "minimum": 0
+      },
+      "EQUINOX": 2000.0
+    },
+    "consolidated_metadata": {
+      "kind": "inline",
+      "must_understand": false,
+      "metadata": {
+        "PRIMARY": {
+          "zarr_format": 3,
+          "node_type": "array",
+          "shape": [
+            {
+              "$var": "ny",
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "$var": "nx",
+              "type": "integer",
+              "minimum": 1
+            }
+          ],
+          "data_type": "float32",
+          "chunk_grid": {
+            "name": "regular",
+            "configuration": {
+              "chunk_shape": [
+                {
+                  "$var": "ny",
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "$var": "nx",
+                  "type": "integer",
+                  "minimum": 1
+                }
+              ]
+            }
+          },
+          "chunk_key_encoding": {
+            "name": "default",
+            "configuration": {
+              "separator": "/"
+            }
+          },
+          "fill_value": "NaN",
+          "codecs": [
+            {
+              "name": "bytes",
+              "configuration": {
+                "endian": "little"
+              }
+            }
+          ],
+          "attributes": {},
+          "dimension_names": [
+            "y",
+            "x"
+          ],
+          "storage_transformers": []
+        }
+      }
+    }
+  },
+  "members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "INSTRUME": "WFC3",
+          "DETECTOR": "IR",
+          "TELESCOP": "HST",
+          "EXPTIME": 1402.9,
+          "EQUINOX": 2000.0
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "PRIMARY": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                1024,
+                1024
+              ],
+              "data_type": "float32",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": "NaN",
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "exptime": 1402.9,
+        "ny": 1024,
+        "nx": 1024
+      }
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "INSTRUME": "WFC3",
+          "DETECTOR": "IR",
+          "TELESCOP": "HST",
+          "EXPTIME": 22.3,
+          "EQUINOX": 2000.0
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "PRIMARY": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                256,
+                256
+              ],
+              "data_type": "float32",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    256,
+                    256
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": "NaN",
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "exptime": 22.3,
+        "ny": 256,
+        "nx": 256
+      }
+    }
+  ],
+  "non_members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "INSTRUME": "WFC3",
+          "DETECTOR": "IR",
+          "TELESCOP": "HST",
+          "EXPTIME": 100.0,
+          "EQUINOX": 2000.0
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "PRIMARY": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                1024,
+                1024
+              ],
+              "data_type": "float32",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    512,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": "NaN",
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "why": "chunk shape no longer equals the array shape \u2014 the repeated variable"
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "INSTRUME": "ACS",
+          "DETECTOR": "IR",
+          "TELESCOP": "HST",
+          "EXPTIME": 100.0,
+          "EQUINOX": 2000.0
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "PRIMARY": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                1024,
+                1024
+              ],
+              "data_type": "float32",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": "NaN",
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "why": "another instrument is another cohort; cohorts are deferred past M6"
+    }
+  ],
+  "subsumes": [
+    {
+      "loosened": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "INSTRUME": "WFC3",
+          "DETECTOR": "IR",
+          "TELESCOP": "HST",
+          "EXPTIME": {
+            "$var": "exptime",
+            "type": "number",
+            "minimum": 0
+          },
+          "EQUINOX": 2000.0
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "PRIMARY": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                {
+                  "$var": "ny",
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "$var": "nx",
+                  "type": "integer",
+                  "minimum": 1
+                }
+              ],
+              "data_type": "float32",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    {
+                      "$var": "ny",
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    {
+                      "$var": "nx",
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": "NaN",
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "holds": true,
+      "why": "reflexive"
+    },
+    {
+      "loosened": {
+        "$wild": "everything"
+      },
+      "holds": true,
+      "why": "a wildcard at the root generalises any constraint"
+    }
+  ]
+}

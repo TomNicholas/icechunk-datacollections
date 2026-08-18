@@ -1,0 +1,1157 @@
+{
+  "name": "sentinel2-l2a-tile",
+  "why": "Sentinel-2 L2A tile, full-resolution level only. Heterogeneous CRS across tiles; codecs wildcarded wholesale rather than aligned element-wise.",
+  "constraint": {
+    "zarr_format": 3,
+    "node_type": "group",
+    "attributes": {
+      "cube:dimensions": {
+        "$wild": "cube_dimensions"
+      },
+      "proj:epsg": {
+        "$var": "proj_epsg",
+        "type": "integer",
+        "minimum": 1024,
+        "maximum": 32766
+      },
+      "proj:transform": {
+        "$wild": "proj_transform"
+      }
+    },
+    "consolidated_metadata": {
+      "kind": "inline",
+      "must_understand": false,
+      "metadata": {
+        "B02": {
+          "zarr_format": 3,
+          "node_type": "array",
+          "shape": [
+            10980,
+            10980
+          ],
+          "data_type": "uint16",
+          "chunk_grid": {
+            "name": "regular",
+            "configuration": {
+              "chunk_shape": [
+                1024,
+                1024
+              ]
+            }
+          },
+          "chunk_key_encoding": {
+            "name": "default",
+            "configuration": {
+              "separator": "/"
+            }
+          },
+          "fill_value": 0,
+          "codecs": {
+            "$wild": "codecs_B02"
+          },
+          "attributes": {},
+          "dimension_names": [
+            "y",
+            "x"
+          ],
+          "storage_transformers": []
+        },
+        "B04": {
+          "zarr_format": 3,
+          "node_type": "array",
+          "shape": [
+            10980,
+            10980
+          ],
+          "data_type": "uint16",
+          "chunk_grid": {
+            "name": "regular",
+            "configuration": {
+              "chunk_shape": [
+                1024,
+                1024
+              ]
+            }
+          },
+          "chunk_key_encoding": {
+            "name": "default",
+            "configuration": {
+              "separator": "/"
+            }
+          },
+          "fill_value": 0,
+          "codecs": {
+            "$wild": "codecs_B04"
+          },
+          "attributes": {},
+          "dimension_names": [
+            "y",
+            "x"
+          ],
+          "storage_transformers": []
+        },
+        "B08": {
+          "zarr_format": 3,
+          "node_type": "array",
+          "shape": [
+            10980,
+            10980
+          ],
+          "data_type": "uint16",
+          "chunk_grid": {
+            "name": "regular",
+            "configuration": {
+              "chunk_shape": [
+                1024,
+                1024
+              ]
+            }
+          },
+          "chunk_key_encoding": {
+            "name": "default",
+            "configuration": {
+              "separator": "/"
+            }
+          },
+          "fill_value": 0,
+          "codecs": {
+            "$wild": "codecs_B08"
+          },
+          "attributes": {},
+          "dimension_names": [
+            "y",
+            "x"
+          ],
+          "storage_transformers": []
+        }
+      }
+    }
+  },
+  "members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "cube:dimensions": {
+            "x": {
+              "type": "spatial",
+              "axis": "x",
+              "extent": [
+                399960,
+                509760
+              ]
+            },
+            "y": {
+              "type": "spatial",
+              "axis": "y",
+              "extent": [
+                4890240,
+                5000040
+              ]
+            }
+          },
+          "proj:epsg": 32633,
+          "proj:transform": [
+            10,
+            0,
+            399960,
+            0,
+            -10,
+            5000040,
+            0,
+            0,
+            1
+          ]
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "B02": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B04": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B08": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "cube_dimensions": {
+          "x": {
+            "type": "spatial",
+            "axis": "x",
+            "extent": [
+              399960,
+              509760
+            ]
+          },
+          "y": {
+            "type": "spatial",
+            "axis": "y",
+            "extent": [
+              4890240,
+              5000040
+            ]
+          }
+        },
+        "proj_epsg": 32633,
+        "proj_transform": [
+          10,
+          0,
+          399960,
+          0,
+          -10,
+          5000040,
+          0,
+          0,
+          1
+        ],
+        "codecs_B02": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ],
+        "codecs_B04": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ],
+        "codecs_B08": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "cube:dimensions": {
+            "x": {
+              "type": "spatial",
+              "axis": "x",
+              "extent": [
+                499980,
+                609780
+              ]
+            },
+            "y": {
+              "type": "spatial",
+              "axis": "y",
+              "extent": [
+                4790220,
+                4900020
+              ]
+            }
+          },
+          "proj:epsg": 32634,
+          "proj:transform": [
+            10,
+            0,
+            499980,
+            0,
+            -10,
+            4900020,
+            0,
+            0,
+            1
+          ]
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "B02": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B04": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B08": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "bindings": {
+        "cube_dimensions": {
+          "x": {
+            "type": "spatial",
+            "axis": "x",
+            "extent": [
+              499980,
+              609780
+            ]
+          },
+          "y": {
+            "type": "spatial",
+            "axis": "y",
+            "extent": [
+              4790220,
+              4900020
+            ]
+          }
+        },
+        "proj_epsg": 32634,
+        "proj_transform": [
+          10,
+          0,
+          499980,
+          0,
+          -10,
+          4900020,
+          0,
+          0,
+          1
+        ],
+        "codecs_B02": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ],
+        "codecs_B04": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ],
+        "codecs_B08": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 3,
+              "checksum": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "non_members": [
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "cube:dimensions": {
+            "x": {
+              "type": "spatial",
+              "axis": "x",
+              "extent": [
+                399960,
+                509760
+              ]
+            },
+            "y": {
+              "type": "spatial",
+              "axis": "y",
+              "extent": [
+                4890240,
+                5000040
+              ]
+            }
+          },
+          "proj:epsg": 32633,
+          "proj:transform": [
+            10,
+            0,
+            399960,
+            0,
+            -10,
+            5000040,
+            0,
+            0,
+            1
+          ]
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "B02": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B04": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                5490,
+                5490
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B08": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "why": "an overview level, not the full-resolution one; v1 virtualizes level 0 only"
+    },
+    {
+      "description": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "cube:dimensions": {
+            "x": {
+              "type": "spatial",
+              "axis": "x",
+              "extent": [
+                399960,
+                509760
+              ]
+            },
+            "y": {
+              "type": "spatial",
+              "axis": "y",
+              "extent": [
+                4890240,
+                5000040
+              ]
+            }
+          },
+          "proj:epsg": "EPSG:32633",
+          "proj:transform": [
+            10,
+            0,
+            399960,
+            0,
+            -10,
+            5000040,
+            0,
+            0,
+            1
+          ]
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "B02": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B04": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B08": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": [
+                {
+                  "name": "bytes",
+                  "configuration": {
+                    "endian": "little"
+                  }
+                },
+                {
+                  "name": "zstd",
+                  "configuration": {
+                    "level": 3,
+                    "checksum": false
+                  }
+                }
+              ],
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "why": "proj:epsg declared integer"
+    }
+  ],
+  "subsumes": [
+    {
+      "loosened": {
+        "zarr_format": 3,
+        "node_type": "group",
+        "attributes": {
+          "cube:dimensions": {
+            "$wild": "cube_dimensions"
+          },
+          "proj:epsg": {
+            "$var": "proj_epsg",
+            "type": "integer",
+            "minimum": 1024,
+            "maximum": 32766
+          },
+          "proj:transform": {
+            "$wild": "proj_transform"
+          }
+        },
+        "consolidated_metadata": {
+          "kind": "inline",
+          "must_understand": false,
+          "metadata": {
+            "B02": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": {
+                "$wild": "codecs_B02"
+              },
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B04": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": {
+                "$wild": "codecs_B04"
+              },
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            },
+            "B08": {
+              "zarr_format": 3,
+              "node_type": "array",
+              "shape": [
+                10980,
+                10980
+              ],
+              "data_type": "uint16",
+              "chunk_grid": {
+                "name": "regular",
+                "configuration": {
+                  "chunk_shape": [
+                    1024,
+                    1024
+                  ]
+                }
+              },
+              "chunk_key_encoding": {
+                "name": "default",
+                "configuration": {
+                  "separator": "/"
+                }
+              },
+              "fill_value": 0,
+              "codecs": {
+                "$wild": "codecs_B08"
+              },
+              "attributes": {},
+              "dimension_names": [
+                "y",
+                "x"
+              ],
+              "storage_transformers": []
+            }
+          }
+        }
+      },
+      "holds": true,
+      "why": "reflexive"
+    },
+    {
+      "loosened": {
+        "$wild": "everything"
+      },
+      "holds": true,
+      "why": "a wildcard at the root generalises any constraint"
+    }
+  ]
+}
