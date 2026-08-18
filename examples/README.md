@@ -17,38 +17,18 @@ runs all four that way.
 
 | example | referenced unit | what varies | source of metadata |
 |---|---|---|---|
-| `ome_zarr` | field of view, level 0 | Z-depth, channel count | generated locally |
-| `sentinel2_stac` | tile, full-res level | CRS, transform, GeoTIFF tags, codecs | earth-search STAC + **virtual COGs** |
+| [`ome_zarr`](./ome_zarr/) | field of view, level 0 | Z-depth, channel count | generated locally |
+| [`sentinel2_stac`](./sentinel2_stac/) | tile, full-res level | CRS, transform, GeoTIFF tags, codecs | earth-search STAC + **virtual COGs** |
+| [`mastu`](./mastu/) | **(shot, diagnostic, signal)** | time-series length, units | mastapp.site, live |
+| [`hst`](./hst/) | primary HDU, WFC3/IR | exposure, filter, target | MAST CAOM API, live |
 
-Every example's table is queryable through `zarr-datafusion-search`'s DataFusion
-provider. One naming rule makes that true: the geospatial example's bounding-box
-column is `bbox_wgs84`, not `bbox`, because upstream hard-errors on a column of that
-name unless it is Zarr bytes. The STAC Item still has a `bbox` field, and bbox search
-still works — what waits is pushing that filter into the scan.
-| `mastu` | **(shot, diagnostic, signal)** | time-series length, units | mastapp.site, live |
-| `hst` | primary HDU, WFC3/IR | exposure, filter, target | MAST CAOM API, live |
+Each has its own README describing the data and how it is catalogued — what one
+member is, which leaves are holes, and why.
 
 **~100 members per example, hard cap**, enforced in `_common.py`. Icechunk's scaling
 in *number of nodes* (not rows) is untested and is the plan's main structural risk;
 going beyond needs that investigation first rather than discovering the limits by
 accident.
-
-## What each example is for
-
-**OME-Zarr — the hardest test of "domain vocabulary as opaque JSON".** `multiscales`
-and `omero` are wildcards: constrained in position, uninterpreted in content, stored
-verbatim, reinstated exactly. Implemented before any STAC code existed.
-
-**Sentinel-2 — the only example exercising the view layer.** Heterogeneous CRS is
-the motivating case, and it shows the language's honest limit: with enums excluded,
-`proj:epsg` can only be "an integer", which is *imprecise rather than wrong*.
-
-**MAST-U — a live instance of the problem.** FAIR-MAST publishes a JSON REST API for
-shot metadata *alongside* the Zarr store; here they are one queryable thing.
-
-**HST — the example that motivates cohorts.** Scoped to WFC3/IR because different
-instruments are structurally different groups, which the v1 language cannot express
-in one collection.
 
 ## Findings from running against real data
 
