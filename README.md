@@ -11,10 +11,10 @@ Collections of array data sit awkwardly between existing formats. The useful way
 see why is to ask how much structure each format **fixes in advance**.
 
 ```
-    MORE STRICT                                              LESS STRICT
-    ├───────────┬───────────┬──────────────┬─────────────────┬────────────┤
-    single       RaQuet      STAC + COG     DataCollections   Lance blob
-    Zarr
+    MORE STRICT                                                    LESS STRICT
+    ├──────────┬──────────┬────────────┬─────────────────┬───────────┬──────────┤
+    single      RaQuet     STAC + COG   DataCollections   xarray.     Lance
+    Zarr                                                  DataTree    blob
     datacube
 ```
 
@@ -54,12 +54,35 @@ semantics* and entirely silent about *array structure* — an Item describes its
 as opaque files, saying nothing about their dimensions, dtypes, or how they differ
 from the item next to it. Rigid where you do not want it, silent where you do.
 
+### xarray.DataTree constrains vertically, not horizontally
+
+A `DataTree` will happily hold a heterogeneous collection of groups, and its nodes are
+fully self-describing — dimensions, dtypes, coordinates and all. It is the natural
+in-memory shape for what we are storing.
+
+What it does not do is say anything about *siblings*. `DataTree`'s structure runs
+**vertically**: children inherit coordinates from their parent and must align with
+them. A collection needs the **horizontal** statement — that these thousands of
+sibling nodes resemble one another in specified ways and differ in others. Nothing in
+a tree records that, so there is nothing to check a new member against, and no way to
+answer "which nodes have more than 100 timesteps" without walking every node.
+
+The relationship is additive rather than competitive:
+
+> **DataCollections ≈ DataTree + a derived description of what siblings share + a
+> queryable index over what they do not.**
+
 ### Lance blob is not strict enough
 
 Lance's blob columns give you a table of references to large out-of-line objects with
 queryable metadata alongside — structurally close to what we want. But the referent is
 an **opaque byte sequence**. Nothing describes what is inside it, so nothing is
 verifiable and nothing is derivable. A blob has no schema to be consistent about.
+
+Note that `DataTree` and Lance blobs are too loose in *opposite* directions, which is
+what makes the pair instructive. Lance has the queryable table and an opaque referent;
+`DataTree` has fully self-describing referents and no table. Neither has the piece in
+between: a description of how the members relate to each other.
 
 ### The gap
 
