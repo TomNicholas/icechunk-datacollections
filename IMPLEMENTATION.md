@@ -53,7 +53,7 @@ evolve_schema (O(N) expected):
   at  75 members:   89 ms, 75 groups read   (1.2 ms/member)
   at 100 members:  112 ms, 100 groups read  (1.1 ms/member)
 
-verify() over 100 members: 1.0 s
+verify() over 100 members: 0.25 s
 SQL over the whole table:  263 ms (cold DataFusion context, whole table materialised)
 ```
 
@@ -63,9 +63,13 @@ visible, and at this size an O(N) widening is still cheap in absolute terms. Thi
 **not** the Icechunk node-count investigation — it stays inside the cap and says
 nothing about 10⁴ members.
 
-Running the examples at their full 100: OME-Zarr 4.9 s, Sentinel-2 6.9 s (mostly
-network), MAST-U 4.5 s, HST 36 s — the last dominated by `verify()`, which is
-O(N²) as implemented because each `describe` re-reads the table.
+Running the examples at their full 100 takes seconds to a minute each, dominated by
+the source APIs rather than by anything here — the ingest itself is ~14 ms a member.
+
+One thing the full-size runs did expose: `verify()` was O(N²), because each
+`describe` re-read the whole table to find one row. Reading the columns once
+instead took it from ~30 s to 0.25 s at 100 members. Worth noting *because* it only
+showed up at the cap: at the 20–40 members the test suite uses, it looked fine.
 
 ## Deliberate deviations from PLAN.md
 
@@ -249,5 +253,6 @@ the alternative was either data loss or a null.
   written, which is exactly what the two-phase design says.
 - **Wildcard columns are JSON text.** Fine, and honest, but it means a query engine
   cannot look inside them. That is the deliberate meaning of a wildcard.
-- **The Python `Collection` reads the whole table for `rows()` and `verify()`.** No
-  streaming, no projection pushdown.
+- **The Python `Collection` reads the whole table for `rows()` and `verify()`.** One
+  pass, not N passes — but still no streaming and no projection pushdown, so both are
+  O(N) in memory as well as time.

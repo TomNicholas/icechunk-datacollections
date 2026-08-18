@@ -257,17 +257,19 @@ class Collection:
             return []
         return _description.precheck_mismatches(constraint, ds)
 
+    def _decode(self, row: dict) -> dict:
+        attributes = dumps(self._attributes)
+        return {
+            name: loads(_rs.decode_cell(attributes, name, dumps(cell)))
+            for name, cell in row.items()
+        }
+
     def row(self, member_id: str) -> dict:
         """One member's row, decoded."""
         root = _store.read_root(self._repo.readonly_session(self._branch))
-        ids = _store.member_ids(root)
-        i = ids.index(member_id)
+        i = _store.member_ids(root).index(member_id)
         names = [c["name"] for c in self.columns]
-        raw = _store.read_row(root, names, i)
-        return {
-            name: loads(_rs.decode_cell(dumps(self._attributes), name, dumps(cell)))
-            for name, cell in raw.items()
-        }
+        return self._decode(_store.read_row(root, names, i))
 
     def describe(self, member_id: str) -> dict:
         """A member's description, reconstructed from the constraint and its row.
@@ -276,40 +278,40 @@ class Collection:
         the member's `zarr.json` in full — not an approximation of it.
         """
         root = _store.read_root(self._repo.readonly_session(self._branch))
-        ids = _store.member_ids(root)
-        i = ids.index(member_id)
+        i = _store.member_ids(root).index(member_id)
         names = [c["name"] for c in self.columns]
         row = _store.read_row(root, names, i)
         return loads(_rs.describe(dumps(self._attributes), dumps(row)))
 
-    def rows(self) -> list[dict]:
-        root = _store.read_root(self._repo.readonly_session(self._branch))
+    def _raw_rows(self, root) -> list[dict]:
+        """Every row, read column-wise — one pass over each column array rather than
+        one pass per member, which is the difference between O(N) and O(N²)."""
         names = [c["name"] for c in self.columns]
         columns = {name: _store.read_column(root, name) for name in names}
         n = len(columns["member_id"])
-        return [
-            {
-                name: loads(_rs.decode_cell(dumps(self._attributes), name, dumps(columns[name][i])))
-                for name in names
-            }
-            for i in range(n)
-        ]
+        return [{name: columns[name][i] for name in names} for i in range(n)]
+
+    def rows(self) -> list[dict]:
+        root = _store.read_root(self._repo.readonly_session(self._branch))
+        return [self._decode(row) for row in self._raw_rows(root)]
 
     def verify(self) -> list[str]:
-        """Recompute every variable column from the groups and compare.
+        """Recompute every member's description from its row and compare.
 
         `/meta` is a materialised view over `/groups/*`, so this is a free integrity
         check — and the same read a repair would use. Extra columns are skipped:
         they are the one thing that is not recomputable.
         """
-        problems = []
-        root = _store.read_root(self._repo.readonly_session(self._branch))
+        problems: list[str] = []
         constraint = self.constraint
         if constraint is None:
             return problems
-        for member_id in _store.member_ids(root):
+        root = _store.read_root(self._repo.readonly_session(self._branch))
+        attributes = dumps(self._attributes)
+        for row in self._raw_rows(root):
+            member_id = row["member_id"]
             actual = _description.of_group(_store.member_group(root, member_id))
-            if self.describe(member_id) != actual:
+            if loads(_rs.describe(attributes, dumps(row))) != actual:
                 problems.append(f"{member_id}: reconstructed description differs from the group")
             try:
                 constraint.meet(actual)
