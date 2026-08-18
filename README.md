@@ -87,3 +87,8 @@ Nothing existing does both, and doing both is the thesis.
 The rest of that argument — why each existing approach falls short, what the table's
 closest columns tell you, and what exactly is missing — is in
 [COMPARISON.md](./COMPARISON.md).
+
+## License
+
+Apache 2.0 — see [LICENSE](./LICENSE). The Rust crates and the Python package
+declare the same in their metadata.
