@@ -1,0 +1,74 @@
+[
+ {
+  "t_exptime": 11.729164,
+  "proposal_id": null,
+  "t_min": 60025.00565457,
+  "instrument_name": "WFC3/IR",
+  "filters": "F153M",
+  "target_name": "BULGEFIELD14-HIGHEXTINCTION",
+  "obs_id": "hst_skycell-p0694x15y11_wfc3_ir_f153m_coarse-all"
+ },
+ {
+  "t_exptime": 112.007996,
+  "proposal_id": "13299",
+  "t_min": 56759.53869621,
+  "instrument_name": "WFC3/IR",
+  "filters": "G141",
+  "target_name": "SDSS-J075840.33+324723.4",
+  "obs_id": "hst_13299_02_wfc3_ir_g141_icar02kg"
+ },
+ {
+  "t_exptime": 455.87384,
+  "proposal_id": "13779",
+  "t_min": 57267.05790275,
+  "instrument_name": "WFC3/IR",
+  "filters": "detection",
+  "target_name": "FIGS-GN1",
+  "obs_id": "hst_13779_3h_wfc3_ir_total_icoi3h"
+ },
+ {
+  "t_exptime": 22.62385,
+  "proposal_id": "13640",
+  "t_min": 56983.93004437,
+  "instrument_name": "WFC3/IR",
+  "filters": "G102",
+  "target_name": "WISE-J104915.57-531906.1",
+  "obs_id": "hst_13640_01_wfc3_ir_g102_icje01vo"
+ },
+ {
+  "t_exptime": 502.933838,
+  "proposal_id": "12190",
+  "t_min": 55814.96891929,
+  "instrument_name": "WFC3/IR",
+  "filters": "G141",
+  "target_name": "CDFS-AGN2",
+  "obs_id": "hst_12190_12_wfc3_ir_g141_ibl012is"
+ },
+ {
+  "t_exptime": 81.089142,
+  "proposal_id": "14793",
+  "t_min": 57694.53765445,
+  "instrument_name": "WFC3/IR",
+  "filters": "G102",
+  "target_name": "HAT-P-11",
+  "obs_id": "hst_14793_03_wfc3_ir_g102_id8403ps"
+ },
+ {
+  "t_exptime": 847.696473,
+  "proposal_id": null,
+  "t_min": 59162.80405994,
+  "instrument_name": "WFC3/IR",
+  "filters": "F139M",
+  "target_name": "ANTLIA",
+  "obs_id": "hst_skycell-p0748x05y05_wfc3_ir_f139m_all"
+ },
+ {
+  "t_exptime": 14.355583,
+  "proposal_id": "16180",
+  "t_min": 60873.48246211,
+  "instrument_name": "WFC3/IR",
+  "filters": "G141",
+  "target_name": "HD-189733B",
+  "obs_id": "hst_16180_56_wfc3_ir_g141_iee656v3"
+ }
+]

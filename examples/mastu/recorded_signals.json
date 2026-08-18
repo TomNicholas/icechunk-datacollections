@@ -1,0 +1,90 @@
+[
+ {
+  "title": "Signal Dataset",
+  "uuid": "0000024b-b456-59e5-bf79-e8d9230ec5c9",
+  "name": "geom_axis_rc",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/21011.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "efm",
+  "shape": [
+   100
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Basic EFIT",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 21011,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "00000e2d-f197-5c0b-840d-b756c524a453",
+  "name": "q_95",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/18359.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "efm",
+  "shape": [
+   82
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Basic EFIT",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 18359,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "000013c5-071c-535f-877e-1857c3bd1dd3",
+  "name": "plasma_area",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/16802.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "efm",
+  "shape": [
+   61
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Basic EFIT",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 16802,
+  "quality": "Not Checked"
+ },
+ {
+  "title": "Signal Dataset",
+  "uuid": "000017a2-665f-53a0-8b07-a6aa35131747",
+  "name": "psi_axis",
+  "version": 0,
+  "rank": 1,
+  "url": "s3://mast/level1/shots/19895.zarr",
+  "endpoint_url": "https://s3.echo.stfc.ac.uk",
+  "source": "efm",
+  "shape": [
+   61
+  ],
+  "provenance": null,
+  "units": "",
+  "description": "Basic EFIT",
+  "dimensions": [
+   "time"
+  ],
+  "imas": "",
+  "shot_id": 19895,
+  "quality": "Not Checked"
+ }
+]
