@@ -94,21 +94,33 @@ both inputs, the enum is genuinely tightest, and folding over 10,000 members wou
 10,000 values in the constraint. "Least" would then need an arbitrary widening policy.
 Without enums there is exactly one answer: `range[7,12]`.
 
-So the domain language is deliberately tiny:
+So the domain language is deliberately tiny. The governing principle: **`join`
+synthesises a domain only where the type has a meaningful order.** Numerics do;
+nothing else does, so everything else widens to an unconstrained variable.
 
-| | synthesised by `join` | author-declarable |
-|---|---|---|
-| literal (values equal) | ✅ | ✅ |
-| numeric range (`minimum`/`maximum`) | ✅ | ✅ |
-| bare type | ✅ | ✅ |
-| string pattern | ❌ | ✅ |
-| `$expr` (deferred) | ❌ | ✅ |
+| widening case | `join` produces |
+|---|---|
+| values equal | the literal |
+| both numeric, differing | `$var` with `minimum` / `maximum` |
+| **anything else differing** | `$var`, **unknown** — no domain at all |
+
+"Anything else" covers strings, booleans, type mismatches between members, and any
+leaf where the two values are simply incomparable. A widened string leaf is just
+`{"$var": "name"}`; there is no "any string" domain to write, because it would carry no
+information.
 
 **`join` never synthesises patterns**, for the same reason enums are excluded: there is
 no unique least regex matching two strings, so synthesising one would reintroduce
-exactly the ambiguity enums caused. Two differing strings join to bare `string`.
-Authors may add a pattern to assert intent; `join` then preserves or discards it but
-never invents one. Same rule as `$expr`.
+exactly the ambiguity enums caused. Authors may declare a pattern to assert intent;
+`join` then preserves or discards it but never invents one. Same rule as `$expr`.
+
+Leastness stays provable under this scheme: for numerics the interval is uniquely
+least, and for everything else unknown is the only option the language offers.
+
+Worth noting what this does to `data_type`. It is a string in `zarr.json`, so members
+with differing dtypes widen it to an unknown variable with a per-member column — which
+is exactly the Level-2 heterogeneity case in the README, handled without special
+machinery. Codec names and configurations fall out the same way.
 
 The consequence: **anything genuinely categorical belongs in cohorts.** A collection
 whose members have two different CRSs is either one cohort with an uninformative

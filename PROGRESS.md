@@ -34,10 +34,11 @@ need an answer, reduce its scope instead.
 Scope is deliberately minimal: literals, variables with domains, optionality, **flat
 groups only**. No nesting, cardinality, `$expr`, or cohorts.
 
-Domain language is tiny by design: `join` synthesises only literals, numeric ranges and
-bare types. **No enums** (categorical variation is a cohort) and **no synthesised
-patterns** — both would make "least generaliser" ambiguous. Authors may declare patterns;
-`join` preserves or discards but never invents.
+Domain language is tiny by design: `join` synthesises a domain **only where the type has
+a meaningful order**. Numerics widen to a range; strings, booleans and type mismatches
+widen to an unconstrained variable. **No enums** (categorical variation is a cohort) and
+**no synthesised patterns** — both would make "least generaliser" ambiguous. Authors may
+declare patterns; `join` preserves or discards but never invents.
 
 A group's description is **exactly its `zarr.json`, chunking included**, compared as-is
 with no canonicalisation — sound only because every member is written by our own
