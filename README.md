@@ -114,7 +114,7 @@ than the way it is stored — one projection among several, and an optional one.
 | Consistency | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | Scalable data | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | Scalable index | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Uncoordinated writes | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Uncoordinated writes | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Heterogeneous | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
 | Schema-constrained | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | Domain-agnostic | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
@@ -125,8 +125,8 @@ than the way it is stored — one projection among several, and an optional one.
   member to get at a slice of it.
 - **Scalable index** — members matching a predicate can be found without reading all of
   them.
-- **Uncoordinated writes** — concurrent writers against object storage with no
-  external lock service or catalog.
+- **Uncoordinated writes** — many workers can write different parts of a *single
+  member's* data in parallel, without coordinating with one another.
 - **Heterogeneous** — members may differ in structure: shapes, dtypes, which variables
   are present.
 - **Schema-constrained** — records and enforces what members have in common.
@@ -157,8 +157,8 @@ closest columns informative:
 
 Further notes, since a table this compact hides its reasoning:
 
-- **Consistency, scalable data and uncoordinated writes are inherited** from Zarr and
-  Icechunk rather than invented here — which is why all three Icechunk columns share
+- **Consistency, scalable data and uncoordinated writes are inherited** from Icechunk
+  and Zarr rather than invented here — which is why all three Icechunk columns share
   them. What distinguishes those three columns from each other is the index, the
   heterogeneity, and the constraint.
 - **Splitting scalability in two isolates one precise failure each.** Iceberg + Arrow
@@ -175,9 +175,15 @@ Further notes, since a table this compact hides its reasoning:
 - **Both STAC rows are unconstrained** because STAC describes assets as opaque and its
   `summaries` are advisory rather than derived or enforced. Pointing STAC at native Zarr
   buys n-dimensionality, and nothing else.
-- **Uncoordinated writes is the row that separates the Icechunk columns from the
-  tabular ones.** Icechunk gets serialisable isolation on plain object storage using
-  conditional writes, with no catalog service; Iceberg conventionally needs a catalog to
-  swap the metadata pointer atomically, and Lance needs its own commit coordination.
-  This is the shakiest row in the table — implementations are moving toward
-  conditional-write commits, which would flip those cells.
+- **Uncoordinated writes is a Zarr property, not an Icechunk one.** It separates
+  approaches whose members are internally chunked from those where a member is a single
+  file or a single value. Any Zarr-backed member — including STAC pointing at native
+  Zarr — lets N workers write disjoint chunks concurrently with no coordination, which is
+  what makes distributed ingest of one large member possible. A COG is written by one
+  process, a tensor is one Parquet value, a RaQuet tile is one row, and a Lance blob is
+  one contiguous byte range: none of them can be filled in parallel from independent
+  workers. (Under Icechunk the chunk writes stay uncoordinated; only the final commit
+  gathers the workers' results.)
+- **This is also the one row where STAC + native Zarr beats STAC + COG on something
+  other than dimensionality**, which is worth knowing if you are choosing between them
+  for reasons unrelated to this project.
