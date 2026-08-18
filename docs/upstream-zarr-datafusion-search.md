@@ -3,6 +3,10 @@
 Reconnaissance only — nothing was raised, opened or pushed anywhere. Line numbers
 are against the repo as of this reading; re-check before acting on them.
 
+**Tested, not just read.** `scripts/upstream_probe.py` opens a DataCollections store
+with their published PyPI wheel and runs SQL over it. It works, unmodified, on both
+sides — see "Measured" below.
+
 The headline: **their layout and ours are nearly the same store.** That is much
 better news than the plan assumed, and it makes the two upstream changes PLAN.md
 already wants into exactly the changes that would let their `TableProvider` read a
@@ -61,15 +65,51 @@ small. That is the change that would hand the planner our constraint for free �
 With both, their provider reads our store and gets the constraint as a planner input
 without knowing anything about DataCollections.
 
-## What blocks using them as a dependency today
+## Measured: their provider reads our store today
 
-**Version skew, and it is not small.** They pin `icechunk = "0.3.16"`,
-`datafusion = "53.0"`, `arrow = "58.0.0"`, `zarrs = "0.23.10"` (`Cargo.toml:7-31`).
-The Python stack this MVP runs on is `icechunk` 1.1.21. Depending on their crate
-from a workspace that also links current Icechunk means either they bump — a real
-piece of work, not a version-number edit — or we pin to an Icechunk two major
-versions old. That is the concrete reason `zarr-collection-query` does not exist as a
-crate yet, over and above "the MVP did it in Python".
+```
+$ /tmp/df53/bin/python scripts/upstream_probe.py examples/hst/store
+
+opened examples/hst/store/meta with zarr-datafusion-search
+columns it sees:  exptime double · filter string_view · member_id string_view · …
+SQL over our table, through their provider:
+  exptime   [11.729164, 142.945755, 14.355583]
+  member_id ['c14f538ebda8561175d297ed35f8d6ce', …]
+
+What it does not pick up — the two upstream changes, as data:
+  Schema metadata (our constraint):     None
+  member_id metadata (zarr.group_ref):  None
+```
+
+So the layout convergence is real, not merely plausible from reading the code: a
+store written by `add_item` is queryable by upstream with no changes to either side,
+and the *only* thing missing is the self-description. The two `None`s above are
+precisely the two PRs.
+
+They also publish **Python bindings on PyPI** (`zarr-datafusion-search` 0.1.2,
+wheels for macOS/Linux, `ZarrTable.from_icechunk(session, "/meta")` over the
+DataFusion FFI). So adopting them needs no Rust dependency in this workspace at all —
+which removes most of the reason `zarr-collection-query` was going to be a crate.
+
+## What actually blocks adoption
+
+**Correction to an earlier version of this note, which was wrong.** I wrote that
+`icechunk` version skew was the blocker — their `Cargo.toml` pins `icechunk = "0.3.16"`
+against our Python `icechunk` 1.1.21. Those are **two numbering lines for the same
+project**: Rust crate `0.3.24` and PyPI `1.1.21` were published on the same day
+(2026-03-13). Their pin matches what we run, and passing an icechunk session across
+their FFI boundary works — the probe does exactly that. There is no skew.
+
+The real blocker is smaller and sharper:
+
+- **Their published wheel is built against `datafusion == 53`, and `datafusion 54`
+  segfaults.** Not an exception — SIGBUS, as soon as the FFI provider is touched,
+  even to read the schema. This MVP has `datafusion 54`, which is why the probe needs
+  its own environment. Until a wheel is rebuilt, adopting them means pinning
+  DataFusion 53 across the project.
+- Both projects are ~4 months behind current Icechunk (2.1.2, July 2026), which now
+  requires **Python ≥ 3.12**; our venv is 3.11, so we are capped at 1.1.21. Bumping
+  to 3.12 is the prerequisite for moving either forward.
 
 ## Their nullability behaviour, confirmed
 
