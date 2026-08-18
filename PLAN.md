@@ -226,6 +226,46 @@ the tree, the variables, and the operations.
 if it matters later — emit JSON Schema as a *lossy* export (dropping co-constraints)
 for interop, which is what CUE does.
 
+### pandera.xarray — authoring surface and export target, not the normative format
+
+Pandera v0.31.0 has full xarray support: `DatasetSchema` and `DatasetModel`, covering
+`DataArray`, `Dataset` and `DataTree`, plus encoding validation, CF-convention checks,
+lazy validation with error reports, **schema inference from data**, and **YAML/JSON
+serialisation**. Three ways it matters here:
+
+**1. It is the obvious Python authoring surface.** Now that constraints are authored
+rather than inferred, ergonomics of authoring went from a nicety to a load-bearing
+concern — hand-writing JSON constraint documents is unpleasant. `constraint_from_pandera(schema)`
+lets users express intent in idiomatic Python. This is a bigger deal than it would have
+been under inference.
+
+**2. Export lets users validate in their own code.** `constraint_to_pandera(c)` hands a
+consumer a schema they can check their own Datasets against before attempting `add_item`,
+using tooling they already know. Same shape as the STAC view: a projection of the
+constraint, so it belongs in `zarr-collection-views` (d) rather than in the core.
+
+**3. Its inference may substitute for much of `infer_constraint`.** The deferred inference
+tool could infer a pandera schema and translate, rather than implementing
+anti-unification from scratch. Partial rather than total: pandera's inference cannot know
+about our cross-member variables, so it would cover dtypes, dims and coords while leaving
+the variable/column decisions to us. Still a real reduction in what M7 has to build.
+
+**Why it cannot be the normative format**, which is the same analysis as the JSON Schema
+one and worth stating because it is a much closer relative:
+
+- **No cross-member notion.** A pandera schema validates *one* Dataset. Ours describes a
+  *collection*, marking what varies with named variables that become columns. Pandera has
+  no way to say "this dimension's length varies across members, and this column records
+  it" — the co-constraint machinery has no counterpart.
+- **Checks are arbitrary Python.** They are not generally serialisable, and `subsumes`
+  could not reason about them, so a pandera schema cannot be the thing we store and
+  compare.
+
+So a pandera schema corresponds roughly to one of our *all-literal* constraints plus
+checks. Useful in both directions, normative in neither.
+
+Its `DataTree` support is also worth revisiting when nesting arrives.
+
 ### Deferred language features
 
 **Breadth before depth.** The risk in this project is the *factoring* being wrong —

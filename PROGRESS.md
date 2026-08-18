@@ -95,6 +95,9 @@ Property tests:
 ## M4 — views + STAC mapping — blocked
 
 - [ ] Projection mapping: constraint + row → target JSON
+- [ ] `constraint_to_pandera(c)` — export so consumers can validate their own Datasets
+- [ ] `constraint_from_pandera(schema)` — Python authoring surface, more important now
+      that constraints are authored rather than inferred
 - [ ] STAC Item derivation
 - [ ] Round-trip property test against real STAC Items
 - [ ] Decide: true geometry, or bbox-approximate `intersects` declared in `/conformance`
@@ -121,7 +124,10 @@ Two independent tracks.
 *Language depth:*
 
 - [ ] `infer_constraint(members)` — the optional inference tool, where `join` and
-      anti-unification live, along with their leastness and domain-synthesis questions
+      anti-unification live, along with their leastness and domain-synthesis questions.
+      Consider inferring a pandera schema and translating, rather than building
+      anti-unification from scratch — partial, since pandera cannot infer our
+      cross-member variables
 - [ ] Optionality (`$present`) — a member may lack an array
 - [ ] Nested groups
 - [ ] Variable cardinality (`$each` / `$count`) — unlocks multiscale and overviews
