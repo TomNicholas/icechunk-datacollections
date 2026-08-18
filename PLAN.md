@@ -1,4 +1,4 @@
-# datacollections — plan
+# DataCollections — plan
 
 A self-contained demo of queryable, self-describing collections of Zarr groups,
 factored so each component can be extracted into its own repo later without a

@@ -1,4 +1,4 @@
-# datacollections
+# DataCollections
 
 Queryable, self-describing collections of Zarr groups — where the collection itself
 records what is consistent across its members and what is allowed to vary.
@@ -13,7 +13,7 @@ see why is to ask how much structure each format **fixes in advance**.
 ```
     MORE STRICT                                              LESS STRICT
     ├───────────┬───────────┬──────────────┬─────────────────┬────────────┤
-    single       RaQuet      STAC + COG     datacollections   Lance blob
+    single       RaQuet      STAC + COG     DataCollections   Lance blob
     Zarr
     datacube
 ```
