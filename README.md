@@ -16,7 +16,7 @@ Features:
 - **General** - No domain-specific assumptions baked in - can hold any valid Zarr array data.
 - **Constrainable** - Configurable schema definition means collections are self-describing, with enforcement at ingestion time.
 - **Extensible** - Domain-agnostic core allows layering domain-specific conventions and query APIs on top (e.g. GeoZarr conventions + STAC API for collections of geospatial raster data).
-- **Zero-copy** - Icechunk's "virtual chunks" feature allows for cataloging data in existing file formats (e.g. TIFF, COG, HDF5) without copying binary data at ingestion time.
+- **Zero-copy** - Icechunk's "virtual chunks" feature allows for cataloging data in existing file formats (e.g. TIFF, COG, HDF5) without copying binary data at ingestion time. All four examples are virtual.
 
 See [PLAN.md](./PLAN.md) for the design and the reasoning behind it,
 [IMPLEMENTATION.md](./IMPLEMENTATION.md) for what the code actually is and where it
@@ -97,6 +97,56 @@ We can chart this:
 ```
 
 (For more details on this comparison see [COMPARISON.md](./COMPARISON.md).)
+
+## What's in this repo
+
+| path | what it is |
+|---|---|
+| `spec/` | The normative convention: the constraint language, the store layout, a JSON Schema meta-schema, and conformance fixtures shared by every component. |
+| `crates/json-constraint/` | The constraint language: `meet` splits a document into the parts a constraint fixes and the values that vary, `substitute` puts them back together, and `subsumes` compares two constraints. |
+| `crates/zarr-collection/` | The store layout: `/meta` attributes, the `zarr.group_ref` extension type, and both write paths expressed as pure plans. |
+| `crates/constraint-views/` | Projection of a constraint plus one member's bindings into another format (e.g. deriving STAC items from tabular metadata). |
+| `python/datacollections-py/` | Python API for defining, creating, and updating DataCollection repos. |
+| `python/stac-api-backend/` | A stac-fastapi backend serving a collection. Deliberately independent layer, included just as an example of a domain-specific API. |
+| `examples/` | Examples from four domains — microscopy, geospatial, fusion, astronomy. |
+| `scripts/` | Fixture generation, the real-document corpus fetcher, cost measurements, and the upstream probe. |
+
+### The constraint language
+
+A constraint is a JSON document shaped like the thing it describes, with named
+holes: literals where members agree, `{"$var": …}` where they differ in a scalar,
+`{"$wild": …}` for leaves we decline to describe. Every concrete JSON document is
+therefore a valid constraint. Repeating a variable asserts those positions are equal
+*within* a member and says nothing across members — the co-constraint that JSON
+Schema structurally cannot express:
+
+```python
+{"time": {"shape": [var("nt")]},          # these two lengths must agree
+ "data": {"shape": [var("nt"), 8]}}       # per member, whatever they are
+```
+
+### The store
+
+One Icechunk repository holds a `/meta` table and the `/groups/<id>` it describes,
+so a member and its row commit together. Row *i* of every column array describes the
+group named by `member_id[i]`, and the constraint lives in `/meta`'s group
+attributes — which map 1:1 onto Arrow `Schema` metadata, so a query planner gets it
+with the table schema.
+
+### Writing
+
+`add_item` is always strict and always one transaction: write the group, derive its
+description, `meet` it, append the row, commit. Loosening is a separate, explicit
+`evolve_schema` call that must *generalise* the current constraint, and it backfills
+any new column by reading every existing member — real values, no nulls — reporting
+whether the call was O(1) or O(N) rather than hiding it.
+
+### Querying and views
+
+SQL runs through `zarr-datafusion-search`'s DataFusion provider, which reads a
+DataCollections store unmodified. A member's full `zarr.json` is reconstructed from
+the constraint plus its row, and views project that into other formats — the STAC
+API serves Items without ever opening a member's group.
 
 ## License
 

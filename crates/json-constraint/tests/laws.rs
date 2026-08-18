@@ -341,3 +341,51 @@ fn floats_round_trip_bit_for_bit() {
         );
     }
 }
+
+/// `meet` is not two operations wearing one hat.
+///
+/// It looks like it does two things — decide whether a document is a member, and
+/// extract the values that vary — but the deciding half is not a separate primitive:
+/// it is already `subsumes`, asked against the all-literal constraint admitting
+/// exactly that document.
+///
+/// ```text
+/// matches(c, d)  ≡  subsumes(c, from_description(d))
+/// ```
+///
+/// So what is irreducible about `meet` is the *decomposition*: splitting a document
+/// into the part the constraint fixes and the bindings that vary, which `substitute`
+/// puts back together. The law is pinned here because the two implementations walk
+/// the same rules independently, and could drift apart — a change to the
+/// co-constraint check in one and not the other would show up exactly here.
+#[test]
+fn membership_is_subsumption_of_the_documents_own_constraint() {
+    let mut agreed = 0;
+    for seed in seeds() {
+        let rng = &mut Rng(seed);
+        let doc = gen_document(rng, 4);
+
+        for looseness in 0..3 {
+            let c = Constraint::parse(&abstract_document(rng, &doc, looseness, &mut 0)).unwrap();
+
+            // the document it was abstracted from, and mutations that should not match
+            let mut candidates = vec![doc.clone()];
+            for ptr in literal_pointers(&c).into_iter().take(4) {
+                if !ptr.is_empty() {
+                    candidates.push(mutate_at(&doc, &ptr));
+                }
+            }
+
+            for candidate in candidates {
+                let meets = c.meet(&candidate).is_ok();
+                let subsumes = c.subsumes(&Constraint::from_description(&candidate));
+                assert_eq!(
+                    meets, subsumes,
+                    "seed {seed}: meet says {meets} but subsumes says {subsumes}"
+                );
+                agreed += 1;
+            }
+        }
+    }
+    assert!(agreed > 1000, "only {agreed} documents compared");
+}

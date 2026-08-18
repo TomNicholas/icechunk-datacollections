@@ -121,6 +121,21 @@ messages are user-facing: `add_item` refusing a member must say *which leaf* fai
 
 `meet` is total, deterministic, and does no IO.
 
+**`meet` decomposes; it does not also validate as a separate concern.** It looks like
+two operations — decide membership, extract bindings — but the deciding half is
+already `subsumes` (§3.3), asked against the all-literal constraint admitting exactly
+that document:
+
+```
+matches(c, d)  ≡  subsumes(c, from_description(d))
+```
+
+That equivalence is normative, and property-tested. What is irreducible about `meet`
+is therefore the decomposition: splitting a document into the part the constraint
+fixes and the bindings that vary, which §3.2 puts back together. A caller wanting only
+the verdict may use either; a caller wanting the mismatches uses `meet`, which reports
+all of them rather than stopping at the first.
+
 ### 3.2 `substitute(constraint, bindings) -> description`
 
 The inverse. Replaces each variable and wildcard leaf by its bound value and returns
