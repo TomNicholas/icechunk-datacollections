@@ -44,6 +44,8 @@ Avoid "item" except in `add_item` and when referring to STAC Items specifically.
 
 - [`README.md`](./README.md) — motivation, the strictness spectrum, the comparison table.
   Start there for *why*; this document is *what* and *why-this-way*.
+- [`COMPARISON.md`](./COMPARISON.md) — the long form of that comparison: how each
+  existing approach falls short, and what gap is left.
 - [`PROGRESS.md`](./PROGRESS.md) — task state. This document holds the reasoning; when the
   two disagree, this one wins.
 - Upstream prototype: **`developmentseed/zarr-datafusion-search`** — every `src/…:NN`
