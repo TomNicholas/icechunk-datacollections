@@ -58,7 +58,7 @@ def collection(tmp_path, source_items):
             ExtraColumn("granule", "string"),
             ExtraColumn("datetime", "string"),
             ExtraColumn("cloud_cover", "float64"),
-            ExtraColumn("bbox", "string"),
+            ExtraColumn("bbox", "string", encoding="json"),
         ],
     )
     ds, extras = build_member(source_items[0])
@@ -98,7 +98,7 @@ def test_derived_items_agree_with_their_sources(collection):
 
         assert derived["type"] == source["type"] == "Feature"
         assert derived["properties"]["datetime"] == source["properties"]["datetime"]
-        assert json.loads(derived["bbox"]) == pytest.approx(source["bbox"])
+        assert derived["bbox"] == pytest.approx(source["bbox"])
         assert derived["properties"]["eo:cloud_cover"] == pytest.approx(
             source["properties"]["eo:cloud_cover"]
         )

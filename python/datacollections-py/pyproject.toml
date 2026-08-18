@@ -17,7 +17,8 @@ dependencies = [
 
 [project.optional-dependencies]
 query = ["pyarrow>=17", "datafusion>=40"]
-stac = ["fastapi>=0.110", "pydantic>=2"]
+stac = ["stac-fastapi.api>=6", "stac-fastapi.types>=6", "stac-fastapi.extensions>=6", "uvicorn"]
+stac-test = ["pystac-client>=0.8", "httpx"]
 pandera = ["pandera>=0.31"]
 virtual = ["virtualizarr>=2.5", "virtual-tiff>=0.5", "obstore", "arro3-core"]
 dev = ["pytest>=8", "jsonschema>=4"]

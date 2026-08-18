@@ -33,7 +33,7 @@ jobs:
       - run: uv venv --python 3.11 .venv
       - run: |
           VIRTUAL_ENV=$PWD/.venv uv pip install -e \
-            "python/datacollections-py[query,stac,pandera,virtual,dev]" maturin httpx
+            "python/datacollections-py[query,stac,stac-test,pandera,virtual,dev]" maturin
       - run: cd python/datacollections-py && ../../.venv/bin/maturin develop
         env:
           VIRTUAL_ENV: ${{ github.workspace }}/.venv
@@ -55,7 +55,7 @@ jobs:
       - run: uv venv --python 3.11 .venv
       - run: |
           VIRTUAL_ENV=$PWD/.venv uv pip install -e \
-            "python/datacollections-py[query,stac,pandera,virtual,dev]" maturin httpx
+            "python/datacollections-py[query,stac,stac-test,pandera,virtual,dev]" maturin
       - run: cd python/datacollections-py && ../../.venv/bin/maturin develop
         env:
           VIRTUAL_ENV: ${{ github.workspace }}/.venv

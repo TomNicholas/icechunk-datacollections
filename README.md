@@ -27,7 +27,7 @@ coll.describe(member_id)      # the member's zarr.json, reconstructed exactly
 ```
 
 ```bash
-make venv build test      # 55 Rust tests, 53 Python tests
+make venv build test      # 61 Rust tests, 64 Python tests
 make examples             # all four domains, against live APIs
 ```
 

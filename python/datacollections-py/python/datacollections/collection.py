@@ -37,11 +37,17 @@ class ExtraColumn:
     name: str
     dtype: str = "string"
     description: str | None = None
+    #: `"json"` stores the value JSON-encoded in a string column and decodes it on
+    #: read, which is how an extra column holds a list or an object — a STAC `bbox`,
+    #: say. Same mechanism a wildcard's column uses.
+    encoding: str | None = None
 
     def to_json(self) -> dict:
         d = {"name": self.name, "dtype": self.dtype}
         if self.description:
             d["description"] = self.description
+        if self.encoding:
+            d["encoding"] = self.encoding
         return d
 
 

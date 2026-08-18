@@ -33,7 +33,7 @@ arrow, no DataFusion. That rule held without strain and is the extractability
 guarantee.
 
 Test suites: **61 Rust tests** (`make test-rust`) including the fixture conformance
-suite and property tests for the three laws, and **59 Python tests**
+suite and property tests for the three laws, and **64 Python tests**
 (`make test-python`) across the bindings, the store, the virtual ingest path, the
 query layer, the pandera translation, the STAC API and the four examples. `make
 test` runs both.
@@ -95,11 +95,27 @@ is here exercises the claim that matters — the constraint is a **planner input
 off the table's schema** — without vendoring a git dependency into an MVP. No
 predicate pushdown, no lazy chunk reads; it materialises the table.
 
-**3. The STAC API is plain FastAPI, not stac-fastapi.** Same routes, same response
-shapes, a tenth of the dependency surface. `Backend` is written so that hosting it
-under stac-fastapi later means passing it as the client class. pystac-client as the
-acceptance test was likewise replaced by direct assertions on the response shapes a
-client depends on.
+**3. ~~The STAC API is plain FastAPI, not stac-fastapi.~~ Withdrawn — it is
+stac-fastapi.** The first version hand-rolled the routes, justified by dependency
+surface. That justification did not survive being questioned: `stac-fastapi.api`,
+`.types` and `.extensions` install in seconds, and the six-method `BaseCoreClient`
+maps straight onto the `Backend` that was already there.
+
+Hosting on the reference implementation was worth it immediately, in two concrete
+ways rather than in principle:
+
+- **It validates our responses** (`enable_response_models=True`), which caught a
+  `bbox` being served as a JSON *string* — the hand-rolled routes had been passing
+  it through happily, and a real client would have choked. `ExtraColumn` now takes
+  `encoding="json"` so such a column decodes to a real list, the same mechanism a
+  wildcard's column uses.
+- **It knows the spec better than I do.** Validation rejected an `/items` page for
+  lacking a `collection` link at the FeatureCollection level — a requirement the
+  hand-rolled version did not know existed.
+
+The acceptance test is now the one PLAN.md asks for: **pystac-client against a live
+uvicorn server**, opening the API, checking conformance for itself, paging through a
+search, and filtering by datetime, bbox and ids.
 
 **4. Bindings pass JSON text across the FFI boundary.** No pythonize/serde-pyobject
 dependency; `serde_json::Value` in, `serde_json::Value` out, `json.dumps` on the

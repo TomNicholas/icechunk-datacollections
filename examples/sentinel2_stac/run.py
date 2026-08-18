@@ -178,7 +178,7 @@ def _extras(item: dict) -> dict:
         "granule": item["id"],
         "datetime": props["datetime"],
         "cloud_cover": float(props.get("eo:cloud_cover") or 0.0),
-        "bbox": json.dumps([float(v) for v in item["bbox"]]),
+        "bbox": [float(v) for v in item["bbox"]],
     }
 
 
@@ -259,7 +259,7 @@ def main() -> None:
             ExtraColumn("granule", "string", "human-meaningful id; member ids are opaque"),
             ExtraColumn("datetime", "string", "extracted at ingest for query and for the view"),
             ExtraColumn("cloud_cover", "float64"),
-            ExtraColumn("bbox", "string", "WKB in a real store; JSON text here"),
+            ExtraColumn("bbox", "string", "WKB in a real store; JSON here", encoding="json"),
         ],
     )
 

@@ -50,18 +50,15 @@ class Backend:
         doc["links"] = []
         return doc
 
-    def conformance(self) -> list[str]:
-        classes = [
-            "https://api.stacspec.org/v1.0.0/core",
-            "https://api.stacspec.org/v1.0.0/collections",
-            "https://api.stacspec.org/v1.0.0/ogcapi-features",
-            "https://api.stacspec.org/v1.0.0/item-search",
-        ]
-        if self.bbox_column is not None:
-            # Declared honestly: with only a bbox column, `intersects` is
-            # bbox-approximate, so the geometry-exact claim is not made.
-            classes.append("https://api.stacspec.org/v1.0.0/item-search#query")
-        return classes
+    @property
+    def spatial_search_is_approximate(self) -> bool:
+        """True when spatial filtering is done against a bbox rather than a geometry.
+
+        Always, in v1: there is no geometry column, so `intersects` is answered from
+        the query geometry's envelope. Recorded here rather than glossed, because it
+        is the conformance-honesty question PLAN.md reserves for M4.
+        """
+        return True
 
     # -------------------------------------------------------------------- search
 

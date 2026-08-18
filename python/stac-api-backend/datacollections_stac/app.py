@@ -1,130 +1,56 @@
-"""The routes. Thin on purpose — every interesting decision is in `backend.py`."""
+"""Assemble the stac-fastapi application.
+
+There are no routes here, and that is the point: stac-fastapi owns the landing page,
+the conformance declaration, link relations, request models, error shapes and the
+OpenAPI document. We supply a client and the extensions we actually implement.
+"""
 
 from __future__ import annotations
 
-from typing import Any
+from stac_fastapi.api.app import StacApi
+from stac_fastapi.api.models import create_get_request_model, create_post_request_model
+from stac_fastapi.extensions import TokenPaginationExtension
+from stac_fastapi.types.config import ApiSettings
 
-from fastapi import FastAPI, HTTPException, Query, Request
-
-from .backend import DEFAULT_LIMIT, Backend
-
-
-def make_app(backend: Backend, title: str = "DataCollections STAC API") -> FastAPI:
-    app = FastAPI(title=title)
-
-    def link(request: Request, rel: str, path: str, **extra) -> dict:
-        return {"rel": rel, "type": "application/json", "href": str(request.base_url).rstrip("/") + path, **extra}
-
-    @app.get("/")
-    def landing(request: Request) -> dict:
-        return {
-            "type": "Catalog",
-            "stac_version": "1.1.0",
-            "id": backend.collection_id,
-            "description": backend.title,
-            "conformsTo": backend.conformance(),
-            "links": [
-                link(request, "self", "/"),
-                link(request, "conformance", "/conformance"),
-                link(request, "data", "/collections"),
-                link(request, "search", "/search"),
-            ],
-        }
-
-    @app.get("/conformance")
-    def conformance() -> dict:
-        return {"conformsTo": backend.conformance()}
-
-    @app.get("/collections")
-    def collections() -> dict:
-        return {"collections": [backend.collection_document()], "links": []}
-
-    @app.get("/collections/{collection_id}")
-    def collection(collection_id: str) -> dict:
-        _check(collection_id, backend)
-        return backend.collection_document()
-
-    @app.get("/collections/{collection_id}/items")
-    def items(
-        request: Request,
-        collection_id: str,
-        limit: int = Query(DEFAULT_LIMIT, ge=1),
-        token: str | None = None,
-        datetime: str | None = None,
-        bbox: str | None = None,
-    ) -> dict:
-        _check(collection_id, backend)
-        result = backend.search(
-            limit=limit,
-            token=token,
-            datetime=datetime,
-            bbox=_parse_bbox(bbox),
-            collections=[collection_id],
-        )
-        return _feature_collection(request, result, "/collections/{}/items".format(collection_id))
-
-    @app.get("/collections/{collection_id}/items/{item_id}")
-    def item(collection_id: str, item_id: str) -> dict:
-        _check(collection_id, backend)
-        found = backend.item(item_id)
-        if found is None:
-            raise HTTPException(status_code=404, detail=f"no item `{item_id}`")
-        return found
-
-    @app.get("/search")
-    def search_get(
-        request: Request,
-        limit: int = Query(DEFAULT_LIMIT, ge=1),
-        token: str | None = None,
-        ids: str | None = None,
-        collections: str | None = None,
-        datetime: str | None = None,
-        bbox: str | None = None,
-    ) -> dict:
-        result = backend.search(
-            ids=ids.split(",") if ids else None,
-            collections=collections.split(",") if collections else None,
-            datetime=datetime,
-            bbox=_parse_bbox(bbox),
-            limit=limit,
-            token=token,
-        )
-        return _feature_collection(request, result, "/search")
-
-    @app.post("/search")
-    async def search_post(request: Request) -> dict:
-        body: dict[str, Any] = await request.json()
-        result = backend.search(
-            ids=body.get("ids"),
-            collections=body.get("collections"),
-            datetime=body.get("datetime"),
-            bbox=body.get("bbox"),
-            limit=body.get("limit", DEFAULT_LIMIT),
-            token=body.get("token"),
-        )
-        return _feature_collection(request, result, "/search")
-
-    def _feature_collection(request: Request, result, path: str) -> dict:
-        links = [link(request, "self", path)]
-        if result.next_token:
-            links.append(link(request, "next", f"{path}?token={result.next_token}"))
-        return {
-            "type": "FeatureCollection",
-            "features": result.items,
-            "numberMatched": result.matched,
-            "numberReturned": len(result.items),
-            "links": links,
-        }
-
-    return app
+from .backend import Backend
+from .client import DataCollectionsClient
 
 
-def _check(collection_id: str, backend: Backend) -> None:
-    if collection_id != backend.collection_id:
-        raise HTTPException(status_code=404, detail=f"no collection `{collection_id}`")
+def make_app(backend: Backend, title: str | None = None, version: str = "0.1.0"):
+    """A STAC API serving one DataCollections store.
 
+    Only the extensions we genuinely implement are declared. `TokenPagination` is
+    real — the token is a row ordinal plus the Icechunk snapshot the search ran
+    against, so a page boundary is stable while the collection is appended to
+    underneath. Sort and Filter are *not* declared, because we do not implement
+    them and claiming conformance we do not have is worse than lacking it.
+    """
+    settings = ApiSettings(
+        stac_fastapi_title=title or backend.title,
+        stac_fastapi_description=backend.title,
+        stac_fastapi_version=version,
+        stac_fastapi_landing_id=backend.collection_id,
+        # Validate what we emit against stac-pydantic. This is the main reason to
+        # host on the reference implementation rather than hand-rolled routes: it
+        # immediately caught a `bbox` being served as a JSON *string*, which our own
+        # routes had been passing through happily.
+        enable_response_models=True,
+    )
+    extensions = [TokenPaginationExtension()]
 
-def _parse_bbox(raw: str | None):
-    if not raw:
-        return None
-    return [float(v) for v in raw.split(",")]
+    # The landing page's identity lives on the *client* (stac-fastapi's
+    # LandingPageMixin), not in the settings — pystac-client reads `id` from there.
+    client = DataCollectionsClient(
+        backend=backend,
+        landing_page_id=backend.collection_id,
+        title=title or backend.title,
+        description=backend.title,
+    )
+
+    return StacApi(
+        settings=settings,
+        client=client,
+        extensions=extensions,
+        search_get_request_model=create_get_request_model(extensions),
+        search_post_request_model=create_post_request_model(extensions),
+    ).app

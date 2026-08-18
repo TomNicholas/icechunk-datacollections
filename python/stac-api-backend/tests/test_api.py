@@ -1,9 +1,11 @@
-"""Acceptance tests for the STAC API.
+"""Route-level tests for the STAC API, over stac-fastapi's TestClient.
 
-PLAN.md names pystac-client as the acceptance test. That is a heavier dependency
-than this MVP wants, so the equivalent assertions are made directly against the
-route shapes a client relies on: the landing page's `conformsTo` and links, a
-Collection document, item search with paging, and a single-Item fetch.
+Fast checks on the shapes a client depends on. The *acceptance* test is
+`test_pystac_client.py`, which runs a real pystac-client against a real server —
+these are the quick ones that fail with a readable diff when something moves.
+
+Note that responses are validated by stac-fastapi on the way out, so a test passing
+here also means stac-pydantic accepted the document.
 """
 
 import copy
@@ -38,7 +40,7 @@ def client(tmp_path):
         extra_columns=[
             ExtraColumn("granule", "string"),
             ExtraColumn("datetime", "string"),
-            ExtraColumn("bbox", "string", "WKB would be the real thing; JSON here"),
+            ExtraColumn("bbox", "string", "WKB would be the real thing; JSON here", encoding="json"),
         ],
     )
     coll.add_item(
@@ -46,7 +48,7 @@ def client(tmp_path):
         extras={
             "granule": "T33UUP_20240101",
             "datetime": "2024-01-01T10:00:00Z",
-            "bbox": "[12.0, 45.0, 13.0, 46.0]",
+            "bbox": [12.0, 45.0, 13.0, 46.0],
         },
     )
     # heterogeneous CRS across tiles is the motivating geospatial case
@@ -59,7 +61,7 @@ def client(tmp_path):
             extras={
                 "granule": f"T33UU{i}_2024010{i}",
                 "datetime": f"2024-01-0{i}T10:00:00Z",
-                "bbox": "[20.0, 45.0, 21.0, 46.0]",
+                "bbox": [20.0, 45.0, 21.0, 46.0],
             },
         )
 
@@ -133,7 +135,7 @@ def test_post_search_matches_get(client):
 def test_fetching_one_item(client):
     item = client.get("/collections/sentinel-2-l2a/items/T33UUP_20240101").json()
     assert item["type"] == "Feature"
-    assert item["bbox"] == "[12.0, 45.0, 13.0, 46.0]"
+    assert item["bbox"] == [12.0, 45.0, 13.0, 46.0]
     assert client.get("/collections/sentinel-2-l2a/items/nope").status_code == 404
 
 

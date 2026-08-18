@@ -7,15 +7,15 @@ deliberate deviation, and what turned up when the design met real data.
 
 **Where things stand: M0–M6 have a working MVP end to end.** Constraint language,
 store layout, both write paths, SQL query, views, a STAC API, and all four examples.
-61 Rust tests and 59 Python tests pass (`make test`).
+61 Rust tests and 64 Python tests pass (`make test`).
 
 **What wants your attention first**, in order:
 
-1. **Three MVP scope reductions to accept or reject** — the Rust crates do no IO
-   (the storage driver is Python), `zarr-collection-query` does not exist as a crate,
-   and the STAC API is plain FastAPI rather than stac-fastapi. All three are argued in
-   IMPLEMENTATION.md; none reopens a closed decision, but all three are yours to
-   confirm.
+1. **Two MVP scope reductions to accept or reject** — the Rust crates do no IO (the
+   storage driver is Python), and `zarr-collection-query` does not exist as a crate.
+   Both are argued in IMPLEMENTATION.md. A third — hand-rolled STAC routes — was
+   withdrawn on your challenge: it is stac-fastapi now, with pystac-client as the
+   acceptance test, and switching immediately caught two spec bugs.
 2. **The extra-columns gap was filled provisionally**, because nothing could be built
    without it: declared at `create_collection`, supplied per member at `add_item`.
    It is the minimum that works, not a decision — see below.
@@ -133,16 +133,20 @@ Answered while building:
 - [ ] Decide: true geometry, or bbox-approximate `intersects` declared in
       `/conformance` — the MVP is bbox-approximate and says so in `conformsTo`
 
-## M5 — STAC API backend — **done, differently**
+## M5 — STAC API backend — **done, on stac-fastapi**
 
-- [x] A STAC API over the Python bindings: landing page, conformance, collections,
-      items, `GET`/`POST` search
-- [x] Pagination: token is row ordinal + Icechunk snapshot, so pages are
-      snapshot-isolated
+- [x] **stac-fastapi backend** over the Python bindings — `DataCollectionsClient`
+      implements its six-method `BaseCoreClient`; `Backend` under it does the
+      searching and knows nothing about HTTP
+- [x] Response validation on, which caught two real bugs: a `bbox` served as a JSON
+      string, and an `/items` page missing its `collection` link
+- [x] Pagination via `TokenPaginationExtension`: the token is a row ordinal plus the
+      Icechunk snapshot, so pages are snapshot-isolated
+- [x] **pystac-client as the acceptance test**, against a live uvicorn server — it
+      opens the API, checks conformance itself, pages a search, and filters by
+      datetime, bbox and ids
 - [ ] The Sort extension interaction is still unresolved — the token assumes append
-      order
-- [ ] stac-fastapi as the host, pystac-client as the acceptance test — plain FastAPI
-      and direct response-shape assertions instead
+      order, and Sort is deliberately not declared
 
 ## M6 — four examples — **done, all four run at the full 100 members**
 
