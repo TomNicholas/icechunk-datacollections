@@ -3,8 +3,34 @@
 Queryable, self-describing collections of Zarr groups — where the collection itself
 records what is consistent across its members and what is allowed to vary.
 
-See [PLAN.md](./PLAN.md) for the design and the reasoning behind it, and
-[PROGRESS.md](./PROGRESS.md) for task state.
+See [PLAN.md](./PLAN.md) for the design and the reasoning behind it,
+[IMPLEMENTATION.md](./IMPLEMENTATION.md) for what the code actually is and where it
+departs from the plan, and [PROGRESS.md](./PROGRESS.md) for task state.
+
+**Status: an MVP of every component runs.** The constraint language, the store
+layout, both write paths, SQL query, the view layer, a STAC API, and four examples —
+microscopy, geospatial, fusion and astronomy, three of them with no STAC anywhere in
+the stack.
+
+```python
+import icechunk
+from datacollections import create_collection, var
+
+repo = icechunk.Repository.create(icechunk.local_filesystem_storage("store"))
+coll = create_collection(repo, constraint=None)   # first member sets the constraint
+member_id = coll.add_item(ds)                     # one atomic transaction
+
+# say explicitly what may vary, and the writer backfills the new column by reading
+coll.evolve_schema(looser_constraint)
+coll.sql("SELECT member_id, nt FROM members WHERE nt > 1000")
+coll.describe(member_id)      # the member's zarr.json, reconstructed exactly
+```
+
+```bash
+make venv build test      # 55 Rust tests, 53 Python tests
+make examples             # all four domains, against live APIs
+```
+
 
 ## Motivation
 
