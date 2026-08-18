@@ -1,5 +1,8 @@
 # DataCollections
 
+> [!WARNING]
+> **A thought experiment, not a usable project (yet).**
+
 **Manage heterogenous collections of multidimensional array data as a single consistent and self-describing Icechunk repository.**
 
 Intended for sets (or "collections") of related but heterogenous multi-dimensional array data, such as:
@@ -10,7 +13,7 @@ Intended for sets (or "collections") of related but heterogenous multi-dimension
 
 Features:
 - **Queryable** - SQL queries can scan tables of item-level metadata, before opening only the subset of data required for an analysis (e.g. with Xarray or GDAL).
-- **Serverless** - All data and metadata is in the storage layer, so queries and updates can be performed without any need for a server.
+- **Serverless** - All data, metadata, and history live in the storage layer, so queries and updates can be performed without any need for a server.
 - **Consistent** - Icechunk's ACID transactions ensure that the metadata about each item are updated consistently with the data.
 - **Scalable** - Cloud-native properties of Icechunk and Zarr allow storing PB-scale datasets comprising millions of items.
 - **General** - No domain-specific assumptions baked in - can hold any valid Zarr array data.
@@ -147,6 +150,38 @@ SQL runs through `zarr-datafusion-search`'s DataFusion provider, which reads a
 DataCollections store unmodified. A member's full `zarr.json` is reconstructed from
 the constraint plus its row, and views project that into other formats — the STAC
 API serves Items without ever opening a member's group.
+
+## Open design questions and to-dos
+
+- **Iceberg/Parquet vs Zarr for the tabular half.** `/meta` is Zarr arrays today; but 
+  Icechunk could alternatively be used to manage Parquet or Iceberg.
+  That would bring nulls, row-group statistics and predicate pushdown for free,
+  at the cost of a second format and of metadata sitting at a different abstraction level
+  from the data it describes.
+- **`zarr-datafusion-search` vs Zax vs something else for metadata queries.** Queries
+  currently run through `zarr-datafusion-search`'s DataFusion provider; possibly later to 
+  replaced with Zax.
+- **Cohorts — several collections in one repo.** One store is one constraint and one
+  implicit cohort today, though the attribute map is keyed for more; supporting several
+  is what would turn a repo from one STAC collection into a whole STAC catalog.
+- **The schema definition language.** Constraints are authored as JSON documents, with
+  translation to and from pandera; whether that is the right authoring surface — against
+  a Python DSL, or something CUE-shaped — is unsettled.
+- **How well Icechunk scales to many groups.** Rows are ordinary chunked arrays and scale
+  fine, but the *node* count does not have a known answer, so every example is capped at
+  ~100 members until it does. Will likely require some upstream work in Icechunk to ensure 
+  scalability up to millions of groups.
+- **Geospatial bounding-box indexes.** Bounding boxes are filtered in Python; pushing that
+  into the scan needs a WKB geometry column, which needs a `binary` dtype the layout does
+  not have yet, and then upstream's per-column R-tree can prune on it.
+- **Efficient single-item updates.** Every append is its own commit and rewrites the tail
+  chunk of every column, so touching one member costs a chunk rather than a row —
+  bounding that probably means sharding the index.
+- **Compatibility with other tools.** A member is an ordinary Zarr group, so in principle
+  any Zarr reader should open one directly — whether GDAL actually can is untested, and
+  probably needs ZEP8 first.
+- **Single-item export to native formats.** Getting a COG (or a netCDF) back out of one
+  member is the inverse of the virtual ingest path, and nothing implements it.
 
 ## License
 
