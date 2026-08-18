@@ -114,9 +114,16 @@ The real blocker is smaller and sharper:
 ## Now wired in
 
 `python/datacollections/query.py` registers their provider — this is no longer a
-proposal. Three of the four example stores read through it; Sentinel-2 falls back to
-local materialisation because of the `bbox` special case, with an `UpstreamRefused`
-warning naming the cause.
+proposal. **All four example stores read through it**, Sentinel-2 included: we
+sidestep the `bbox` special case by naming that column `bbox_wgs84`, which costs
+nothing (the STAC Item's `bbox` field is unaffected) and buys a queryable store
+today. `create_collection` warns if anyone declares a `bbox` column, and the local
+fallback remains for stores written elsewhere.
+
+That workaround is also the sharpest argument for the first PR: the special case does
+not merely fail to add an extension type, it makes the entire store unopenable, and
+the only way to write a column it accepts is to write WKB bytes — which our layout
+cannot do yet.
 
 Two things had to change on our side to make it work, both worth knowing:
 

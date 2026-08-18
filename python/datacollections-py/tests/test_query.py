@@ -113,9 +113,13 @@ def test_a_store_upstream_refuses_falls_back_and_says_why(repo):
     """Their schema builder hard-errors on a column named `bbox` that is not Zarr
     `bytes` — the special case the first upstream PR deletes. Until then such a
     collection is still queryable, but loudly and slowly."""
-    coll = create_collection(
-        repo, constraint=None, extra_columns=[ExtraColumn("bbox", "string", encoding="json")]
-    )
+    from datacollections import UnreadableByUpstream
+
+    # warned at creation, where renaming is free — see collection.py
+    with pytest.warns(UnreadableByUpstream, match="bbox"):
+        coll = create_collection(
+            repo, constraint=None, extra_columns=[ExtraColumn("bbox", "string", encoding="json")]
+        )
     coll.add_item(shot(10), extras={"bbox": [1.0, 2.0, 3.0, 4.0]})
 
     with pytest.warns(UpstreamRefused, match="bbox"):
@@ -130,3 +134,29 @@ def test_the_table_is_a_materialised_view_over_the_groups(repo):
     coll = collection_with_rows(repo)
     assert coll.verify() == []
     assert coll.to_arrow().to_pydict()["nt"] == [row["nt"] for row in coll.rows()]
+
+
+def test_a_sentinel2_shaped_store_reads_through_upstream(repo):
+    """The geospatial store must open and search, even before bbox pushdown exists.
+
+    It does, provided the bbox column is not called `bbox`. That is the whole of the
+    workaround: the STAC Item still has a `bbox` field, filtering by bbox still works
+    in the API, and what is deferred is only pushing that filter down into the scan —
+    which needs a WKB geometry column, and so a `binary` dtype we do not have yet.
+    """
+    coll = create_collection(
+        repo,
+        constraint=None,
+        extra_columns=[
+            ExtraColumn("granule", "string"),
+            ExtraColumn("bbox_wgs84", "string", encoding="json"),
+        ],
+    )
+    coll.add_item(shot(10), extras={"granule": "T33UUP", "bbox_wgs84": [1.0, 2.0, 3.0, 4.0]})
+
+    assert reads_through_upstream(coll)
+    out = coll.sql("SELECT granule, bbox_wgs84 FROM members").to_pydict()
+    assert out["granule"] == ["T33UUP"]
+    # the column survives as JSON text; decoding it is the row/view layer's job
+    assert out["bbox_wgs84"] == ["[1.0,2.0,3.0,4.0]"]
+    assert coll.row(coll.member_ids[0])["bbox_wgs84"] == [1.0, 2.0, 3.0, 4.0]

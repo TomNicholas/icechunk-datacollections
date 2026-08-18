@@ -49,7 +49,7 @@ def served(tmp_path_factory):
         extra_columns=[
             ExtraColumn("granule", "string"),
             ExtraColumn("datetime", "string"),
-            ExtraColumn("bbox", "string", "JSON-encoded, so it decodes to a real bbox", encoding="json"),
+            ExtraColumn("bbox_wgs84", "string", "not named `bbox` — see query.py", encoding="json"),
         ],
     )
     for i in range(1, 6):
@@ -58,7 +58,7 @@ def served(tmp_path_factory):
             extras={
                 "granule": f"T33UUP_2024010{i}",
                 "datetime": f"2024-01-0{i}T10:00:00Z",
-                "bbox": [12.0 + i, 45.0, 13.0 + i, 46.0],
+                "bbox_wgs84": [12.0 + i, 45.0, 13.0 + i, 46.0],
             },
         )
 
@@ -66,10 +66,10 @@ def served(tmp_path_factory):
         collection="sentinel-2-l2a",
         id=column("granule"),
         datetime=column("datetime"),
-        bbox=column("bbox"),
+        bbox=column("bbox_wgs84"),
     )
     app = make_app(
-        Backend(coll, view, collection_id="sentinel-2-l2a", title="Sentinel-2 L2A", bbox_column="bbox")
+        Backend(coll, view, collection_id="sentinel-2-l2a", title="Sentinel-2 L2A", bbox_column="bbox_wgs84")
     )
 
     port = free_port()

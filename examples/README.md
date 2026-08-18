@@ -19,6 +19,12 @@ runs all four that way.
 |---|---|---|---|
 | `ome_zarr` | field of view, level 0 | Z-depth, channel count | generated locally |
 | `sentinel2_stac` | tile, full-res level | CRS, transform, GeoTIFF tags, codecs | earth-search STAC + **virtual COGs** |
+
+Every example's table is queryable through `zarr-datafusion-search`'s DataFusion
+provider. One naming rule makes that true: the geospatial example's bounding-box
+column is `bbox_wgs84`, not `bbox`, because upstream hard-errors on a column of that
+name unless it is Zarr bytes. The STAC Item still has a `bbox` field, and bbox search
+still works — what waits is pushing that filter into the scan.
 | `mastu` | **(shot, diagnostic, signal)** | time-series length, units | mastapp.site, live |
 | `hst` | primary HDU, WFC3/IR | exposure, filter, target | MAST CAOM API, live |
 

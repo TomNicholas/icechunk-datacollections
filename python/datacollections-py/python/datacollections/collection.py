@@ -8,6 +8,7 @@ session is discarded and the group write goes with it.
 from __future__ import annotations
 
 import dataclasses
+import warnings
 from typing import Any, Sequence
 
 from . import _datacollections as _rs
@@ -16,7 +17,14 @@ from . import store as _store
 from ._json import dumps, loads
 from .constraint import Constraint, ConstraintError
 
-__all__ = ["create_collection", "open_collection", "Collection", "EvolveReport", "ExtraColumn"]
+__all__ = [
+    "create_collection",
+    "open_collection",
+    "Collection",
+    "EvolveReport",
+    "ExtraColumn",
+    "UnreadableByUpstream",
+]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -366,6 +374,7 @@ def create_collection(
     involved, here or anywhere else.
     """
     extras = [e if isinstance(e, ExtraColumn) else ExtraColumn(**e) for e in (extra_columns or [])]
+    _warn_about_reserved_names(extras)
     coll = Collection(repo, branch=branch, id_seed=id_seed)
     coll._pending_extras = extras
 
@@ -381,6 +390,36 @@ def create_collection(
         session.commit("create collection")
         coll._attributes = attributes
     return coll
+
+
+class UnreadableByUpstream(UserWarning):
+    """This store will not open in `zarr-datafusion-search`.
+
+    Not a DataCollections rule — a limitation of a reader we care about, warned at
+    the point where it is cheap to avoid rather than at the point where it fails.
+    """
+
+
+def _warn_about_reserved_names(extras: Sequence[ExtraColumn]) -> None:
+    """`bbox` is a landmine until one upstream PR lands.
+
+    `zarr-datafusion-search`'s schema builder hard-errors on a column named `bbox`
+    that is not Zarr `bytes` — it does not merely skip the extension type. We cannot
+    write a bytes column yet (the layout has no `binary` dtype), so any `bbox` column
+    we can write makes the whole store unopenable by them. Renaming it costs nothing;
+    discovering this later costs an afternoon.
+    """
+    for extra in extras:
+        if extra.name == "bbox" and extra.dtype != "binary":
+            warnings.warn(
+                "a column named `bbox` that is not Zarr bytes makes this store "
+                "unreadable by zarr-datafusion-search — it hard-errors rather than "
+                "ignoring the column. Name it something else (`bbox_wgs84`, say) and "
+                "point the STAC view at that; the Item's `bbox` field is unaffected. "
+                "See docs/upstream-zarr-datafusion-search.md",
+                UnreadableByUpstream,
+                stacklevel=3,
+            )
 
 
 def open_collection(repo, branch: str = "main") -> Collection:

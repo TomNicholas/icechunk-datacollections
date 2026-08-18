@@ -119,10 +119,16 @@ Answered while building:
       after the fact, because upstream drops both. Deletable when the two PRs land.
 - [x] Writer now materialises empty chunks, without which upstream cannot read a
       column that is all fill value
-- [ ] **Fallback still needed for one case:** upstream hard-errors on a column named
-      `bbox` that is not Zarr bytes, which the Sentinel-2 example has. It falls back
-      to local materialisation with an `UpstreamRefused` warning. The first upstream
-      PR removes this.
+- [x] **All four example stores read through upstream**, Sentinel-2 included: its
+      bbox column is named `bbox_wgs84`, since upstream hard-errors on a column named
+      `bbox` that is not Zarr bytes. `create_collection` now warns if anyone declares
+      one. The local fallback remains for stores we did not write.
+- [ ] **Deferred: bbox pushdown.** Bounding-box *search* works — the STAC API filters
+      on the column — but the filter is not pushed into the scan. That needs a WKB
+      geometry column, which needs a `binary` dtype in the layout (`Dtype` is
+      int64/float64/bool/string today) plus the geoarrow extension metadata, and then
+      upstream's `/indexes/<column>` R-tree prunes on it. A layout change, not a
+      rename.
 - [ ] `datafusion` is pinned to `53.*` — their wheel's ABI. Any other major
       segfaults rather than raising.
 

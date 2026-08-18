@@ -103,12 +103,23 @@ Three things remain ours, each with a note saying when it goes:
   so the constraint and `zarr.group_ref` are dropped in transit;
   `attach_self_description` puts them back. Deletable the day the two upstream PRs
   land — there is a test that should keep passing when it goes.
-- **A fallback.** Upstream *hard-errors* on a column named `bbox` that is not Zarr
-  bytes, which our Sentinel-2 example has. Rather than rename our column around their
-  bug, `query.py` falls back to materialising the table locally and warns with
-  `UpstreamRefused`, naming the cause. Loud and slow beats broken or silent.
+- **A fallback**, now unused by anything here. Upstream *hard-errors* on a column
+  named `bbox` that is not Zarr bytes — it does not merely skip the extension type.
+  Our Sentinel-2 example had exactly that, so **all four example stores now name the
+  column `bbox_wgs84`** and every one of them reads through upstream. The STAC Item
+  still has a `bbox` field; only the column name changed. `create_collection` warns
+  (`UnreadableByUpstream`) if anyone declares `bbox` again, at the point where
+  renaming is free. The fallback stays for stores we did not write.
 - **The DataFusion pin.** `datafusion==53.*`, because their wheel is built against 53
   and any other major **segfaults** across the FFI boundary instead of raising.
+
+**What renaming defers, precisely.** Bounding-box *search* still works — the STAC API
+filters on the column, so `pystac-client.search(bbox=…)` returns the right Items.
+What is deferred is pushing that filter into the scan: upstream indexes a WKB
+geometry column via `/indexes/<column>`, and writing one needs a **`binary` dtype in
+our layout**, which does not exist (`Dtype` is int64/float64/bool/string). Adding it
+plus the geoarrow extension metadata is the real fix, and it is a layout change
+rather than a rename — hence deferred rather than done in passing.
 
 **3. ~~The STAC API is plain FastAPI, not stac-fastapi.~~ Withdrawn — it is
 stac-fastapi.** The first version hand-rolled the routes, justified by dependency

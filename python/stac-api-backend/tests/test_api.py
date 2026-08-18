@@ -40,7 +40,7 @@ def client(tmp_path):
         extra_columns=[
             ExtraColumn("granule", "string"),
             ExtraColumn("datetime", "string"),
-            ExtraColumn("bbox", "string", "WKB would be the real thing; JSON here", encoding="json"),
+            ExtraColumn("bbox_wgs84", "string", "not named `bbox` — see query.py", encoding="json"),
         ],
     )
     coll.add_item(
@@ -48,7 +48,7 @@ def client(tmp_path):
         extras={
             "granule": "T33UUP_20240101",
             "datetime": "2024-01-01T10:00:00Z",
-            "bbox": [12.0, 45.0, 13.0, 46.0],
+            "bbox_wgs84": [12.0, 45.0, 13.0, 46.0],
         },
     )
     # heterogeneous CRS across tiles is the motivating geospatial case
@@ -61,7 +61,7 @@ def client(tmp_path):
             extras={
                 "granule": f"T33UU{i}_2024010{i}",
                 "datetime": f"2024-01-0{i}T10:00:00Z",
-                "bbox": [20.0, 45.0, 21.0, 46.0],
+                "bbox_wgs84": [20.0, 45.0, 21.0, 46.0],
             },
         )
 
@@ -69,11 +69,11 @@ def client(tmp_path):
         collection="sentinel-2-l2a",
         id=column("granule"),
         datetime=column("datetime"),
-        bbox=column("bbox"),
+        bbox=column("bbox_wgs84"),
         properties={"proj:epsg": column("proj_epsg")},
     )
     backend = Backend(
-        coll, view, collection_id="sentinel-2-l2a", title="Sentinel-2 L2A", bbox_column="bbox"
+        coll, view, collection_id="sentinel-2-l2a", title="Sentinel-2 L2A", bbox_column="bbox_wgs84"
     )
     return TestClient(make_app(backend))
 

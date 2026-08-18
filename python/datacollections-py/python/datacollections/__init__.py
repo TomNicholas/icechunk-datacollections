@@ -20,6 +20,7 @@ from .collection import (
     Collection,
     EvolveReport,
     ExtraColumn,
+    UnreadableByUpstream,
     create_collection,
     open_collection,
 )
@@ -45,6 +46,7 @@ __all__ = [
     "Collection",
     "ExtraColumn",
     "EvolveReport",
+    "UnreadableByUpstream",
     "description_of_group",
     "predicted_description",
     # views

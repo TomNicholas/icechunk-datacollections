@@ -58,7 +58,7 @@ def collection(tmp_path, source_items):
             ExtraColumn("granule", "string"),
             ExtraColumn("datetime", "string"),
             ExtraColumn("cloud_cover", "float64"),
-            ExtraColumn("bbox", "string", encoding="json"),
+            ExtraColumn("bbox_wgs84", "string", encoding="json"),
         ],
     )
     ds, extras = build_member(source_items[0])
@@ -79,7 +79,7 @@ def item_view():
         collection="sentinel-2-l2a",
         id=column("granule"),
         datetime=column("datetime"),
-        bbox=column("bbox"),
+        bbox=column("bbox_wgs84"),
         properties={
             "proj:epsg": column("proj_epsg"),
             "eo:cloud_cover": column("cloud_cover"),
@@ -139,7 +139,7 @@ def test_a_derived_item_carries_what_was_ingested_and_no_more(collection):
 
 def test_the_api_serves_the_same_items(collection):
     coll, sources = collection
-    backend = Backend(coll, item_view(), collection_id="sentinel-2-l2a", bbox_column="bbox")
+    backend = Backend(coll, item_view(), collection_id="sentinel-2-l2a", bbox_column="bbox_wgs84")
     result = backend.search(limit=100)
     assert result.matched == len(coll)
     assert {i["id"] for i in result.items} == {s["id"] for s in sources[: len(coll)]}

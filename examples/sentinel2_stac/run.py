@@ -178,7 +178,7 @@ def _extras(item: dict) -> dict:
         "granule": item["id"],
         "datetime": props["datetime"],
         "cloud_cover": float(props.get("eo:cloud_cover") or 0.0),
-        "bbox": [float(v) for v in item["bbox"]],
+        "bbox_wgs84": [float(v) for v in item["bbox"]],
     }
 
 
@@ -259,7 +259,14 @@ def main() -> None:
             ExtraColumn("granule", "string", "human-meaningful id; member ids are opaque"),
             ExtraColumn("datetime", "string", "extracted at ingest for query and for the view"),
             ExtraColumn("cloud_cover", "float64"),
-            ExtraColumn("bbox", "string", "WKB in a real store; JSON here", encoding="json"),
+            ExtraColumn(
+                "bbox_wgs84",
+                "string",
+                "the Item's bbox. NOT named `bbox`: upstream's schema builder hard-errors "
+                "on a column of that name unless it is Zarr bytes, which we cannot yet "
+                "write. See docs/upstream-zarr-datafusion-search.md",
+                encoding="json",
+            ),
         ],
     )
 
@@ -280,7 +287,7 @@ def main() -> None:
         collection="sentinel-2-l2a",
         id=column("granule"),
         datetime=column("datetime"),
-        bbox=column("bbox"),
+        bbox=column("bbox_wgs84"),
         properties={
             "proj:epsg": column("proj_epsg"),
             "eo:cloud_cover": column("cloud_cover"),
