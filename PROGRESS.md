@@ -39,10 +39,10 @@ Scope is deliberately minimal: literals, variables with inline numeric-range dom
 wildcards, **flat groups only**, every member with the same set of arrays and attribute
 keys.
 
-**Constraints are authored, not inferred** — `join` is off the write path, so
-anti-unification, leastness and domain synthesis are all out of v1. Inference survives as
-an optional off-path `infer_constraint` tool. Authoring loses tightness, not truth: every
-member is still `meet`-checked, so the constraint can never be false.
+**Constraints are authored, not inferred.** There is no generalisation operation anywhere
+in the design — no `join`, no anti-unification, no inference tool — so leastness and domain
+synthesis are simply out of scope. Authoring loses tightness, not truth: every member is
+still `meet`-checked, so the constraint can never be false.
 
 A member's description is **exactly its `zarr.json`, chunking included**, compared as-is
 with no canonicalisation — sound only because every member is written by our own
@@ -127,11 +127,6 @@ Two independent tracks.
 
 *Language depth:*
 
-- [ ] `infer_constraint(members)` — the optional inference tool, where `join` and
-      anti-unification live, along with their leastness and domain-synthesis questions.
-      Consider inferring a pandera schema and translating, rather than building
-      anti-unification from scratch — partial, since pandera cannot infer our
-      cross-member variables
 - [ ] Optionality (`$present`) — a member may lack an array
 - [ ] Nested groups
 - [ ] Variable cardinality (`$each` / `$count`) — unlocks multiscale and overviews

@@ -23,7 +23,7 @@ those groups, such that:
 | | Component | Home |
 |---|---|---|
 | (a) | Zarr layout convention — root table + constraint documents + `/groups/<id>` | `spec/` + `crates/zarr-collection` |
-| (b) | Constraint language — define, read, write, validate, populate, join | `crates/json-constraint` |
+| (b) | Constraint language — define, read, write, validate, substitute | `crates/json-constraint` |
 | (c) | Query engine integration | `crates/zarr-collection-query` over upstream `zarr-datafusion-search` |
 | (d) | STAC API backend + Zarr→STAC mapping | `crates/zarr-collection-views` + `python/stac-api-backend` |
 | (e) | Examples, at least one non-STAC | `examples/` |
@@ -50,28 +50,15 @@ Three reasons a dependency was considered and rejected:
    statically linked as `libcue.a`. Tolerable in a binary; a real burden for a
    crate that also ships Python wheels via maturin (cgo static libs across
    manylinux / macos-arm / windows).
-3. **CUE has no `join`.** Its `|` is a *written* disjunction, not a computed least
-   upper bound over observed instances. So the single most important and most
-   error-prone operation could not have been oracle-tested against CUE anyway —
-   the oracle would have covered only `meet`, and only after building a translator
-   from CUE's value graph into our `$var` encoding.
+3. **Oracle-testing against CUE would have needed a translator anyway.** Validating our
+   semantics against `cue` requires mapping CUE's value graph onto our `$var` encoding,
+   which is a nontrivial Go-side component for a benefit our own property tests give
+   more cheaply.
 
 Authoring in CUE was also considered. CUE *can* express our co-constraint through
 field references (`nt: int`, then `shape: [nt, 10980, 10980]` in two arrays), but
 using it requires that same value-graph translator, in exchange for making small
 `zarr.json`-shaped documents marginally nicer to type. Not worth it.
-
-### `join` is anti-unification
-
-The operation — given two structures, produce the most specific structure that
-generalises both, introducing variables where they differ — is **anti-unification**,
-a.k.a. least general generalisation (Plotkin 1970, Reynolds 1970). Well-studied for
-first-order terms, with known algorithms and complexity results.
-
-This is the more useful reference than CUE for the core of (b): CUE offers no
-algorithmic guidance for `join`, whereas anti-unification is precisely this problem
-with a known solution. CUE for the representation, anti-unification for the
-operation.
 
 ### The constraint language
 
@@ -88,25 +75,27 @@ Leaves are one of:
   (dropping the column) as a storage optimisation.
 
 **Constraints are authored, not inferred.** This is the largest scope decision in the
-project. `join` is *not* on the write path: when the schema must change, the user passes
-the new constraint explicitly and the system checks it. That removes anti-unification,
-leastness, widening policy and domain synthesis from v1 entirely.
+project. There is no generalisation operation at all: when the schema must change, the
+user passes the new constraint explicitly and the system checks it. That removes
+anti-unification, leastness, widening policy and domain synthesis from the design
+entirely.
 
 What this trades: the constraint is no longer guaranteed to be the *tightest* description
 of the members. What it keeps — and this is the half that matters — is that the
 constraint is never *false*, because every member is `meet`-checked on write. **Authoring
 loses tightness, not truth.**
 
-Inference survives as an optional off-path tool, `infer_constraint(members) -> constraint`,
-which is where `join` and anti-unification live. Nothing in the core depends on it.
+There is no inference tool and none is planned. If it is ever wanted, pandera's schema
+inference is the route rather than implementing anti-unification here — see the pandera
+section below.
 
 Consequently the operations needed in v1 are:
 
 - **`meet`** / validate — essential, on every write
 - **`substitute`** — essential, for derivability
-- **`subsumes`** — now load-bearing rather than test-only: a user-supplied constraint must
-  *generalise* the current one, so evolution stays monotonic. Much cheaper than `join`:
-  a structural comparison with no synthesis and no leastness proof.
+- **`subsumes`** — a user-supplied constraint must *generalise* the current one, so
+  evolution stays monotonic. Cheap: a structural comparison with no synthesis and no
+  leastness proof.
 
 **No enums. Categorical variation is a cohort, not a domain.** Retained as a language
 restriction even without inference, because it keeps `subsumes` cheap and stops
@@ -136,8 +125,9 @@ having deliberately:
   part of the description, so changing it is a change to the member.
 - **Auto-chunking will manufacture variables you did not want.** Writers that pick chunk
   shape from array size — as dask and VirtualiZarr often do — will produce members whose
-  `chunk_shape` differs, so `join` turns it into a variable with its own column. Pin
-  chunk shape explicitly at ingest unless that is genuinely what you want.
+  `chunk_shape` differs, so a constraint admitting them all must make it a variable with
+  its own column. Pin chunk shape explicitly at ingest unless that is genuinely what you
+  want.
 - **No canonicalisation, and that is only safe because we own the writer.** Since the
   description is compared as-is, any serialisation difference is significant: codec
   defaults written explicitly versus omitted, or `fill_value` encoded differently by
@@ -155,7 +145,7 @@ feature — so it stays in v1.
 
 **Optionality is deferred**, along with cohorts and nesting — see deferred language
 features. In v1 every member must have the same set of arrays and attribute keys.
-Differing array sets is therefore *not* something `join` can widen: `add_item` rejects
+Differing array sets is therefore not expressible at all: `add_item` rejects
 such a member at all; the user would have to author a constraint permitting it, which
 the v1 language cannot express.
 
@@ -180,9 +170,9 @@ Operations required:
   monotonic.
 - `substitute` — constraint + row bindings → concrete member description. This is what
   makes STAC Item derivation mechanical.
-- `join` — least upper bound (anti-unification). **Not in v1**; lives in the optional
-  `infer_constraint` tool. Still the operation JSON Schema does not have, which is why
-  the language is ours even though inference is off the critical path.
+
+That is the whole surface. No least-upper-bound operation, no generalisation, no
+inference.
 
 ### Why not JSON Schema — and where we do use it
 
@@ -195,19 +185,20 @@ between two locations — "these two arrays have the same time length, whatever 
 non-standard extension. Enumerating combinations via `oneOf` is combinatorial and
 needs the values in advance. This is expressiveness, not verbosity.
 
-**`join` does not exist there.** No defined least upper bound, and over the full
-language (`not`, `anyOf`, `$ref`, conditionals) subschema equivalence is not even
-decidable in general. Restricting to a tractable subset means defining our own
-language that merely *serialises as* JSON Schema.
+**`subsumes` does not exist there.** We need to ask "does constraint A generalise B?" to
+gate schema evolution, and JSON Schema defines no subsumption relation. Worse, over the
+full language (`not`, `anyOf`, `$ref`, conditionals) subschema equivalence is not even
+decidable in general. Restricting to a tractable subset means defining our own language
+that merely *serialises as* JSON Schema.
 
 **`substitute` does not exist there either.** JSON Schema is a validator, not a
 template: no standard "schema + bindings → instance" operation, and no notion of
-bindings. So **half of what we need is not validation at all** — `join` and
-`substitute` are constructive, JSON Schema is purely declarative. Adopting it means
+bindings. So **part of what we need is not validation at all** — `substitute` is
+constructive, JSON Schema is purely declarative. Adopting it means
 building the two hardest operations ourselves anyway, over a much larger language.
 
 **We would also lose the shape property** — that a constraint document looks like the
-consolidated `zarr.json` it describes, which is what makes `join` output readable and
+consolidated `zarr.json` it describes, which is what makes constraints readable and
 diffable.
 
 **Where we *do* use it, and it reduces M1 scope:**
@@ -244,11 +235,12 @@ consumer a schema they can check their own Datasets against before attempting `a
 using tooling they already know. Same shape as the STAC view: a projection of the
 constraint, so it belongs in `zarr-collection-views` (d) rather than in the core.
 
-**3. Its inference may substitute for much of `infer_constraint`.** The deferred inference
-tool could infer a pandera schema and translate, rather than implementing
-anti-unification from scratch. Partial rather than total: pandera's inference cannot know
-about our cross-member variables, so it would cover dtypes, dims and coords while leaving
-the variable/column decisions to us. Still a real reduction in what M7 has to build.
+**3. It is the answer if inference is ever wanted.** We do not plan to build inference.
+Should it be asked for, inferring a pandera schema and translating is the route, rather
+than implementing anti-unification here. It would be partial — pandera cannot know about
+our cross-member variables, so it would cover dtypes, dims and coords and leave the
+variable/column decisions to the user — which is a good reason to leave it out until
+someone actually needs it.
 
 **Why it cannot be the normative format**, which is the same analysis as the JSON Schema
 one and worth stating because it is a much closer relative:
@@ -306,16 +298,13 @@ when the count varies. Three options were considered:
    no ragged columns, and it stores *less* — `nlevels` plus the level-0 shape
    reconstructs every level.
 
-**Rule that keeps `join` tractable if inference ever arrives:** `join` never
-*synthesises* expressions, patterns or enums — it only preserves or discards them. Since
-inference is off the v1 write path this matters only for the optional `infer_constraint`
-tool, but the rule is what keeps that tool tractable. Minimum `$expr` grammar is probably
-integer arithmetic plus `ceil`/`floor`; keeping it that small is what stops it becoming a
-general expression language.
+**Keep `$expr` small.** Minimum grammar is probably integer arithmetic plus
+`ceil`/`floor`; keeping it that small is what stops it becoming a general expression
+language, and it is what keeps `subsumes` decidable over expressions.
 
 **Optionality.** "This array may be absent from a member", which needs a boolean-valued
-`$present` variable per optional subtree, `join` widening required→optional, and a
-contract that variables scoped inside an absent subtree are undefined. Deferred because
+`$present` variable per optional subtree, and a contract that variables scoped inside an
+absent subtree are undefined. Deferred because
 a finer referenced unit sidesteps it — see above. The accepted v1 limitation is that one
 collection cannot hold members that legitimately differ in *which* arrays they have.
 
@@ -388,10 +377,10 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
    people's use cases — but they are explicitly *not* our fallback.
 2. **Widening backfills by reading; it does not write nulls.** Transactional
    incremental writes are the point of the project, so write-once is not acceptable.
-   Instead, when `join` decides the constraint must widen, the writer **pays the cost
-   of reading whatever group metadata it needs to compute the new column's value for
-   every existing row**, and commits the widened constraint plus the fully-populated
-   new column in one transaction.
+   Instead, when the user evolves the schema, the writer **pays the cost of reading
+   whatever group metadata it needs to compute the new column's value for every existing
+   row**, and commits the new constraint plus the fully-populated new column in one
+   transaction.
 
    This works because a variable is by construction a hole in the *group* description,
    so its value for row `i` is always derivable from group `i`. The values were never
@@ -439,8 +428,8 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
    example to one UTM zone tightens it if desired. HST is the only case that genuinely
    needs cohorts, and it is implemented last.
 4. **Disjunction restricted to variable domains** — an enum on `crs`, not a choice
-   between two whole group shapes. Keeps `subsumes` cheap and keeps `join` from
-   growing without bound. Note this restriction is what *creates* the need for
+   between two whole group shapes. Keeps `subsumes` cheap and stops constraints growing
+   with the data. Note this restriction is what *creates* the need for
    cohorts, since it pushes genuinely different shapes out of the language — so
    deferring cohorts means v1 simply cannot describe a collection of mixed shapes.
    That is an accepted v1 limitation, not an oversight.
@@ -486,10 +475,10 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
    - **Tightening is free.** Promoting a variable to a literal (all bindings agree)
      no longer requires dropping its column — it simply becomes an extra column. So
      the constraint can be tightened with no data migration.
-   - **Loosening has a data cost, paid by reading.** `join` widening a literal into a
-     variable on append requires a new column populated for every existing row, which
-     the writer backfills by reading those groups' metadata (decision 2). Real values,
-     no nulls — but O(N) in collection size.
+   - **Loosening has a data cost, paid by reading.** Turning a literal into a variable
+     requires a new column populated for every existing row, which `evolve_schema`
+     backfills by reading those members' metadata (decision 2). Real values, no nulls —
+     but O(N) in collection size.
    - **The `/meta` table is a materialised view over the referenced groups.** Every
      variable column is recomputable from the groups it describes. That gives a free
      consistency check (recompute and compare), a repair path, and the guarantee that
@@ -520,7 +509,6 @@ datacollections/
 │   └── fixtures/                      conformance data, shared by every crate
 ├── crates/
 │   ├── json-constraint/           (b) meet · subsumes · substitute
-│   ├── json-constraint-infer/     (b) join / anti-unification — M7, off the write path
 │   ├── zarr-collection/           (a) layout, group attrs, zarr.group_ref, write paths
 │   ├── zarr-collection-query/     (c) thin layer over zarr-datafusion-search
 │   └── zarr-collection-views/     (d) constraint + bindings → target JSON (STAC Items)
@@ -535,15 +523,10 @@ Dependencies run one way only:
 
 ```
 json-constraint ◄── zarr-collection ◄── zarr-collection-query
-        ▲                   ▲       ◄── zarr-collection-views
-        │                   │                    ▲
-json-constraint-infer       └────────────────────┴── datacollections-py
+                            ▲       ◄── zarr-collection-views
+                            │                    ▲
+                            └────────────────────┴── datacollections-py
 ```
-
-**Inference is a separate crate, not a feature flag.** `join` and anti-unification carry
-the leastness and domain-synthesis questions, and none of it is on the write path. Keeping
-it out of `json-constraint` means the core's API surface is settled without waiting for
-those questions, and M7 can add inference without touching it.
 
 **pandera translation is Python-side.** Pandera is a Python library, so producing *live*
 `DatasetSchema` objects cannot happen in a Rust views crate. Two options: emit pandera's
@@ -584,8 +567,8 @@ so it goes first and in isolation. Scope is exactly:
 - every member has the same set of arrays and attribute keys
 - `meet`, `subsumes`, `substitute`
 
-Explicitly **not** in M1: `join`/inference, optionality, nesting, variable cardinality,
-`$expr`, cohorts, enums. See deferred language features.
+Explicitly **not** in M1, or anywhere in v1: inference of any kind. Deferred to M7:
+optionality, nesting, variable cardinality, `$expr`, cohorts. Excluded permanently: enums. See deferred language features.
 
 Property tests:
 
@@ -600,7 +583,7 @@ Property tests:
   member `m`
 
 **M2 — `zarr-collection` + the Python creation API.** Write a store from a set of
-groups, deriving the constraint by folding `join`; read it back; surface the Arrow
+groups against an authored constraint; read it back; surface the Arrow
 schema with extension types built from attributes. Round-trip against fixtures. This
 is the milestone where the first example (OME-Zarr) actually gets built, so the
 Python API below is part of it rather than a later wrapper.
@@ -608,9 +591,10 @@ Python API below is part of it rather than a later wrapper.
 **Includes both write paths**, since transactional incremental writes are the point:
 
 - *append* — group satisfies the existing constraint; O(1), just extend the columns
-- *widening append* — group does not; `join` widens, the writer backfills the new
-  column for every existing row by reading their group metadata, and constraint plus
-  column land in one transaction (decision 2)
+- *`evolve_schema`* — the user supplies a looser constraint; `subsumes` checks it
+  generalises the current one, the writer backfills any new column for every existing
+  member by reading their metadata, and constraint plus columns land in one transaction
+  (decision 2)
 
 Test that a widening append leaves the store byte-equivalent to building the whole
 collection from scratch — that is the property that makes incremental writes
@@ -643,7 +627,7 @@ than reimplementing it.
 
 1. generate a random id and write `/groups/<id>` from the Dataset
 2. derive that group's description
-3. `meet` against the current constraint; if it fails, `join` to widen and backfill
+3. `meet` against the current constraint; reject on failure
 4. append the row to `/meta`
 5. commit
 
@@ -1018,18 +1002,17 @@ Recorded so they are not relitigated as a side effect of implementation work.
 - **Same-store layout is architectural, not conditional** — decision 1. Poor Icechunk
   node-count scaling means improving Icechunk, or pausing; not a different layout.
 - **CUE is prior art, not a dependency** — it cannot serialise non-concrete values,
-  Rust means linking Go, and it has no `join`.
+  Rust means linking Go, and oracle-testing it would need a Go-side translator.
 - **JSON Schema for leaf domains and the meta-schema only** — it cannot express
-  co-constraints, and has neither `join` nor `substitute`.
-- **`join` is anti-unification** (Plotkin/Reynolds), which is where the algorithms are.
+  co-constraints, and has neither `subsumes` nor `substitute`.
 - **Variables ⊆ columns** — decision 6. Extra columns permitted.
 - **The constraint lives in `/meta` group attributes**, not in the extension type —
   decision 5.
 - **Schema evolution backfills real values by reading the groups** — decision 2. No
   nulls, and no write-once limitation.
-- **Constraints are authored, not inferred.** `join` is off the write path and lives in
-  an optional `infer_constraint` tool. Evolution is an explicit `evolve_schema` call
-  rather than a flag on ingest.
+- **Constraints are authored, not inferred.** There is no `join`, no anti-unification and
+  no inference tool anywhere in the design; evolution is an explicit `evolve_schema` call
+  supplying the new constraint. If inference is ever wanted, pandera's is the route.
 - **Cohorts deferred to post-M6**; v1 is single-cohort — decision 3.
 - **Crate naming:** `json-constraint` for the substrate-independent crate; `zarr-`
   prefixes only where there is a genuine zarrs dependency.

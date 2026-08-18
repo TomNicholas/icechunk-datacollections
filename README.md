@@ -183,9 +183,9 @@ have that statement be machine-checkable.
 
 Two properties make this more than a schema file sitting next to the data:
 
-**It is derived, not authored.** The description of what varies is computed from the
-members themselves, by generalising over them. So it is always true of the data rather
-than aspirational, and it can be recomputed to verify or repair.
+**It is enforced, not aspirational.** Every member is validated against the description in
+the same transaction that writes it, so the two cannot drift apart. A schema file sitting
+beside the data makes a claim; this makes a guarantee.
 
 **It is expressed in domain-neutral terms.** Constraints are stated over core Zarr
 metadata — dimension names, shapes, dtypes — which means the same machinery works for
