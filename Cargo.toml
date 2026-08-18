@@ -1,0 +1,22 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/json-constraint",
+    "crates/zarr-collection",
+    "crates/constraint-views",
+    "python/datacollections-py",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/earth-mover/datacollections"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+thiserror = "2"
+json-constraint = { path = "crates/json-constraint" }
+zarr-collection = { path = "crates/zarr-collection" }
+constraint-views = { path = "crates/constraint-views" }

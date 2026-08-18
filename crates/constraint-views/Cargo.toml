@@ -1,0 +1,13 @@
+[package]
+name = "constraint-views"
+description = "Project a constraint plus one member's bindings into another format — a STAC Item, say. No Zarr dependency: by the time this runs, everything it needs is plain JSON."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+json-constraint = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }

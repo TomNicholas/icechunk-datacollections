@@ -1,0 +1,13 @@
+[package]
+name = "zarr-collection"
+description = "The DataCollections store layout: the /meta table, the constraint in group attributes, the zarr.group_ref extension type, and the append and evolve plans."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+json-constraint = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
