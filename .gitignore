@@ -7,3 +7,6 @@ __pycache__/
 *.egg-info/
 examples/*/store/
 scratch/
+
+# built by `maturin develop`
+*.so
