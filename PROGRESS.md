@@ -186,12 +186,30 @@ Findings, all in `examples/README.md` and IMPLEMENTATION.md:
 - [ ] Empirical benchmarking beyond ~100 groups
 - [ ] Any resulting upstream Icechunk work
 
-## Upstream (separate track) — untouched, and nothing was raised publicly
+## Upstream (separate track) — read only; nothing raised, opened or pushed
 
-- [ ] PR to `zarr-datafusion-search`: build Arrow extension types from array
-      attributes. The MVP does exactly this in `query.py`, so the shape of the fix is
-      now known.
-- [ ] Nullability upstream — on hold, as before.
+Reconnaissance written up in
+[`docs/upstream-zarr-datafusion-search.md`](./docs/upstream-zarr-datafusion-search.md),
+with file:line citations. The headline is better news than the plan assumed: **their
+layout and ours are nearly the same store** — `/meta`, one 1-D array per column,
+node name as column name — so their `TableProvider` would read a DataCollections
+store once it stops ignoring attributes.
+
+- [ ] PR: build Arrow extension types from **array** attributes, deleting the
+      `if name == "bbox"` case and the hardcoded EPSG:4326 with it. The exact change
+      is in the note; it is small.
+- [ ] PR: read **group** attributes into Arrow `Schema` metadata. This is what hands
+      their planner our constraint for free.
+- [ ] **Blocker for depending on them as a crate: version skew.** They pin
+      `icechunk 0.3.16`, `datafusion 53`, `arrow 58`; this MVP runs on `icechunk`
+      1.1.x. That is a real piece of upstream work, and it is the second reason
+      `zarr-collection-query` does not exist as a crate.
+- [ ] Nullability upstream — on hold, but the note records exactly what they do
+      (nulls converted to fill values on write; late columns backfilled implicitly by
+      the fill value) and that our `evolve_schema` avoids it without needing nulls,
+      which is a concrete alternative to offer rather than an abstract complaint.
+- [ ] Consider adopting their `/indexes/<column>` convention — one array per spatial
+      index. If we match it, their pruning works on our stores.
 
 ## Unknowns to check
 

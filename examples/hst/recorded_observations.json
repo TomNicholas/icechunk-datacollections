@@ -1,74 +1,74 @@
 [
  {
-  "t_exptime": 1202.934082,
+  "t_exptime": 11.729164,
   "proposal_id": null,
-  "t_min": 55158.2818331,
+  "t_min": 60025.00565457,
   "instrument_name": "WFC3/IR",
-  "filters": "F125W",
-  "target_name": "ANY",
-  "obs_id": "hst_skycell-p0411x13y18_wfc3_ir_f125w_all"
+  "filters": "F153M",
+  "target_name": "BULGEFIELD14-HIGHEXTINCTION",
+  "obs_id": "hst_skycell-p0694x15y11_wfc3_ir_f153m_coarse-all"
  },
  {
-  "t_exptime": 609,
-  "proposal_id": "15307",
-  "t_min": 58570.851564351855,
+  "t_exptime": 142.945755,
+  "proposal_id": "12349",
+  "t_min": 55796.1672755787,
   "instrument_name": "WFC3/IR",
-  "filters": "F110W",
-  "target_name": "SPT-CLJ0243-4833",
-  "obs_id": "idgb46010"
+  "filters": "BLANK",
+  "target_name": "DARK",
+  "obs_id": "iblt7wjvq"
  },
  {
-  "t_exptime": 799.231873,
-  "proposal_id": "12074",
-  "t_min": 55906.4531809375,
+  "t_exptime": 14.355583,
+  "proposal_id": "16180",
+  "t_min": 60873.48246211,
   "instrument_name": "WFC3/IR",
-  "filters": "F110W",
-  "target_name": "M31-B05-F07-IR",
-  "obs_id": "ibfb07w2q"
+  "filters": "G141",
+  "target_name": "HD-189733B",
+  "obs_id": "hst_16180_56_wfc3_ir_g141_iee656v3"
  },
  {
-  "t_exptime": 277.937958,
-  "proposal_id": "11696",
-  "t_min": 55387.01931443287,
+  "t_exptime": 81.089142,
+  "proposal_id": "14793",
+  "t_min": 57694.53765445,
   "instrument_name": "WFC3/IR",
-  "filters": "F140W",
-  "target_name": "ANY",
-  "obs_id": "ib8cf8zhq"
+  "filters": "G102",
+  "target_name": "HAT-P-11",
+  "obs_id": "hst_14793_03_wfc3_ir_g102_id8403ps"
  },
  {
-  "t_exptime": 705.879028,
-  "proposal_id": null,
-  "t_min": 58596.70761848,
+  "t_exptime": 22.62385,
+  "proposal_id": "13640",
+  "t_min": 56983.93004437,
   "instrument_name": "WFC3/IR",
-  "filters": "F110W",
-  "target_name": "EMACSJ1157.9-1046",
-  "obs_id": "hst_skycell-p1098x05y08_wfc3_ir_f110w_all"
+  "filters": "G102",
+  "target_name": "WISE-J104915.57-531906.1",
+  "obs_id": "hst_13640_01_wfc3_ir_g102_icje01vo"
  },
  {
-  "t_exptime": 705.879028,
-  "proposal_id": null,
-  "t_min": 58568.10901805,
+  "t_exptime": 327.938995,
+  "proposal_id": "15637",
+  "t_min": 58719.89905676,
   "instrument_name": "WFC3/IR",
-  "filters": "F140W",
-  "target_name": "EMACSJ1136.8+0005",
-  "obs_id": "hst_skycell-p1366x18y03_wfc3_ir_f140w_all"
+  "filters": "G141",
+  "target_name": "MUDFQ2139-4434-ORIENT2",
+  "obs_id": "hst_15637_dd_wfc3_ir_g141_idxjddd8"
  },
  {
-  "t_exptime": 699.857317,
-  "proposal_id": null,
-  "t_min": 57706.91078439,
+  "t_exptime": 502.933838,
+  "proposal_id": "12190",
+  "t_min": 55814.96891929,
   "instrument_name": "WFC3/IR",
-  "filters": "F160W",
-  "target_name": "G028.20-00.05",
-  "obs_id": "hst_skycell-p1213x21y19_wfc3_ir_f160w_all"
+  "filters": "G141",
+  "target_name": "CDFS-AGN2",
+  "obs_id": "hst_12190_12_wfc3_ir_g141_ibl012is"
  },
  {
-  "t_exptime": 73.509278,
-  "proposal_id": "17410",
-  "t_min": 61015.48052928,
+  "t_exptime": 455.87384,
+  "proposal_id": "13779",
+  "t_min": 57267.05790275,
   "instrument_name": "WFC3/IR",
-  "filters": "F105W",
-  "target_name": "SN2022ZSN",
-  "obs_id": "hst_17410_04_wfc3_ir_f105w_ifa304"
+  "filters": "detection",
+  "target_name": "FIGS-GN1",
+  "obs_id": "hst_13779_3h_wfc3_ir_total_icoi3h"
  }
 ]
