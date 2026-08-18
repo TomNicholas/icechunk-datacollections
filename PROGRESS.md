@@ -31,8 +31,9 @@ need an answer, reduce its scope instead.
 
 ## M1 — `json-constraint` — unblocked, start here
 
-Scope is deliberately minimal: literals, variables with domains, optionality, **flat
-groups only**. No nesting, cardinality, `$expr`, or cohorts.
+Scope is deliberately minimal: literals, variables, **flat groups only**, every member
+with the same set of arrays. No optionality, nesting, cardinality, `$expr`, cohorts or
+enums.
 
 Domain language is tiny by design: `join` synthesises a domain **only where the type has
 a meaningful order**. Numerics widen to a range; strings, booleans and type mismatches
@@ -46,8 +47,6 @@ with no canonicalisation — sound only because every member is written by our o
 
 Still open before coding starts:
 
-- [ ] **Presence columns are a third column kind.** An optionality flag is not a `$var`,
-      so "variables ⊆ columns" does not cover it. Small spec gap in layout decision 6.
 - [ ] **Does zarrs read and write Zarr v3 consolidated metadata?** Does VirtualiZarr
       write it? The one-document-per-group decision rests on both.
 
@@ -107,7 +106,7 @@ Breadth across domains at shallow depth. This is what proves the factoring.
 
 - [ ] **OME-Zarr** — FOV at level 0 as the referenced unit (implement first)
 - [ ] **Sentinel-2 L2A / STAC** — full-resolution level only
-- [ ] **MAST-U** — ~100 shots
+- [ ] **MAST-U** — ~100 members, unit is (shot, diagnostic) so optionality is not needed
 - [ ] **HST** — primary HDU, single instrument
 
 ## M7+ — depth, only after M6
@@ -116,6 +115,7 @@ Two independent tracks.
 
 *Language depth:*
 
+- [ ] Optionality (`$present`) — a member may lack an array
 - [ ] Nested groups
 - [ ] Variable cardinality (`$each` / `$count`) — unlocks multiscale and overviews
 - [ ] `$expr` leaves; decide the minimum grammar

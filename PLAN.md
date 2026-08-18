@@ -155,21 +155,18 @@ like consolidated metadata and there is no hierarchy walking at validate time. T
 holds for flat groups too — it is a "one document per group" decision, not a nesting
 feature — so it stays in v1.
 
-**Optionality is a separate axis.** Distinct from "present with a varying value",
-the language must express "this array/attribute is present in every group" versus
-"may be absent" — driven by the MAST-U case, where diagnostic availability varies
-per shot. Consequences:
+**Optionality is deferred**, along with cohorts and nesting — see deferred language
+features. In v1 every member must have the same set of arrays and attribute keys.
+Differing array sets is therefore *not* something `join` can widen: `add_item` rejects
+such a member even with `allow_schema_evolution=True`.
 
-- `join` must *widen to optional* when it meets a group missing an array, rather
-  than failing. A required array is the tighter constraint; optional is the join.
-- an optional array implies a boolean presence column, so presence is queryable
-  (`WHERE has_thomson_scattering`)
-- `substitute` must handle absence, and `meet` must distinguish "absent, and that
-  is allowed" from "absent, constraint violated"
-- this is a different axis from value nullability (reserved — see Reserved questions):
-  presence of an *array* versus nullness of a *value*. Keeping them separate is what
-  lets optionality stay in v1 while nullability defers, since a presence boolean acts
-  as the validity mask for variables scoped inside that subtree.
+**Choose a referenced unit fine enough that members are structurally uniform.** This is
+what lets a language this small handle all four examples, and it is the same move in
+each case: field of view rather than plate, primary HDU rather than whole FITS file,
+and — the case that would otherwise need optionality — **(shot, diagnostic) rather than
+shot** for MAST-U. At that granularity a missing diagnostic is simply a member that does
+not exist, rather than an absent array inside a member. Optionality converts into member
+absence, which needs no language support at all.
 
 **Scoping rule.** A variable's *binding scope* is one referenced group (one row).
 Its *storage* is a column of N bindings. Repeated use of a variable within one
@@ -277,6 +274,12 @@ as opaque leaves, so complexity is unchanged. Minimum grammar is probably intege
 arithmetic plus `ceil`/`floor` — keeping it that small is what stops this becoming a
 general expression language.
 
+**Optionality.** "This array may be absent from a member", which needs a boolean-valued
+`$present` variable per optional subtree, `join` widening required→optional, and a
+contract that variables scoped inside an absent subtree are undefined. Deferred because
+a finer referenced unit sidesteps it — see above. The accepted v1 limitation is that one
+collection cannot hold members that legitimately differ in *which* arrays they have.
+
 **Cohorts.** See layout decision 3.
 
 ### Dimension description uses core Zarr metadata, not a domain vocabulary
@@ -371,14 +374,11 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
      than N — but that makes the root metadata object large, which pushes on the
      node-count risk. Worth measuring alongside the Icechunk investigation.
 
-   *Optionality needs no nulls either*, which is the payoff from keeping the two axes
-   separate: a presence boolean **is** the validity mask for variables scoped inside
-   that optional subtree. Read them only when presence is true.
-
-   **What this leaves for the reserved nullability question:** only genuinely-missing
-   *source* values — a group whose own metadata lacks a measurement. That is a domain
-   problem, not a schema-evolution problem, and it is much narrower and more deferrable
-   than what was reserved before.
+   **What this leaves for the reserved nullability question: nothing in v1.** Schema
+   evolution backfills real values, and optionality — the other case that would have
+   needed a validity mask — is deferred. What remains is only genuinely-missing *source*
+   values: a member whose own metadata lacks a measurement. That is a domain problem,
+   and no v1 work depends on it.
 
 3. **Cohorts are deferred as long as possible.** v1 is **one store = one constraint
    document = one implicit cohort**, which is also what `zarr-datafusion-search`
@@ -393,8 +393,8 @@ permitting the set now avoids a breaking type change later (as `arrow.json` does
    physical schema — is the eventual target, not the v1 scope.
 
    Deferring is cheap because no example is *blocked* without cohorts, though two are
-   left loose. MAST-U's varying diagnostics are *optionality*, so they are fully
-   expressible. Sentinel-2 tiles in differing UTM zones give an uninformative
+   left loose. MAST-U's varying diagnostics are handled by taking (shot, diagnostic) as
+   the referenced unit. Sentinel-2 tiles in differing UTM zones give an uninformative
    `{"$var": "crs", "type": "string"}` — since enums are excluded, the domain cannot
    say anything tighter — which is merely imprecise rather than wrong; scoping the v1
    example to one UTM zone tightens it if desired. HST is the only case that genuinely
@@ -517,13 +517,13 @@ cannot. See "What is still to decide".
 **M1 — `json-constraint`, deliberately minimal.** Highest risk, zero dependencies,
 so it goes first and in isolation. Scope is exactly:
 
-- literals, and variables with domains (range / enum / pattern)
-- optionality
+- literals, and variables — numeric ranges, or unknown for everything else
 - **flat groups only** — a group plus its child arrays, one level
+- every member has the same set of arrays and attribute keys
 - `meet`, `join`, `substitute`; `subsumes` only as far as testing needs
 
-Explicitly **not** in M1: nesting, variable cardinality, `$expr`, cohorts. See
-deferred language features.
+Explicitly **not** in M1: optionality, nesting, variable cardinality, `$expr`, cohorts,
+enums. See deferred language features.
 
 The property tests are as much the deliverable as the code:
 
@@ -762,8 +762,9 @@ other sources. Why it is the strongest example:
   referenced unit to stay flat, and shot-level grouping waits for nesting.
 - Per-shot time-series lengths vary while dimension names are fixed — the textbook
   `{"$var": "nt"}` case.
-- **Diagnostic availability varies per shot**, which is what drives the optionality
-  requirement in the language design above.
+- **Diagnostic availability varies per shot**, which is why the referenced unit is
+  **(shot, diagnostic)** rather than shot: a missing diagnostic becomes a member that
+  does not exist, so optionality is not needed.
 - Fusion has its own metadata vocabulary (IMAS/IDS), giving a second test of
   "domain vocabulary as opaque JSON we constrain but do not interpret".
 
@@ -800,9 +801,9 @@ FITS in the AWS Open Data Registry, virtualized with VirtualiZarr. Notes:
   customer for cohorts". That was wrong. Varying *numbers* of wells is
   variable-cardinality (`$each`/`$count`), not cohorts. Cohorts would only be needed
   if different wells had structurally different *shapes*.
-- Varying Z-depth and channel counts per FOV are ordinary `$var` cases; varying
-  presence of channels is an optionality case; varying multiscale level counts is a
-  cardinality case.
+- Varying Z-depth and channel counts per FOV are ordinary `$var` cases; varying presence
+  of channels is an optionality case and varying multiscale level counts a cardinality
+  case, so both wait for M7.
 
 ---
 
@@ -865,12 +866,12 @@ string, NaN float-only). Parallel `_valid` mask arrays are one candidate; Parque
 native nulls are another; the Arrow-IPC chunk codec (zarr-python#2031, draft and
 Python-only) is a third.
 
-**Narrower than it first appeared.** Schema evolution does *not* need nulls —
-widening backfills real values by reading the groups (decision 2), and optionality
-uses presence booleans as masks. What remains is only genuinely-missing **source**
-values: a group whose own metadata lacks a measurement. That is a domain problem, and
-it blocks little in v1 — mainly faithful absent-vs-null round-tripping in derived STAC
-Items for sources that have such gaps.
+**Nothing in v1 depends on it.** Schema evolution backfills real values by reading the
+groups (decision 2), and optionality — the other case that would have needed a validity
+mask — is itself deferred. What remains is only genuinely-missing **source** values: a
+member whose own metadata lacks a measurement. That is a domain problem, and it affects
+mainly faithful absent-vs-null round-tripping in derived STAC Items for sources with such
+gaps.
 
 ---
 
