@@ -7,7 +7,7 @@ deliberate deviation, and what turned up when the design met real data.
 
 **Where things stand: M0–M6 have a working MVP end to end.** Constraint language,
 store layout, both write paths, SQL query, views, a STAC API, and all four examples.
-61 Rust tests and 55 Python tests pass (`make test`).
+61 Rust tests and 59 Python tests pass (`make test`).
 
 **What wants your attention first**, in order:
 
@@ -123,8 +123,13 @@ Answered while building:
 - [x] `constraint_from_pandera(schema)` — authoring surface
 - [x] STAC Item derivation, and a STAC Collection whose `summaries` fall out of the
       variable domains
-- [ ] Round-trip property test against *real* STAC Items — the example renders Items
-      from real earth-search metadata, but nothing asserts equality with the source Item
+- [x] Round-trip against *real* STAC Items —
+      `python/stac-api-backend/tests/test_stac_roundtrip.py` asserts that a derived
+      Item agrees with the earth-search Item it came from on `id`, `datetime`,
+      `bbox`, `eo:cloud_cover` and `proj:epsg`. The last is the interesting one: it
+      travels source Item → group attributes → binding → column → `substitute` →
+      view. The test also pins the honest limit — a derived Item carries what was
+      ingested, not everything earth-search publishes.
 - [ ] Decide: true geometry, or bbox-approximate `intersects` declared in
       `/conformance` — the MVP is bbox-approximate and says so in `conformsTo`
 
