@@ -3,8 +3,12 @@
 Task state only. [PLAN.md](./PLAN.md) holds the design and the reasoning — when the two
 disagree, PLAN.md wins and this file is stale.
 
-**Next up:** `spec/constraint-language.md`, then M1. Both are unblocked; everything from
-M2 waits on the substrate question.
+**Next up:** `spec/layout.md` and `spec/constraint-language.md`, then M1.
+
+**Nothing is blocked.** v1 assumes Icechunk-Zarr; the substrate question is recorded for
+later revisiting, not as a gate. The one live design gap is how extra column values are
+supplied — see unresolved design gaps — which wants settling before M2 fixes the Python
+API.
 
 ---
 
@@ -13,9 +17,9 @@ M2 waits on the substrate question.
 Not to be decided as a side effect of implementation work. If something below appears to
 need an answer, reduce its scope instead.
 
-- [ ] **Serialisation substrate** — Zarr-in-Icechunk, or Iceberg/Parquet tracked by
-      Icechunk lower down? Upstream of layout decisions 1, 5 and 6, so it gates
-      `spec/layout.md` and all of M2+.
+- [ ] **Serialisation substrate** — **v1 assumes Icechunk-Zarr, so nothing is blocked.**
+      Worth revisiting deliberately at some point, since reopening it reaches layout
+      decisions 1, 5 and 6 and gets more expensive the later it happens.
 - [ ] **Nullability** — narrowed: schema evolution no longer needs it, so only
       genuinely-missing *source* values remain.
 
@@ -23,11 +27,11 @@ need an answer, reduce its scope instead.
 
 ## M0 — spec + fixtures
 
-- [ ] `spec/constraint-language.md` — JSON encoding + lattice semantics — **unblocked**
+- [ ] **`spec/layout.md`** — table + constraint doc + `/groups/<id>`, on Icechunk-Zarr
+- [ ] `spec/constraint-language.md` — JSON encoding + meet/subsumes/substitute semantics
 - [ ] JSON Schema meta-schema for constraint documents
-- [ ] Constraint-language fixtures — **unblocked**
-- [ ] `spec/layout.md` — *blocked on substrate*
-- [ ] Store fixtures — *blocked on substrate*
+- [ ] Constraint-language fixtures
+- [ ] Store fixtures
 
 ## M1 — `json-constraint` — unblocked, start here
 
@@ -72,7 +76,7 @@ Property tests:
 - [ ] `substitute` inverts **exactly** — full `zarr.json` reconstruction
 - [ ] round-trip over every member: `substitute(c, bindings(m)) == description(m)`
 
-## M2 — `zarr-collection` + Python API — blocked on substrate
+## M2 — `zarr-collection` + Python API
 
 - [ ] Store layout read/write
 - [ ] Arrow schema from Zarr attributes, incl. `zarr.group_ref` extension type
@@ -88,11 +92,11 @@ Property tests:
 - [ ] Cheap pre-check from the Dataset before writing the group
 - [ ] Decide how extra column values are supplied — see unresolved design gaps
 
-## M3 — query — blocked
+## M3 — query
 
 - [ ] Wire to `zarr-datafusion-search`
 
-## M4 — views + STAC mapping — blocked
+## M4 — views + STAC mapping
 
 - [ ] Projection mapping: constraint + row → target JSON
 - [ ] `constraint_to_pandera(c)` — export so consumers can validate their own Datasets
@@ -102,7 +106,7 @@ Property tests:
 - [ ] Round-trip property test against real STAC Items
 - [ ] Decide: true geometry, or bbox-approximate `intersects` declared in `/conformance`
 
-## M5 — STAC API backend — blocked
+## M5 — STAC API backend
 
 - [ ] stac-fastapi backend over the Python bindings
 - [ ] Keyset pagination; decide token contents vs the Sort extension
@@ -161,7 +165,7 @@ Two independent tracks.
 
 ## Unresolved design gaps
 
-- [ ] **How do extra column values get supplied? — blocks M6.** Decision 6 permits extra
+- [ ] **How do extra column values get supplied? — settle before M2's API.** Decision 6 permits extra
       columns and nothing in the API passes or derives them. Now a blocker rather than a
       loose end: since member ids are opaque random hashes, extra columns are the *only*
       way to address a member meaningfully. MAST-U needs `shot` and `diagnostic` columns

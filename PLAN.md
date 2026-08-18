@@ -516,9 +516,7 @@ would be, so extraction later is a path change rather than a refactor.
 datacollections/
 ├── spec/                          (a) normative convention
 │   ├── constraint-language.md         JSON encoding + meet/subsumes/substitute semantics
-│   │                                 — substrate-independent, UNBLOCKED
 │   ├── layout.md                      table + constraint doc + /groups/<id>
-│   │                                 — blocked on the substrate question
 │   └── fixtures/                      conformance data, shared by every crate
 ├── crates/
 │   ├── json-constraint/           (b) meet · subsumes · substitute
@@ -936,21 +934,24 @@ substrate question is now much the larger of the two.
 
 ### 1. Serialisation substrate
 
-Stick with the initial idea — metadata serialised as **Zarr arrays inside Icechunk** —
-or serialise as **Iceberg/Parquet, tracked by Icechunk at a lower level**?
+**v1 assumes Icechunk-Zarr. Nothing is blocked on this.** The question is recorded because
+it is worth revisiting later, not because anything waits for it.
 
-Rough shape of the trade, recorded to make the question well-posed, not to answer it:
+If it is ever reopened: metadata serialised as **Zarr arrays inside Icechunk** — the
+assumption — versus **Iceberg/Parquet tracked by Icechunk at a lower level**, or Lance.
+Rough shape of the trade:
 
-- *Zarr-in-Icechunk:* one format for everything, metadata and data at the same
+- *Zarr-in-Icechunk (assumed):* one format for everything, metadata and data at the same
   abstraction level in the same atomic commit, "the meta arrays are just Zarr arrays"
   elegance, and it is what `zarr-datafusion-search` already implements.
-- *Parquet/Iceberg:* nulls natively, DataFusion reads it without a custom
-  TableProvider, row-group and column statistics with predicate pushdown for free,
-  and Iceberg brings schema evolution plus snapshots. Costs a second format in the
-  stack and moves metadata to a different abstraction level from the array data.
+- *Parquet/Iceberg:* nulls natively, DataFusion reads it without a custom TableProvider,
+  row-group and column statistics with predicate pushdown for free, and Iceberg brings
+  schema evolution plus snapshots. Costs a second format in the stack and moves metadata
+  to a different abstraction level from the array data.
 
-Note this question reaches layout decisions 1, 5 and 6, so it is upstream of a lot of
-the design above.
+Reopening it would reach layout decisions 1, 5 and 6, so it gets more expensive the later
+it happens. That is the argument for revisiting deliberately at some point rather than
+never.
 
 ### 2. Nullability
 
@@ -976,18 +977,16 @@ two hardest are in **Reserved questions** above.
 
 ### Blocks work now
 
-**The substrate question** (reserved). It is upstream of layout decisions 1, 5 and 6,
-so it is not really deferrable — but it gates only *half* of M0:
+**Nothing.** The substrate question is settled by assumption (Icechunk-Zarr), so both spec
+files and every milestone are open for work.
 
-| | Status |
-|---|---|
-| `spec/constraint-language.md` | **unblocked** — substrate-independent, JSON → JSON |
-| **M1 `json-constraint`** | **unblocked** — the longest-lead, highest-risk work |
-| `spec/layout.md`, store fixtures | blocked |
-| M2 onward | blocked |
+One live gap on the critical path, though it blocks design rather than starting:
 
-So the sequencing choice is: answer the substrate question now, or run M1 in parallel
-while it stays open. M1 is roughly the only thing that can proceed either way.
+- **How are extra column values supplied?** Decision 6 permits extra columns; nothing in
+  the API passes or derives them. Since member ids are opaque random hashes, extra columns
+  are the *only* way to address a member meaningfully — MAST-U needs `shot` and
+  `diagnostic`, and a derived STAC Item needs a human-meaningful `id`. Wants deciding
+  before M2 fixes the Python API, not left until M6.
 
 ### Blocks nothing yet — decide when the milestone arrives
 
